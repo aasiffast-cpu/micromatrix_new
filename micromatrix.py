@@ -35,11 +35,16 @@ OWNER_NAME = 'Muhammad Asif - Micromatrix'
 # =====================
 
 reviews = [
-    {'name': 'Ahmed Hassan', 'company': 'Tech Solutions Inc', 'rating': 5, 'text': 'Micromatrix delivered an outstanding ERP system for our company. Professional team and excellent support!', 'image': '👤'},
-    {'name': 'Fatima Khan', 'company': 'E-Commerce Hub', 'rating': 5, 'text': 'The e-commerce website they developed increased our sales by 150%. Highly recommended!', 'image': '👤'},
-    {'name': 'Muhammad Ali', 'company': 'Digital Marketing Pro', 'rating': 4.8, 'text': 'Great mobile app development team. They delivered on time and within budget.', 'image': '👤'},
-    {'name': 'Sarah Johnson', 'company': 'Finance Corp', 'rating': 5, 'text': 'Their fintech solutions are cutting edge. Very professional and innovative team.', 'image': '👤'},
-    {'name': 'Rizwan Sheikh', 'company': 'AI StartUp', 'rating': 4.9, 'text': 'The AI and machine learning solutions transformed our business processes.', 'image': '👤'}
+    {'name': 'Ahmed Hassan', 'company': 'Tech Solutions Inc', 'rating': 5, 'text': 'Micromatrix delivered an outstanding ERP system for our company. Professional team and excellent support!', 'image': '<i class="fas fa-user-circle"></i>'},
+    {'name': 'Fatima Khan', 'company': 'E-Commerce Hub', 'rating': 5, 'text': 'The e-commerce website they developed increased our sales by 150%. Highly recommended!', 'image': '<i class="fas fa-user-circle"></i>'},
+    {'name': 'Muhammad Ali', 'company': 'Digital Marketing Pro', 'rating': 4.8, 'text': 'Great mobile app development team. They delivered on time and within budget.', 'image': '<i class="fas fa-user-circle"></i>'},
+    {'name': 'Sarah Johnson', 'company': 'Finance Corp', 'rating': 5, 'text': 'Their fintech solutions are cutting edge. Very professional and innovative team.', 'image': '<i class="fas fa-user-circle"></i>'},
+    {'name': 'Rizwan Sheikh', 'company': 'AI StartUp', 'rating': 4.9, 'text': 'The AI and machine learning solutions transformed our business processes.', 'image': '<i class="fas fa-user-circle"></i>'},
+    {'name': 'David Chen', 'company': 'Global Logistics', 'rating': 5, 'text': 'We partnered with Micromatrix for cloud migration. The transition was flawless, saving us significant operational costs.', 'image': '<i class="fas fa-user-circle"></i>'},
+    {'name': 'Aisha Patel', 'company': 'HealthTech Solutions', 'rating': 4.9, 'text': 'Their UI/UX team redesigned our patient portal. User engagement skyrocketed within the first month. Excellent work!', 'image': '<i class="fas fa-user-circle"></i>'},
+    {'name': 'James Miller', 'company': 'Retail Enterprises', 'rating': 4.8, 'text': 'Micromatrix provided excellent IT consulting. They understood our requirements perfectly and suggested the best tech stack.', 'image': '<i class="fas fa-user-circle"></i>'},
+    {'name': 'Elena Rodriguez', 'company': 'EduPlatform', 'rating': 5, 'text': 'The dedicated remote team felt like an extension of our own staff. Communication was transparent and deliverables were on point.', 'image': '<i class="fas fa-user-circle"></i>'},
+    {'name': 'Tariq Mahmood', 'company': 'AutoParts Direct', 'rating': 5, 'text': 'Implementing their custom CRM solution streamlined our workflow drastically. I highly recommend Micromatrix for custom software.', 'image': '<i class="fas fa-user-circle"></i>'}
 ]
 
 chatbot_knowledge = {
@@ -55,6 +60,10 @@ chatbot_knowledge = {
     'can you help with my project': 'Yes! We can definitely help. Tell us about your project needs and we can provide a custom solution. Contact our team or fill out our contact form.',
     'do you have experience': 'Yes, we have extensive experience across multiple industries and have successfully completed numerous projects for satisfied clients.',
     'what technology do you use': 'We use cutting-edge technologies including: React, Angular, Node.js, Python, Django, Flutter, AWS, Azure, Docker, Kubernetes, TensorFlow, and many more.',
+    'owner': 'Micromatrix is led by Muhammad Asif from Pakistan.',
+    'founder': 'Micromatrix was founded by Muhammad Asif in 2020.',
+    'pricing': 'Our pricing is structured into Starter ($100-$500), Basic ($500-$1000), and Professional ($1000-$2000) tiers. It varies based on your project requirements.',
+    'process': 'We start with a detailed assessment, followed by an estimated timeline. We maintain transparent communication and ensure rigorous testing throughout the process.',
     'hello': 'Hello! Welcome to Micromatrix. How can I help you today?',
     'hi': "Hi there! I'm the Micromatrix Assistant. Feel free to ask me anything about our services or company.",
     'help': 'I can help you with information about Micromatrix services, pricing, contact details, or any questions about our company. What would you like to know?',
@@ -63,21 +72,21 @@ chatbot_knowledge = {
 }
 
 services_data = {
-    'Software Development': {'icon': '💻', 'description': 'Complete software solutions tailored to your business needs', 'subcategories': ['Custom Software Development', 'Enterprise Software (ERP systems)', 'CRM (Customer Relationship Management Systems)', 'Desktop Applications']},
-    'Web Development': {'icon': '🌐', 'description': 'Modern web solutions for your online presence', 'subcategories': ['Website Design (UI/UX)', 'Frontend + Backend Development', 'E-commerce websites (Shopify, WooCommerce)', 'CMS (WordPress, Joomla)']},
-    'Mobile App Development': {'icon': '📱', 'description': 'High-performance mobile applications', 'subcategories': ['Android App Development', 'iOS App Development', 'Cross-platform apps (Flutter, React Native)']},
-    'Artificial Intelligence (AI) & Machine Learning': {'icon': '🤖', 'description': 'AI-powered solutions for modern businesses', 'subcategories': ['Chatbots', 'Automation systems', 'Data prediction models', 'Computer vision']},
-    'Cloud Computing Services': {'icon': '☁️', 'description': 'Scalable cloud infrastructure solutions', 'subcategories': ['Cloud hosting (AWS, Azure)', 'Cloud migration', 'SaaS solutions']},
-    'Data Science & Analytics': {'icon': '📊', 'description': 'Transform data into actionable insights', 'subcategories': ['Data analysis', 'Business intelligence', 'Big data solutions']},
-    'E-Commerce Solutions': {'icon': '🛍️', 'description': 'Complete online store solutions', 'subcategories': ['Online store development', 'Payment gateway integration', 'Inventory systems']},
-    'Digital Marketing Services': {'icon': '📢', 'description': 'Drive your online visibility and growth', 'subcategories': ['SEO (Search Engine Optimization)', 'Social Media Marketing', 'Google Ads / PPC', 'Content writing']},
-    'Software Testing & QA': {'icon': '✅', 'description': 'Ensure quality and reliability', 'subcategories': ['Manual testing', 'Automation testing', 'Performance testing']},
-    'IT Consulting & Support': {'icon': '🔧', 'description': 'Expert IT guidance and support', 'subcategories': ['Business IT consultancy', 'Technical support', 'System integration']},
-    'Fintech & Banking Solutions': {'icon': '💳', 'description': 'Secure financial technology solutions', 'subcategories': ['Digital banking apps', 'Payment systems', 'Leasing/finance software']},
-    'ERP & Business Automation': {'icon': '⚙️', 'description': 'Automate and optimize business processes', 'subcategories': ['HR systems', 'Inventory systems', 'Accounting software']},
-    'Game Development': {'icon': '🎮', 'description': 'Create engaging gaming experiences', 'subcategories': ['Mobile games', 'PC games', 'Unity / Unreal Engine projects']},
-    'UI/UX Design Services': {'icon': '🎨', 'description': 'Beautiful and intuitive user interfaces', 'subcategories': ['App design', 'Website interface design', 'User experience optimization']},
-    'Emerging Technologies': {'icon': '🚀', 'description': 'Future-ready technology solutions', 'subcategories': ['Blockchain development', 'IoT (Internet of Things)', 'AR/VR apps']}
+    'Software Development': {'icon': '<i class="fas fa-laptop-code"></i>', 'description': 'Complete software solutions tailored to your business needs', 'subcategories': ['Custom Software Development', 'Enterprise Software (ERP systems)', 'CRM (Customer Relationship Management Systems)', 'Desktop Applications']},
+    'Web Development': {'icon': '<i class="fas fa-globe"></i>', 'description': 'Modern web solutions for your online presence', 'subcategories': ['Website Design (UI/UX)', 'Frontend + Backend Development', 'E-commerce websites (Shopify, WooCommerce)', 'CMS (WordPress, Joomla)']},
+    'Mobile App Development': {'icon': '<i class="fas fa-mobile-alt"></i>', 'description': 'High-performance mobile applications', 'subcategories': ['Android App Development', 'iOS App Development', 'Cross-platform apps (Flutter, React Native)']},
+    'Artificial Intelligence (AI) & Machine Learning': {'icon': '<i class="fas fa-robot"></i>', 'description': 'AI-powered solutions for modern businesses', 'subcategories': ['Chatbots', 'Automation systems', 'Data prediction models', 'Computer vision']},
+    'Cloud Computing Services': {'icon': '<i class="fas fa-cloud"></i>', 'description': 'Scalable cloud infrastructure solutions', 'subcategories': ['Cloud hosting (AWS, Azure)', 'Cloud migration', 'SaaS solutions']},
+    'Data Science & Analytics': {'icon': '<i class="fas fa-chart-bar"></i>', 'description': 'Transform data into actionable insights', 'subcategories': ['Data analysis', 'Business intelligence', 'Big data solutions']},
+    'E-Commerce Solutions': {'icon': '<i class="fas fa-shopping-cart"></i>', 'description': 'Complete online store solutions', 'subcategories': ['Online store development', 'Payment gateway integration', 'Inventory systems']},
+    'Digital Marketing Services': {'icon': '<i class="fas fa-bullhorn"></i>', 'description': 'Drive your online visibility and growth', 'subcategories': ['SEO (Search Engine Optimization)', 'Social Media Marketing', 'Google Ads / PPC', 'Content writing']},
+    'Software Testing & QA': {'icon': '<i class="fas fa-check-circle"></i>', 'description': 'Ensure quality and reliability', 'subcategories': ['Manual testing', 'Automation testing', 'Performance testing']},
+    'IT Consulting & Support': {'icon': '<i class="fas fa-wrench"></i>', 'description': 'Expert IT guidance and support', 'subcategories': ['Business IT consultancy', 'Technical support', 'System integration']},
+    'Fintech & Banking Solutions': {'icon': '<i class="fas fa-credit-card"></i>', 'description': 'Secure financial technology solutions', 'subcategories': ['Digital banking apps', 'Payment systems', 'Leasing/finance software']},
+    'ERP & Business Automation': {'icon': '<i class="fas fa-cogs"></i>', 'description': 'Automate and optimize business processes', 'subcategories': ['HR systems', 'Inventory systems', 'Accounting software']},
+    'Game Development': {'icon': '<i class="fas fa-gamepad"></i>', 'description': 'Create engaging gaming experiences', 'subcategories': ['Mobile games', 'PC games', 'Unity / Unreal Engine projects']},
+    'UI/UX Design Services': {'icon': '<i class="fas fa-paint-brush"></i>', 'description': 'Beautiful and intuitive user interfaces', 'subcategories': ['App design', 'Website interface design', 'User experience optimization']},
+    'Emerging Technologies': {'icon': '<i class="fas fa-rocket"></i>', 'description': 'Future-ready technology solutions', 'subcategories': ['Blockchain development', 'IoT (Internet of Things)', 'AR/VR apps']}
 }
 
 pricing_data = {
@@ -120,6 +129,10 @@ BASE_TEMPLATE = """<!DOCTYPE html>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Micromatrix{% endblock %}</title>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
     <style>
         {{ css_content }}
     </style>
@@ -128,29 +141,49 @@ BASE_TEMPLATE = """<!DOCTYPE html>
     <!-- Header -->
     <header class="header">
         <div class="header-container">
+            <!-- Logo on Left -->
             <div class="logo-header">
                 <div class="company-info">
                     <h1>MICROMATRIX</h1>
                     <p>INNOVATIVE</p>
                 </div>
             </div>
-            
-            <!-- Toggle Menu Button -->
-            <button class="menu-toggle" id="menuToggle" onclick="toggleMenu()">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
 
-            <!-- Navigation -->
-            <nav class="navbar" id="navbar">
-                <a href="/home" class="nav-link">Home</a>
-                <a href="/about" class="nav-link">About</a>
-                <a href="/services" class="nav-link">Services</a>
-                <a href="/contact" class="nav-link">Contact Us</a>
-            </nav>
+            <!-- Desktop Navigation + Hamburger on Right -->
+            <div class="header-right">
+                <nav class="navbar" id="navbar">
+                    <a href="/home" class="nav-link">Home</a>
+                    <a href="/about" class="nav-link">About</a>
+                    <a href="/services" class="nav-link">Services</a>
+                    <a href="/contact" class="nav-link">Contact Us</a>
+                </nav>
+
+                <!-- Hamburger Toggle Button (Right Side) -->
+                <button class="menu-toggle" id="menuToggle" onclick="toggleMenu()" aria-label="Toggle menu">
+                    <span class="bar bar1"></span>
+                    <span class="bar bar2"></span>
+                    <span class="bar bar3"></span>
+                </button>
+            </div>
         </div>
     </header>
+
+    <!-- Right Sidebar Overlay -->
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleMenu()"></div>
+
+    <!-- Right Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <span>NAVIGATION</span>
+            <button class="sidebar-close" onclick="toggleMenu()"><i class="fas fa-times"></i></button>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="/home" class="sidebar-link"><i class="fas fa-home"></i> Home</a>
+            <a href="/about" class="sidebar-link"><i class="fas fa-info-circle"></i> About</a>
+            <a href="/services" class="sidebar-link"><i class="fas fa-cogs"></i> Services</a>
+            <a href="/contact" class="sidebar-link"><i class="fas fa-envelope"></i> Contact Us</a>
+        </nav>
+    </aside>
 
     <!-- Main Content -->
     <main class="main-content">
@@ -168,11 +201,11 @@ BASE_TEMPLATE = """<!DOCTYPE html>
 
             <div class="footer-section">
                 <h4>Contact Information</h4>
-                <p>📞 Phone: +923316170980</p>
-                <p>📞 Personal: +92 3039977330</p>
-                <p>💬 WhatsApp: <a href="https://wa.me/923316170980" target="_blank" class="footer-link">+923316170980</a></p>
-                <p>📧 Email: info@micromatrix.tech</p>
-                <p>🌍 Service: Global Remote Services</p>
+                <p><i class="fas fa-phone-alt"></i> Phone: +923316170980</p>
+                <p><i class="fas fa-phone-alt"></i> Personal: +92 3039977330</p>
+                <p><i class="fas fa-comment-dots"></i> WhatsApp: <a href="https://wa.me/923316170980" target="_blank" class="footer-link">+923316170980</a></p>
+                <p><i class="fas fa-envelope"></i> Email: info@micromatrix.tech</p>
+                <p><i class="fas fa-globe-americas"></i> Service: Global Remote Services</p>
             </div>
 
             <div class="footer-section">
@@ -206,7 +239,7 @@ BASE_TEMPLATE = """<!DOCTYPE html>
         </div>
         <div class="chatbot-messages" id="chatbotMessages">
             <div class="chatbot-message bot-message">
-                <p>Hi! 👋 I'm the Micromatrix Assistant. Ask me anything about our services, contact info, or company!</p>
+                <p>Hi! <i class="fas fa-hand-paper"></i> I'm the Micromatrix Assistant. Ask me anything about our services, contact info, or company!</p>
             </div>
         </div>
         <div class="chatbot-input-area">
@@ -223,7 +256,7 @@ BASE_TEMPLATE = """<!DOCTYPE html>
 
     <!-- Chatbot Toggle Button -->
     <button class="chatbot-toggle" onclick="toggleChatbot()" title="Chat with us">
-        💬
+        <i class="fas fa-comment-dots"></i>
     </button>
 
     <script>
@@ -262,6 +295,13 @@ HOME_TEMPLATE = """
                     <p>Designed for trust, performance, and long-term success.</p>
                 </div>
             </div>
+            <div class="founder-mini-card">
+                <div class="founder-mini-avatar"><i class="fas fa-user-tie"></i></div>
+                <div>
+                    <strong>Muhammad Asif</strong> &mdash; Founder &amp; CEO
+                    <span class="founder-mini-tag"><i class="fas fa-map-marker-alt"></i> Pakistan &nbsp;|&nbsp; <i class="fas fa-calendar-alt"></i> Est. 2020</span>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -271,22 +311,22 @@ HOME_TEMPLATE = """
     <h2>About Micromatrix</h2>
     <div class="overview-grid">
         <div class="overview-card">
-            <div class="card-icon">🌍</div>
+            <div class="card-icon"><i class="fas fa-globe-americas"></i></div>
             <h3>Global Remote Company</h3>
             <p>Operating worldwide with a distributed team of talented professionals</p>
         </div>
         <div class="overview-card">
-            <div class="card-icon">⚡</div>
+            <div class="card-icon"><i class="fas fa-bolt"></i></div>
             <h3>Fast & Reliable</h3>
             <p>Quick turnaround times without compromising on quality</p>
         </div>
         <div class="overview-card">
-            <div class="card-icon">🔒</div>
+            <div class="card-icon"><i class="fas fa-lock"></i></div>
             <h3>Secure Solutions</h3>
             <p>Enterprise-grade security for all our services and projects</p>
         </div>
         <div class="overview-card">
-            <div class="card-icon">🚀</div>
+            <div class="card-icon"><i class="fas fa-rocket"></i></div>
             <h3>Innovation Focused</h3>
             <p>Always using the latest technologies for modern solutions</p>
         </div>
@@ -301,7 +341,7 @@ HOME_TEMPLATE = """
         <div class="review-card">
             <div class="review-header">
                 <div class="reviewer-info">
-                    <div class="avatar">{{ review.image }}</div>
+                    <div class="avatar">{{ review.image|safe }}</div>
                     <div>
                         <h4>{{ review.name }}</h4>
                         <p class="company">{{ review.company }}</p>
@@ -352,82 +392,82 @@ HOME_TEMPLATE = """
 <!-- Services Showcase Section -->
 <section id="services-highlights" class="services-showcase">
     <div class="showcase-header">
-        <h2>🌟 Our Comprehensive Services</h2>
+        <h2>Our Comprehensive Services</h2>
         <p>15 Specialized Technology Solutions for Your Business</p>
     </div>
     <div class="showcase-grid">
         <div class="showcase-service">
-            <div class="showcase-icon">💻</div>
+            <div class="showcase-icon"><i class="fas fa-laptop-code"></i></div>
             <h4>Software Development</h4>
             <p>Custom & Enterprise Solutions</p>
         </div>
         <div class="showcase-service">
-            <div class="showcase-icon">🌐</div>
+            <div class="showcase-icon"><i class="fas fa-globe"></i></div>
             <h4>Web Development</h4>
             <p>Modern Web Solutions</p>
         </div>
         <div class="showcase-service">
-            <div class="showcase-icon">📱</div>
+            <div class="showcase-icon"><i class="fas fa-mobile-alt"></i></div>
             <h4>Mobile App Development</h4>
             <p>iOS, Android & Cross-Platform</p>
         </div>
         <div class="showcase-service">
-            <div class="showcase-icon">🤖</div>
+            <div class="showcase-icon"><i class="fas fa-robot"></i></div>
             <h4>AI & Machine Learning</h4>
             <p>Intelligent Automation</p>
         </div>
         <div class="showcase-service">
-            <div class="showcase-icon">☁️</div>
+            <div class="showcase-icon"><i class="fas fa-cloud"></i></div>
             <h4>Cloud Computing</h4>
             <p>AWS, Azure & SaaS</p>
         </div>
         <div class="showcase-service">
-            <div class="showcase-icon">📊</div>
+            <div class="showcase-icon"><i class="fas fa-chart-bar"></i></div>
             <h4>Data Science</h4>
             <p>Analytics & Business Intelligence</p>
         </div>
         <div class="showcase-service">
-            <div class="showcase-icon">🛍️</div>
+            <div class="showcase-icon"><i class="fas fa-shopping-cart"></i></div>
             <h4>E-Commerce Solutions</h4>
             <p>Complete Online Stores</p>
         </div>
         <div class="showcase-service">
-            <div class="showcase-icon">📢</div>
+            <div class="showcase-icon"><i class="fas fa-bullhorn"></i></div>
             <h4>Digital Marketing</h4>
             <p>SEO, Social Media & Ads</p>
         </div>
         <div class="showcase-service">
-            <div class="showcase-icon">✅</div>
+            <div class="showcase-icon"><i class="fas fa-check-circle"></i></div>
             <h4>Software Testing & QA</h4>
             <p>Quality Assurance</p>
         </div>
         <div class="showcase-service">
-            <div class="showcase-icon">🔧</div>
+            <div class="showcase-icon"><i class="fas fa-wrench"></i></div>
             <h4>IT Consulting</h4>
             <p>Expert Guidance & Support</p>
         </div>
         <div class="showcase-service">
-            <div class="showcase-icon">💳</div>
+            <div class="showcase-icon"><i class="fas fa-credit-card"></i></div>
             <h4>Fintech Solutions</h4>
             <p>Banking & Payment Systems</p>
         </div>
         <div class="showcase-service">
-            <div class="showcase-icon">⚙️</div>
+            <div class="showcase-icon"><i class="fas fa-cogs"></i></div>
             <h4>ERP & Automation</h4>
             <p>Business Process Automation</p>
         </div>
         <div class="showcase-service">
-            <div class="showcase-icon">🎮</div>
+            <div class="showcase-icon"><i class="fas fa-gamepad"></i></div>
             <h4>Game Development</h4>
             <p>Mobile & PC Games</p>
         </div>
         <div class="showcase-service">
-            <div class="showcase-icon">🎨</div>
+            <div class="showcase-icon"><i class="fas fa-paint-brush"></i></div>
             <h4>UI/UX Design</h4>
             <p>User Interface & Experience</p>
         </div>
         <div class="showcase-service">
-            <div class="showcase-icon">🚀</div>
+            <div class="showcase-icon"><i class="fas fa-rocket"></i></div>
             <h4>Emerging Technologies</h4>
             <p>Blockchain, IoT & AR/VR</p>
         </div>
@@ -457,7 +497,7 @@ SERVICES_TEMPLATE = """
         {% for service_name, service_data in services.items() %}
         <div class="service-card" onmouseover="showSubcategories(this)" onmouseout="hideSubcategories(this)">
             <div class="service-main">
-                <div class="service-icon">{{ service_data.icon }}</div>
+                <div class="service-icon">{{ service_data.icon|safe }}</div>
                 <h3>{{ service_name }}</h3>
                 <p class="service-description">{{ service_data.description }}</p>
                 <span class="hover-hint">Hover to see details →</span>
@@ -471,7 +511,7 @@ SERVICES_TEMPLATE = """
                 <ul class="subcategories-list">
                     {% for subcategory in service_data.subcategories %}
                     <li class="subcategory-item">
-                        <span class="checkbox">✓</span>
+                        <span class="checkbox"><i class="fas fa-check"></i></span>
                         {{ subcategory }}
                     </li>
                     {% endfor %}
@@ -490,32 +530,32 @@ SERVICES_TEMPLATE = """
     <h2>Why Choose Micromatrix?</h2>
     <div class="details-grid">
         <div class="detail-card">
-            <div class="detail-icon">🎯</div>
+            <div class="detail-icon"><i class="fas fa-bullseye"></i></div>
             <h4>Focused Solutions</h4>
             <p>Each service is carefully crafted with specific business needs in mind</p>
         </div>
         <div class="detail-card">
-            <div class="detail-icon">⚡</div>
+            <div class="detail-icon"><i class="fas fa-bolt"></i></div>
             <h4>Fast Delivery</h4>
             <p>Quick implementation without compromising on quality standards</p>
         </div>
         <div class="detail-card">
-            <div class="detail-icon">💡</div>
+            <div class="detail-icon"><i class="fas fa-lightbulb"></i></div>
             <h4>Innovation</h4>
             <p>Latest technologies and best practices to keep you ahead</p>
         </div>
         <div class="detail-card">
-            <div class="detail-icon">🔧</div>
+            <div class="detail-icon"><i class="fas fa-wrench"></i></div>
             <h4>Expert Team</h4>
             <p>Experienced professionals with proven track record</p>
         </div>
         <div class="detail-card">
-            <div class="detail-icon">📈</div>
+            <div class="detail-icon"><i class="fas fa-chart-line"></i></div>
             <h4>Results Driven</h4>
             <p>Focused on delivering measurable business outcomes</p>
         </div>
         <div class="detail-card">
-            <div class="detail-icon">🌍</div>
+            <div class="detail-icon"><i class="fas fa-globe-americas"></i></div>
             <h4>Global Support</h4>
             <p>24/7 support available from our distributed team</p>
         </div>
@@ -593,42 +633,42 @@ CONTACT_TEMPLATE = """
             
             <div class="info-cards">
                 <div class="info-card">
-                    <div class="info-icon">📞</div>
+                    <div class="info-icon"><i class="fas fa-phone-alt"></i></div>
                     <h4>Phone Number</h4>
                     <p>+923316170980</p>
                     <p class="subtext">Available 24/7</p>
                 </div>
 
                 <div class="info-card">                    
-                    <div class="info-icon">📱</div>
+                    <div class="info-icon"><i class="fas fa-mobile-alt"></i></div>
                     <h4>Secondary Number</h4>
                     <p><a href="tel:+923039977330" class="contact-link">+92 3039977330</a></p>
                     <p class="subtext">Direct support</p>
                 </div>
 
                 <div class="info-card">                    
-                    <div class="info-icon">💬</div>
+                    <div class="info-icon"><i class="fas fa-comment-dots"></i></div>
                     <h4>WhatsApp</h4>
                     <p><a href="https://wa.me/923316170980" target="_blank" class="contact-link">+923316170980</a></p>
                     <p class="subtext">Quick chat support</p>
                 </div>
 
                 <div class="info-card">
-                    <div class="info-icon">📧</div>
+                    <div class="info-icon"><i class="fas fa-envelope"></i></div>
                     <h4>Email Address</h4>
                     <p>info@micromatrix.tech</p>
                     <p class="subtext">Response within 24 hours</p>
                 </div>
 
                 <div class="info-card">
-                    <div class="info-icon">🌍</div>
+                    <div class="info-icon"><i class="fas fa-globe-americas"></i></div>
                     <h4>Global Reach</h4>
                     <p>Remote-First Company</p>
                     <p class="subtext">Serving clients worldwide</p>
                 </div>
 
                 <div class="info-card">
-                    <div class="info-icon">⏰</div>
+                    <div class="info-icon"><i class="fas fa-clock"></i></div>
                     <h4>Support Hours</h4>
                     <p>24/7 Available</p>
                     <p class="subtext">Always here for you</p>
@@ -779,21 +819,21 @@ CONTACT_TEMPLATE = """
     <h2>Quick Contact Options</h2>
     <div class="quick-cards">
         <a href="tel:+923316170980" class="quick-card phone-card">
-            <div class="quick-icon">📞</div>
+            <div class="quick-icon"><i class="fas fa-phone-alt"></i></div>
             <h4>Call Us</h4>
             <p>+923316170980</p>
             <span class="quick-action">Click to call →</span>
         </a>
 
         <a href="mailto:info@micromatrix.tech" class="quick-card email-card">
-            <div class="quick-icon">📧</div>
+            <div class="quick-icon"><i class="fas fa-envelope"></i></div>
             <h4>Email Us</h4>
             <p>info@micromatrix.tech</p>
             <span class="quick-action">Click to email →</span>
         </a>
 
         <div class="quick-card chat-card">
-            <div class="quick-icon">💬</div>
+            <div class="quick-icon"><i class="fas fa-comment-dots"></i></div>
             <h4>Chat Support</h4>
             <p>Available 24/7</p>
             <span class="quick-action">Start chat →</span>
@@ -838,6 +878,49 @@ ABOUT_TEMPLATE = """
     </div>
 </section>
 
+<!-- Founder / Owner Section -->
+<section class="founder-section">
+    <div class="section-header">
+        <h2>Meet Our Founder</h2>
+        <p>The vision and leadership behind Micromatrix</p>
+    </div>
+    <div class="founder-card">
+        <div class="founder-avatar">
+            <i class="fas fa-user-tie"></i>
+        </div>
+        <div class="founder-info">
+            <h2>Muhammad Asif</h2>
+            <p class="founder-title"><i class="fas fa-briefcase"></i> Founder &amp; CEO &mdash; Micromatrix</p>
+            <p class="founder-location"><i class="fas fa-map-marker-alt"></i> Lahore, Pakistan &nbsp;&mdash;&nbsp; Remote Global Company</p>
+            <p class="founder-since"><i class="fas fa-calendar-alt"></i> Founded in <strong>2020</strong> &mdash; Serving clients worldwide for 5+ years</p>
+            <p class="founder-bio">Muhammad Asif is the founder and CEO of Micromatrix, a company he established in 2020 with a bold mission: to deliver world-class, affordable technology solutions from Pakistan to the global market. With deep expertise in software engineering, AI, cloud computing, and digital transformation, he assembled a talented remote-first team that serves businesses across multiple continents. Under his leadership, Micromatrix has grown to offer 15+ specialized services and has successfully delivered 100+ projects for startups and enterprises alike. His commitment to quality, transparency, and innovation defines the culture at Micromatrix.</p>
+            <div class="founder-stats">
+                <div class="f-stat">
+                    <strong>5+</strong>
+                    <span>Years Leading</span>
+                </div>
+                <div class="f-stat">
+                    <strong>100+</strong>
+                    <span>Projects Done</span>
+                </div>
+                <div class="f-stat">
+                    <strong>15+</strong>
+                    <span>Services</span>
+                </div>
+                <div class="f-stat">
+                    <strong>Global</strong>
+                    <span>Client Base</span>
+                </div>
+            </div>
+            <div class="founder-contact">
+                <a href="mailto:info@micromatrix.tech" class="founder-link"><i class="fas fa-envelope"></i> info@micromatrix.tech</a>
+                <a href="https://wa.me/923316170980" class="founder-link" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+                <a href="tel:+923316170980" class="founder-link"><i class="fas fa-phone"></i> +92 331 617 0980</a>
+            </div>
+        </div>
+    </div>
+</section>
+
 <section class="about-section">
     <div class="section-header">
         <h2>Our Core Strengths</h2>
@@ -846,17 +929,17 @@ ABOUT_TEMPLATE = """
 
     <div class="about-grid">
         <div class="strength-card">
-            <div class="strength-icon">💎</div>
+            <div class="strength-icon"><i class="fas fa-gem"></i></div>
             <h3>Exceptional Software Engineering</h3>
             <p>We develop software with uncompromising quality standards. Every project meets rigorous quality benchmarks and exceeds client expectations.</p>
         </div>
         <div class="strength-card">
-            <div class="strength-icon">🎯</div>
+            <div class="strength-icon"><i class="fas fa-bullseye"></i></div>
             <h3>Full-Spectrum Solutions</h3>
             <p>From concept to deployment and ongoing support, we handle every aspect of software development with specialized professionals.</p>
         </div>
         <div class="strength-card">
-            <div class="strength-icon">🚀</div>
+            <div class="strength-icon"><i class="fas fa-rocket"></i></div>
             <h3>Innovation & Agility</h3>
             <p>We stay at the forefront of technology trends, leveraging cutting-edge frameworks and cloud platforms with agile methodology.</p>
         </div>
@@ -913,18 +996,20 @@ ABOUT_TEMPLATE = """
 
 CSS_CONTENT = """
 :root {
-    --navy-primary: #001a4d;
-    --navy-dark: #000d26;
-    --navy-light: #003399;
-    --white-primary: #ffffff;
-    --white-secondary: #f8f9fa;
-    --accent-purple: #7c3aed;
-    --accent-blue: #3b82f6;
-    --text-dark: #1a1a1a;
-    --text-light: #666666;
-    --border-color: #e5e7eb;
-    --success-color: #10b981;
-    --error-color: #ef4444;
+    --navy-primary: #2A275D;
+    --navy-dark: #1A1840;
+    --navy-light: #3D397C;
+    --white-primary: #FEFCF3;
+    --white-secondary: #FFFFFF;
+    --accent-purple: #A182DD;
+    --accent-blue: #5BC2C5;
+    --accent-yellow: #FDE55A;
+    --accent-red: #F15E58;
+    --text-dark: #2A275D;
+    --text-light: #5A5A7A;
+    --border-color: #E6E1D1;
+    --success-color: #5BC2C5;
+    --error-color: #F15E58;
 }
 
 * {
@@ -938,10 +1023,11 @@ html {
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Times New Roman', Times, Georgia, serif;
     background-color: var(--white-primary);
     color: var(--text-dark);
-    line-height: 1.6;
+    line-height: 1.7;
+    font-size: 1.2rem;
 }
 
 .header {
@@ -1017,20 +1103,122 @@ body {
 }
 
 .menu-toggle {
-    display: none;
+    display: flex;
     flex-direction: column;
     background: none;
     border: none;
     cursor: pointer;
-    gap: 5px;
+    gap: 6px;
+    padding: 4px;
+    z-index: 1100;
 }
 
-.menu-toggle span {
-    width: 25px;
+.menu-toggle .bar {
+    width: 28px;
     height: 3px;
     background: var(--white-primary);
-    border-radius: 2px;
+    border-radius: 3px;
+    transition: all 0.35s ease;
+    display: block;
+}
+
+.menu-toggle.open .bar1 {
+    transform: translateY(9px) rotate(45deg);
+}
+
+.menu-toggle.open .bar2 {
+    opacity: 0;
+    transform: scaleX(0);
+}
+
+.menu-toggle.open .bar3 {
+    transform: translateY(-9px) rotate(-45deg);
+}
+
+/* Sidebar */
+.sidebar-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.55);
+    z-index: 1050;
+    transition: opacity 0.3s ease;
+}
+
+.sidebar-overlay.active {
+    display: block;
+}
+
+/* Sidebar slides from RIGHT */
+.sidebar {
+    position: fixed;
+    top: 0;
+    right: -290px;
+    left: auto;
+    width: 270px;
+    height: 100vh;
+    background: #111111;
+    z-index: 1100;
+    transition: right 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: -4px 0 20px rgba(0,0,0,0.4);
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar.open {
+    right: 0;
+    left: auto;
+}
+
+.sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 1.5rem 1rem;
+    border-bottom: 1px solid #333;
+    color: #fff;
+    font-size: 0.85rem;
+    letter-spacing: 3px;
+    font-weight: 700;
+}
+
+.sidebar-close {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 1.4rem;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.sidebar-close:hover {
+    color: #aaa;
+}
+
+.sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem 0;
+}
+
+.sidebar-link {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.5rem;
+    color: #dddddd;
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: 500;
+    border-left: 4px solid transparent;
     transition: all 0.3s ease;
+}
+
+.sidebar-link:hover {
+    background: #222;
+    color: #ffffff;
+    border-left-color: #ffffff;
+    padding-left: 2rem;
 }
 
 .footer {
@@ -1105,14 +1293,15 @@ body {
 }
 
 .hero-badge {
-    display: inline-block;
-    background: var(--navy-primary);
-    color: var(--white-primary);
-    padding: 0.65rem 1rem;
-    border-radius: 999px;
-    font-size: 0.9rem;
-    margin-bottom: 1.5rem;
+    display: block;
+    background: var(--accent-purple);
+    color: #ffffff;
+    padding: 0.8rem 1.5rem;
+    border-radius: 20px;
+    font-size: 0.95rem;
+    margin-bottom: 2rem;
     letter-spacing: 1px;
+    text-align: left;
 }
 
 .hero-content {
@@ -1128,10 +1317,11 @@ body {
 }
 
 .hero-content h1 {
-    font-size: 3rem;
-    margin-bottom: 1rem;
-    font-weight: 700;
-    line-height: 1.05;
+    font-size: 5rem;
+    margin-bottom: 1.5rem;
+    font-weight: 800;
+    line-height: 1.1;
+    text-align: center;
 }
 
 .hero-subtitle {
@@ -1141,7 +1331,7 @@ body {
 }
 
 .hero-description {
-    font-size: 1.12rem;
+    font-size: 1.25rem;
     margin-bottom: 2rem;
     opacity: 0.9;
     max-width: 750px;
@@ -1158,26 +1348,28 @@ body {
     display: inline-block;
     padding: 0.85rem 2.5rem;
     background: var(--accent-purple);
-    color: var(--white-primary);
+    color: #ffffff;
     text-decoration: none;
-    border-radius: 8px;
+    border-radius: 6px;
     font-weight: 600;
     transition: all 0.3s ease;
-    border: 2px solid var(--accent-purple);
+    border: none;
     cursor: pointer;
     font-size: 1rem;
 }
 
 .cta-button:hover {
-    background: transparent;
+    background: var(--accent-blue);
     transform: translateY(-3px);
-    box-shadow: 0 10px 25px rgba(124, 58, 237, 0.3);
+    box-shadow: 0 10px 25px rgba(91, 194, 197, 0.3);
 }
 
 .cta-button.secondary {
     background: transparent;
-    border: 2px solid rgba(255, 255, 255, 0.85);
+    border: none;
     color: var(--navy-primary);
+    padding-left: 1rem;
+    padding-right: 1rem;
 }
 
 .cta-button-large {
@@ -1294,7 +1486,7 @@ body {
 .detail-card p,
 .quick-card p {
     color: var(--text-light);
-    font-size: 0.95rem;
+    font-size: 1.1rem;
 }
 
 .reviews-section {
@@ -2394,6 +2586,18 @@ body {
 
     .navbar {
         display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: var(--navy-primary);
+        padding: 1rem 0;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    .navbar.active {
+        display: flex;
     }
 
     .hero-content h1 {
@@ -2463,6 +2667,166 @@ body {
 /* =====================
    MISSING ANIMATIONS
    ===================== */
+
+/* =====================
+   FOUNDER SECTION
+   ===================== */
+.founder-section {
+    padding: 4rem 2rem;
+    background: #f9f9f9;
+}
+
+.founder-card {
+    display: flex;
+    gap: 3rem;
+    align-items: flex-start;
+    max-width: 1100px;
+    margin: 2rem auto 0;
+    background: #fff;
+    border-radius: 16px;
+    padding: 3rem;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.09);
+    border-left: 6px solid #111;
+}
+
+.founder-avatar {
+    width: 120px;
+    height: 120px;
+    min-width: 120px;
+    background: #111;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 3.5rem;
+}
+
+.founder-info h2 {
+    font-size: 2.2rem;
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+    color: #111;
+}
+
+.founder-title, .founder-location, .founder-since {
+    color: #555;
+    margin-bottom: 0.4rem;
+    font-size: 1rem;
+}
+
+.founder-title i, .founder-location i, .founder-since i {
+    color: #111;
+    margin-right: 0.4rem;
+}
+
+.founder-bio {
+    margin: 1.2rem 0;
+    color: #333;
+    font-size: 1.1rem;
+    line-height: 1.8;
+}
+
+.founder-stats {
+    display: flex;
+    gap: 2rem;
+    margin: 1.5rem 0;
+    flex-wrap: wrap;
+}
+
+.f-stat {
+    text-align: center;
+    background: #f4f4f4;
+    padding: 0.8rem 1.2rem;
+    border-radius: 8px;
+    min-width: 80px;
+}
+
+.f-stat strong {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #111;
+}
+
+.f-stat span {
+    font-size: 0.8rem;
+    color: #777;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.founder-contact {
+    display: flex;
+    gap: 1.2rem;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+}
+
+.founder-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: #111;
+    color: #fff;
+    padding: 0.6rem 1.2rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: background 0.3s ease;
+}
+
+.founder-link:hover {
+    background: #333;
+}
+
+/* Founder mini card on home page */
+.founder-mini-card {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: #f4f4f4;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 0.85rem 1.2rem;
+    margin-top: 1.5rem;
+    max-width: 420px;
+}
+
+.founder-mini-avatar {
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    background: #111;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 1.3rem;
+}
+
+.founder-mini-tag {
+    display: block;
+    font-size: 0.85rem;
+    color: #666;
+    margin-top: 0.2rem;
+}
+
+@media (max-width: 768px) {
+    .founder-card {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    .founder-contact {
+        justify-content: center;
+    }
+    .founder-stats {
+        justify-content: center;
+    }
+}
+
 
 @keyframes fadeIn {
     from {
@@ -2534,13 +2898,54 @@ body {
 #welcome-text {
     color: var(--accent-purple);
     font-weight: 700;
-    transform: translateX(-120%);
 }
 
 #micromatrix-text {
-    color: var(--accent-blue);
+    color: #ffffff;
+    background-color: var(--accent-blue);
+    padding: 0.2rem 1.5rem;
     font-weight: 700;
-    transform: translateX(120%);
+    display: inline-block;
+}
+
+/* =====================
+   NEW ANIMATIONS & EFFECTS
+   ===================== */
+#scroll-progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 4px;
+    background: var(--navy-primary);
+    width: 0%;
+    z-index: 9999;
+    transition: width 0.1s ease;
+}
+
+.ripple-btn {
+    position: relative;
+    overflow: hidden;
+}
+
+.ripple {
+    position: absolute;
+    border-radius: 50%;
+    transform: scale(0);
+    animation: ripple-anim 600ms linear;
+    background-color: rgba(255, 255, 255, 0.4);
+    pointer-events: none;
+}
+
+@keyframes ripple-anim {
+    to {
+        transform: scale(4);
+        opacity: 0;
+    }
+}
+
+.overview-card, .review-card, .service-card {
+    will-change: transform;
+    transform-style: preserve-3d;
 }
 """
 
@@ -2581,12 +2986,16 @@ function animateSlideIn(element, startX, duration, delay) {
 document.addEventListener('DOMContentLoaded', function() {
     const welcomeText = document.getElementById('welcome-text');
     const micromatrixText = document.getElementById('micromatrix-text');
-
-    // Welcome slides in from left (-120% to 0)
-    animateSlideIn(welcomeText, -120, 800, 200);
-
-    // Micromatrix slides in from right (120% to 0) with a delay
-    animateSlideIn(micromatrixText, 120, 800, 400);
+    // Simple fade-in instead of slide from outside to avoid clipping
+    if(micromatrixText) {
+        micromatrixText.style.opacity = '0';
+        micromatrixText.style.transform = 'scale(0.8)';
+        micromatrixText.style.transition = 'all 0.8s ease';
+        setTimeout(() => {
+            micromatrixText.style.opacity = '1';
+            micromatrixText.style.transform = 'scale(1)';
+        }, 300);
+    }
 });
 
 // =====================
@@ -2594,19 +3003,34 @@ document.addEventListener('DOMContentLoaded', function() {
 // =====================
 
 function toggleMenu() {
-    const navbar = document.getElementById('navbar');
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('sidebarOverlay');
     const menuToggle = document.getElementById('menuToggle');
     
-    navbar.classList.toggle('active');
-    menuToggle.classList.toggle('active');
+    sidebar.classList.toggle('open');
+    overlay.classList.toggle('active');
+    menuToggle.classList.toggle('open');
 }
+
+document.querySelectorAll('.sidebar-link').forEach(link => {
+    link.addEventListener('click', () => {
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('sidebarOverlay');
+        const menuToggle = document.getElementById('menuToggle');
+        sidebar.classList.remove('open');
+        overlay.classList.remove('active');
+        menuToggle.classList.remove('open');
+    });
+});
 
 document.querySelectorAll('.nav-link').forEach(link => {
     link.addEventListener('click', () => {
-        const navbar = document.getElementById('navbar');
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('sidebarOverlay');
         const menuToggle = document.getElementById('menuToggle');
-        navbar.classList.remove('active');
-        menuToggle.classList.remove('active');
+        sidebar.classList.remove('open');
+        overlay.classList.remove('active');
+        menuToggle.classList.remove('open');
     });
 });
 
@@ -2925,6 +3349,125 @@ window.addEventListener('resize', () => {
         const navbar = document.getElementById('navbar');
         const menuToggle = document.getElementById('menuToggle');
         if (navbar) navbar.classList.remove('active');
+    }
+});
+
+// =====================
+// NEW ANIMATIONS & EFFECTS
+// =====================
+
+// 1. Scroll Progress Bar
+document.addEventListener('scroll', function() {
+    const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const scrolled = (winScroll / height) * 100;
+    let bar = document.getElementById('scroll-progress-bar');
+    if(!bar) {
+        bar = document.createElement('div');
+        bar.id = 'scroll-progress-bar';
+        document.body.appendChild(bar);
+    }
+    bar.style.width = scrolled + '%';
+});
+
+// 2. Ripple Effect on Buttons
+document.addEventListener('DOMContentLoaded', function() {
+    const buttons = document.querySelectorAll('.cta-button, .cta-button-large, .package-btn, .submit-btn');
+    buttons.forEach(btn => {
+        btn.classList.add('ripple-btn');
+        btn.addEventListener('click', function(e) {
+            const rect = btn.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            const circle = document.createElement('span');
+            circle.classList.add('ripple');
+            circle.style.left = `${x}px`;
+            circle.style.top = `${y}px`;
+            
+            this.appendChild(circle);
+            setTimeout(() => circle.remove(), 600);
+        });
+    });
+});
+
+// 3. 3D Tilt Effect on Cards
+document.addEventListener('DOMContentLoaded', function() {
+    const tiltCards = document.querySelectorAll('.overview-card, .review-card, .service-card');
+    tiltCards.forEach(card => {
+        card.addEventListener('mousemove', e => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            
+            const rotateX = ((y - centerY) / centerY) * -10;
+            const rotateY = ((x - centerX) / centerX) * 10;
+            
+            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+            card.style.transition = 'none';
+        });
+        
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+            card.style.transition = 'transform 0.5s ease';
+        });
+    });
+});
+
+// 4. Animated Number Counters
+document.addEventListener('DOMContentLoaded', function() {
+    const counters = document.querySelectorAll('.stat-card h3');
+    const counterObserver = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const target = entry.target;
+                const text = target.innerText;
+                const targetNumber = parseInt(text.replace(/[^0-9]/g, ''));
+                if (!isNaN(targetNumber)) {
+                    let count = 0;
+                    const duration = 2000;
+                    const increment = targetNumber / (duration / 16);
+                    
+                    const updateCount = () => {
+                        count += increment;
+                        if (count < targetNumber) {
+                            target.innerText = Math.ceil(count) + text.replace(/[0-9]/g, '');
+                            requestAnimationFrame(updateCount);
+                        } else {
+                            target.innerText = text;
+                        }
+                    };
+                    updateCount();
+                }
+                obs.unobserve(target);
+            }
+        });
+    }, { threshold: 0.5 });
+    
+    counters.forEach(counter => counterObserver.observe(counter));
+});
+
+// 5. Typing Effect for Hero Subtitle
+document.addEventListener('DOMContentLoaded', function() {
+    const subtitle = document.querySelector('.hero-subtitle');
+    if (subtitle) {
+        const text = subtitle.innerText;
+        subtitle.innerText = '';
+        subtitle.style.minHeight = '1.6em'; // prevent layout shift
+        let i = 0;
+        function typeWriter() {
+            if (i < text.length) {
+                subtitle.innerHTML += text.charAt(i);
+                i++;
+                setTimeout(typeWriter, 50);
+            }
+        }
+        setTimeout(typeWriter, 1000);
+    }
+});
 """
 
 # =====================
