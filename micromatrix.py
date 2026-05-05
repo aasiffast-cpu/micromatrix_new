@@ -194,7 +194,30 @@ BASE_TEMPLATE = """<!DOCTYPE html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Micromatrix{% endblock %}</title>
+    <title>{% block title %}Micromatrix Innovative Solutions{% endblock %}</title>
+    
+    <!-- Primary Meta Tags -->
+    <meta name="title" content="Micromatrix Innovative Solutions">
+    <meta name="description" content="Transforming businesses through cutting-edge technology solutions. Premium web development, AI integration, mobile apps, and enterprise-grade software.">
+    <meta name="keywords" content="Micromatrix, software development, web development, AI integration, mobile apps, cloud services, digital innovation, tech agency">
+    <meta name="author" content="Micromatrix">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="English">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://micromatrix.vercel.app/">
+    <meta property="og:title" content="Micromatrix Innovative Solutions">
+    <meta property="og:description" content="Transforming businesses through cutting-edge technology solutions. Premium web development, AI integration, and enterprise software.">
+    <meta property="og:image" content="https://micromatrix.vercel.app/static/images/logo.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://micromatrix.vercel.app/">
+    <meta property="twitter:title" content="Micromatrix Innovative Solutions">
+    <meta property="twitter:description" content="Transforming businesses through cutting-edge technology solutions. Premium web development, AI integration, and enterprise software.">
+    <meta property="twitter:image" content="https://micromatrix.vercel.app/static/images/logo.png">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Outfit:wght@700;900&display=swap" rel="stylesheet">
