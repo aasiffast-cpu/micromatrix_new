@@ -1563,7 +1563,8 @@ CSS_CONTENT = """
 .global-clocks {
     display: flex;
     justify-content: center;
-    gap: 2rem;
+    flex-wrap: wrap; /* Ensure it wraps on mobile */
+    gap: 1.5rem;
     margin-top: 1.5rem;
     padding-top: 1.5rem;
     border-top: 1px solid rgba(255,255,255,0.1);
@@ -1571,6 +1572,7 @@ CSS_CONTENT = """
 
 .clock-item {
     text-align: center;
+    min-width: 90px; /* Ensure uniform width */
 }
 
 .clock-item span {
@@ -1579,6 +1581,7 @@ CSS_CONTENT = """
     color: var(--accent-purple);
     text-transform: uppercase;
     letter-spacing: 1px;
+    white-space: nowrap; /* Prevent NEW YORK from wrapping weirdly */
 }
 
 .clock-item strong {
