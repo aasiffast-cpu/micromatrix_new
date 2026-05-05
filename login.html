@@ -38,7 +38,7 @@ html {
 }
 
 body {
-    font-family: &#39;Times New Roman&#39;, Times, Georgia, serif;
+    font-family: 'Times New Roman', Times, Georgia, serif;
     background-color: var(--white-primary);
     color: var(--text-dark);
     line-height: 1.7;
@@ -103,7 +103,7 @@ body {
 }
 
 .nav-link::after {
-    content: &#39;&#39;;
+    content: '';
     position: absolute;
     bottom: -5px;
     left: 0;
@@ -1924,7 +1924,7 @@ body {
 }
 
 /* =====================
-   NEW ANIMATIONS &amp; EFFECTS
+   NEW ANIMATIONS & EFFECTS
    ===================== */
 #scroll-progress-bar {
     position: fixed;
@@ -2051,7 +2051,7 @@ body {
 }
 
 .auth-left::before {
-    content: &#39;&#39;;
+    content: '';
     position: absolute;
     top: -100px;
     right: -100px;
@@ -2062,7 +2062,7 @@ body {
 }
 
 .auth-left::after {
-    content: &#39;&#39;;
+    content: '';
     position: absolute;
     bottom: -80px;
     left: -80px;
@@ -2461,7 +2461,7 @@ body {
         </div>
 
         <div class="footer-bottom">
-            <p>&copy; 2026 Micromatrix. All rights reserved. | Innovative Solutions for Modern Businesses</p>
+            <p>© 2026 Micromatrix. All rights reserved. | Innovative Solutions for Modern Businesses</p>
         </div>
     </footer>
 
@@ -2508,7 +2508,7 @@ function animateSlideIn(element, startX, duration, delay) {
     const startTime = performance.now() + delay;
 
     function step(currentTime) {
-        if (currentTime &lt; startTime) {
+        if (currentTime < startTime) {
             requestAnimationFrame(step);
             return;
         }
@@ -2516,25 +2516,25 @@ function animateSlideIn(element, startX, duration, delay) {
         const progress = Math.min(elapsed / duration, 1);
         const eased = easeOutCubic(progress);
         const currentX = startX * (1 - eased);
-        element.style.transform = &#39;translateX(&#39; + currentX + &#39;%)&#39;;
-        if (progress &lt; 1) {
+        element.style.transform = 'translateX(' + currentX + '%)';
+        if (progress < 1) {
             requestAnimationFrame(step);
         }
     }
     requestAnimationFrame(step);
 }
 
-document.addEventListener(&#39;DOMContentLoaded&#39;, function() {
-    const welcomeText = document.getElementById(&#39;welcome-text&#39;);
-    const micromatrixText = document.getElementById(&#39;micromatrix-text&#39;);
+document.addEventListener('DOMContentLoaded', function() {
+    const welcomeText = document.getElementById('welcome-text');
+    const micromatrixText = document.getElementById('micromatrix-text');
     // Simple fade-in instead of slide from outside to avoid clipping
     if(micromatrixText) {
-        micromatrixText.style.opacity = &#39;0&#39;;
-        micromatrixText.style.transform = &#39;scale(0.8)&#39;;
-        micromatrixText.style.transition = &#39;all 0.8s ease&#39;;
-        setTimeout(() =&gt; {
-            micromatrixText.style.opacity = &#39;1&#39;;
-            micromatrixText.style.transform = &#39;scale(1)&#39;;
+        micromatrixText.style.opacity = '0';
+        micromatrixText.style.transform = 'scale(0.8)';
+        micromatrixText.style.transition = 'all 0.8s ease';
+        setTimeout(() => {
+            micromatrixText.style.opacity = '1';
+            micromatrixText.style.transform = 'scale(1)';
         }, 300);
     }
 });
@@ -2544,34 +2544,34 @@ document.addEventListener(&#39;DOMContentLoaded&#39;, function() {
 // =====================
 
 function toggleMenu() {
-    const sidebar = document.getElementById(&#39;sidebar&#39;);
-    const overlay = document.getElementById(&#39;sidebarOverlay&#39;);
-    const menuToggle = document.getElementById(&#39;menuToggle&#39;);
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('sidebarOverlay');
+    const menuToggle = document.getElementById('menuToggle');
     
-    sidebar.classList.toggle(&#39;open&#39;);
-    overlay.classList.toggle(&#39;active&#39;);
-    menuToggle.classList.toggle(&#39;open&#39;);
+    sidebar.classList.toggle('open');
+    overlay.classList.toggle('active');
+    menuToggle.classList.toggle('open');
 }
 
-document.querySelectorAll(&#39;.sidebar-link&#39;).forEach(link =&gt; {
-    link.addEventListener(&#39;click&#39;, () =&gt; {
-        const sidebar = document.getElementById(&#39;sidebar&#39;);
-        const overlay = document.getElementById(&#39;sidebarOverlay&#39;);
-        const menuToggle = document.getElementById(&#39;menuToggle&#39;);
-        sidebar.classList.remove(&#39;open&#39;);
-        overlay.classList.remove(&#39;active&#39;);
-        menuToggle.classList.remove(&#39;open&#39;);
+document.querySelectorAll('.sidebar-link').forEach(link => {
+    link.addEventListener('click', () => {
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('sidebarOverlay');
+        const menuToggle = document.getElementById('menuToggle');
+        sidebar.classList.remove('open');
+        overlay.classList.remove('active');
+        menuToggle.classList.remove('open');
     });
 });
 
-document.querySelectorAll(&#39;.nav-link&#39;).forEach(link =&gt; {
-    link.addEventListener(&#39;click&#39;, () =&gt; {
-        const sidebar = document.getElementById(&#39;sidebar&#39;);
-        const overlay = document.getElementById(&#39;sidebarOverlay&#39;);
-        const menuToggle = document.getElementById(&#39;menuToggle&#39;);
-        sidebar.classList.remove(&#39;open&#39;);
-        overlay.classList.remove(&#39;active&#39;);
-        menuToggle.classList.remove(&#39;open&#39;);
+document.querySelectorAll('.nav-link').forEach(link => {
+    link.addEventListener('click', () => {
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('sidebarOverlay');
+        const menuToggle = document.getElementById('menuToggle');
+        sidebar.classList.remove('open');
+        overlay.classList.remove('active');
+        menuToggle.classList.remove('open');
     });
 });
 
@@ -2582,41 +2582,41 @@ document.querySelectorAll(&#39;.nav-link&#39;).forEach(link =&gt; {
 let currentActiveCard = null;
 
 function showSubcategories(element) {
-    const dropdown = element.querySelector(&#39;.subcategories-dropdown&#39;);
+    const dropdown = element.querySelector('.subcategories-dropdown');
     if (dropdown) {
-        dropdown.style.display = &#39;flex&#39;;
-        dropdown.style.animation = &#39;slideIn 0.3s ease forwards&#39;;
-        element.classList.add(&#39;active-service&#39;);
+        dropdown.style.display = 'flex';
+        dropdown.style.animation = 'slideIn 0.3s ease forwards';
+        element.classList.add('active-service');
     }
 }
 
 function hideSubcategories(element) {
-    const dropdown = element.querySelector(&#39;.subcategories-dropdown&#39;);
+    const dropdown = element.querySelector('.subcategories-dropdown');
     if (dropdown) {
-        dropdown.style.display = &#39;none&#39;;
-        element.classList.remove(&#39;active-service&#39;);
+        dropdown.style.display = 'none';
+        element.classList.remove('active-service');
     }
 }
 
 // Service Card Click Handler
-document.addEventListener(&#39;DOMContentLoaded&#39;, function() {
-    const serviceCards = document.querySelectorAll(&#39;.service-card&#39;);
+document.addEventListener('DOMContentLoaded', function() {
+    const serviceCards = document.querySelectorAll('.service-card');
     
-    serviceCards.forEach(card =&gt; {
+    serviceCards.forEach(card => {
         // Click handler
-        card.addEventListener(&#39;click&#39;, function(e) {
-            if (e.target.closest(&#39;.subcategories-dropdown&#39;)) {
+        card.addEventListener('click', function(e) {
+            if (e.target.closest('.subcategories-dropdown')) {
                 return;
             }
             
             // Close other cards
-            if (currentActiveCard &amp;&amp; currentActiveCard !== card) {
+            if (currentActiveCard && currentActiveCard !== card) {
                 hideSubcategories(currentActiveCard);
             }
             
             // Toggle current card
-            const dropdown = card.querySelector(&#39;.subcategories-dropdown&#39;);
-            if (dropdown &amp;&amp; dropdown.style.display === &#39;none&#39;) {
+            const dropdown = card.querySelector('.subcategories-dropdown');
+            if (dropdown && dropdown.style.display === 'none') {
                 showSubcategories(card);
                 currentActiveCard = card;
             } else {
@@ -2626,22 +2626,22 @@ document.addEventListener(&#39;DOMContentLoaded&#39;, function() {
         });
         
         // Hover handlers for visual feedback
-        card.addEventListener(&#39;mouseenter&#39;, function() {
+        card.addEventListener('mouseenter', function() {
             if (currentActiveCard !== this) {
-                this.style.transform = &#39;translateY(-8px)&#39;;
+                this.style.transform = 'translateY(-8px)';
             }
         });
         
-        card.addEventListener(&#39;mouseleave&#39;, function() {
+        card.addEventListener('mouseleave', function() {
             if (currentActiveCard !== this) {
-                this.style.transform = &#39;translateY(0)&#39;;
+                this.style.transform = 'translateY(0)';
             }
         });
         
         // Prevent dropdown from closing on internal click
-        const dropdown = card.querySelector(&#39;.subcategories-dropdown&#39;);
+        const dropdown = card.querySelector('.subcategories-dropdown');
         if (dropdown) {
-            dropdown.addEventListener(&#39;click&#39;, function(e) {
+            dropdown.addEventListener('click', function(e) {
                 e.stopPropagation();
             });
         }
@@ -2653,11 +2653,11 @@ document.addEventListener(&#39;DOMContentLoaded&#39;, function() {
 // =====================
 
 function scrollToContact() {
-    const contactSection = document.querySelector(&#39;.contact-section&#39;) || document.querySelector(&#39;.cta-section&#39;);
+    const contactSection = document.querySelector('.contact-section') || document.querySelector('.cta-section');
     if (contactSection) {
-        contactSection.scrollIntoView({ behavior: &#39;smooth&#39; });
+        contactSection.scrollIntoView({ behavior: 'smooth' });
     } else {
-        window.location.href = &#39;/contact&#39;;
+        window.location.href = '/contact';
     }
 }
 
@@ -2667,20 +2667,20 @@ function scrollToContact() {
 
 const observerOptions = {
     threshold: 0.1,
-    rootMargin: &#39;0px 0px -100px 0px&#39;
+    rootMargin: '0px 0px -100px 0px'
 };
 
-const observer = new IntersectionObserver((entries) =&gt; {
-    entries.forEach(entry =&gt; {
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
         if (entry.isIntersecting) {
-            entry.target.style.animation = &#39;fadeIn 0.6s ease forwards&#39;;
+            entry.target.style.animation = 'fadeIn 0.6s ease forwards';
             observer.unobserve(entry.target);
         }
     });
 }, observerOptions);
 
-document.addEventListener(&#39;DOMContentLoaded&#39;, function() {
-    document.querySelectorAll(&#39;.overview-card, .review-card, .service-card, .info-card, .detail-card, .stat-card, .showcase-service&#39;).forEach(card =&gt; {
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.overview-card, .review-card, .service-card, .info-card, .detail-card, .stat-card, .showcase-service').forEach(card => {
         observer.observe(card);
     });
 });
@@ -2692,110 +2692,110 @@ document.addEventListener(&#39;DOMContentLoaded&#39;, function() {
 let chatbotOpen = false;
 
 function toggleChatbot() {
-    const widget = document.getElementById(&#39;chatbotWidget&#39;);
-    const toggle = document.querySelector(&#39;.chatbot-toggle&#39;);
+    const widget = document.getElementById('chatbotWidget');
+    const toggle = document.querySelector('.chatbot-toggle');
     
     if (widget) {
         chatbotOpen = !chatbotOpen;
         if (chatbotOpen) {
-            widget.classList.add(&#39;active&#39;);
-            widget.style.display = &#39;flex&#39;;
-            widget.style.flexDirection = &#39;column&#39;;
-            widget.style.visibility = &#39;visible&#39;;
-            widget.style.opacity = &#39;1&#39;;
+            widget.classList.add('active');
+            widget.style.display = 'flex';
+            widget.style.flexDirection = 'column';
+            widget.style.visibility = 'visible';
+            widget.style.opacity = '1';
         } else {
-            widget.classList.remove(&#39;active&#39;);
-            widget.style.opacity = &#39;0&#39;;
-            setTimeout(() =&gt; {
-                widget.style.display = &#39;none&#39;;
-                widget.style.visibility = &#39;hidden&#39;;
+            widget.classList.remove('active');
+            widget.style.opacity = '0';
+            setTimeout(() => {
+                widget.style.display = 'none';
+                widget.style.visibility = 'hidden';
             }, 300);
         }
     }
 }
 
 function sendChatbotMessage() {
-    const input = document.getElementById(&#39;chatbotInput&#39;);
+    const input = document.getElementById('chatbotInput');
     const message = input.value.trim();
     
     if (!message) return;
     
-    const messagesDiv = document.getElementById(&#39;chatbotMessages&#39;);
+    const messagesDiv = document.getElementById('chatbotMessages');
     
     // Add user message
-    const userMsg = document.createElement(&#39;div&#39;);
-    userMsg.className = &#39;chatbot-message user-message&#39;;
-    userMsg.innerHTML = &#39;&lt;p&gt;&#39; + escapeHtml(message) + &#39;&lt;/p&gt;&#39;;
+    const userMsg = document.createElement('div');
+    userMsg.className = 'chatbot-message user-message';
+    userMsg.innerHTML = '<p>' + escapeHtml(message) + '</p>';
     messagesDiv.appendChild(userMsg);
     
-    input.value = &#39;&#39;;
+    input.value = '';
     messagesDiv.scrollTop = messagesDiv.scrollHeight;
     
     // Add loading indicator
-    const loadingMsg = document.createElement(&#39;div&#39;);
-    loadingMsg.className = &#39;chatbot-message bot-message loading&#39;;
-    loadingMsg.innerHTML = &#39;&lt;p&gt;⏳ Thinking...&lt;/p&gt;&#39;;
+    const loadingMsg = document.createElement('div');
+    loadingMsg.className = 'chatbot-message bot-message loading';
+    loadingMsg.innerHTML = '<p>⏳ Thinking...</p>';
     messagesDiv.appendChild(loadingMsg);
     messagesDiv.scrollTop = messagesDiv.scrollHeight;
     
     // Send to server
-    fetch(&#39;/api/chatbot&#39;, {
-        method: &#39;POST&#39;,
+    fetch('/api/chatbot', {
+        method: 'POST',
         headers: {
-            &#39;Content-Type&#39;: &#39;application/json&#39;,
+            'Content-Type': 'application/json',
         },
         body: JSON.stringify({ message: message })
     })
-    .then(response =&gt; response.json())
-    .then(data =&gt; {
+    .then(response => response.json())
+    .then(data => {
         // Remove loading message
         loadingMsg.remove();
         
         // Add bot response
-        const botMsg = document.createElement(&#39;div&#39;);
-        botMsg.className = &#39;chatbot-message bot-message&#39;;
-        botMsg.innerHTML = &#39;&lt;p&gt;&#39; + escapeHtml(data.response) + &#39;&lt;/p&gt;&#39;;
-        botMsg.style.animation = &#39;slideIn 0.3s ease forwards&#39;;
+        const botMsg = document.createElement('div');
+        botMsg.className = 'chatbot-message bot-message';
+        botMsg.innerHTML = '<p>' + escapeHtml(data.response) + '</p>';
+        botMsg.style.animation = 'slideIn 0.3s ease forwards';
         messagesDiv.appendChild(botMsg);
         messagesDiv.scrollTop = messagesDiv.scrollHeight;
     })
-    .catch(error =&gt; {
-        console.error(&#39;Chatbot error:&#39;, error);
+    .catch(error => {
+        console.error('Chatbot error:', error);
         loadingMsg.remove();
         
-        const errorMsg = document.createElement(&#39;div&#39;);
-        errorMsg.className = &#39;chatbot-message bot-message&#39;;
-        errorMsg.innerHTML = &#39;&lt;p&gt;Sorry, I encountered an error. Please try again.&lt;/p&gt;&#39;;
+        const errorMsg = document.createElement('div');
+        errorMsg.className = 'chatbot-message bot-message';
+        errorMsg.innerHTML = '<p>Sorry, I encountered an error. Please try again.</p>';
         messagesDiv.appendChild(errorMsg);
         messagesDiv.scrollTop = messagesDiv.scrollHeight;
     });
 }
 
 function handleChatbotKeypress(event) {
-    if (event.key === &#39;Enter&#39;) {
+    if (event.key === 'Enter') {
         sendChatbotMessage();
     }
 }
 
 function escapeHtml(text) {
     const map = {
-        &#39;&amp;&#39;: &#39;&amp;amp;&#39;,
-        &#39;&lt;&#39;: &#39;&amp;lt;&#39;,
-        &#39;&gt;&#39;: &#39;&amp;gt;&#39;,
-        &#39;&#34;&#39;: &#39;&amp;quot;&#39;,
-        &#34;&#39;&#34;: &#39;&amp;#039;&#39;
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#039;'
     };
-    return text.replace(/[&amp;&lt;&gt;&#34;&#39;]/g, m =&gt; map[m]);
+    return text.replace(/[&<>"']/g, m => map[m]);
 }
 
 // Initialize chatbot on page load
-document.addEventListener(&#39;DOMContentLoaded&#39;, function() {
-    const chatbotWidget = document.getElementById(&#39;chatbotWidget&#39;);
+document.addEventListener('DOMContentLoaded', function() {
+    const chatbotWidget = document.getElementById('chatbotWidget');
     if (chatbotWidget) {
-        chatbotWidget.style.display = &#39;none&#39;;
-        chatbotWidget.style.visibility = &#39;hidden&#39;;
-        chatbotWidget.style.opacity = &#39;0&#39;;
-        chatbotWidget.style.transition = &#39;opacity 0.3s ease&#39;;
+        chatbotWidget.style.display = 'none';
+        chatbotWidget.style.visibility = 'hidden';
+        chatbotWidget.style.opacity = '0';
+        chatbotWidget.style.transition = 'opacity 0.3s ease';
     }
 });
 
@@ -2806,38 +2806,38 @@ document.addEventListener(&#39;DOMContentLoaded&#39;, function() {
 function handleContactForm(event) {
     event.preventDefault();
     
-    const formData = new FormData(document.getElementById(&#39;contactForm&#39;));
-    const messageDiv = document.getElementById(&#39;formMessage&#39;);
-    const submitBtn = document.querySelector(&#39;.submit-btn&#39;);
+    const formData = new FormData(document.getElementById('contactForm'));
+    const messageDiv = document.getElementById('formMessage');
+    const submitBtn = document.querySelector('.submit-btn');
     
     submitBtn.disabled = true;
-    submitBtn.textContent = &#39;Sending...&#39;;
+    submitBtn.textContent = 'Sending...';
     
-    fetch(&#39;/contact&#39;, {
-        method: &#39;POST&#39;,
+    fetch('/contact', {
+        method: 'POST',
         body: formData
     })
-    .then(response =&gt; response.json())
-    .then(data =&gt; {
-        if (data.status === &#39;success&#39;) {
-            messageDiv.textContent = &#39;✓ Thank you! We will contact you within 24 hours.&#39;;
-            messageDiv.className = &#39;form-message success&#39;;
-            messageDiv.style.display = &#39;block&#39;;
-            document.getElementById(&#39;contactForm&#39;).reset();
-            submitBtn.textContent = &#39;Send Message&#39;;
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === 'success') {
+            messageDiv.textContent = '✓ Thank you! We will contact you within 24 hours.';
+            messageDiv.className = 'form-message success';
+            messageDiv.style.display = 'block';
+            document.getElementById('contactForm').reset();
+            submitBtn.textContent = 'Send Message';
             submitBtn.disabled = false;
             
-            setTimeout(() =&gt; {
-                messageDiv.style.display = &#39;none&#39;;
+            setTimeout(() => {
+                messageDiv.style.display = 'none';
             }, 5000);
         }
     })
-    .catch(error =&gt; {
-        console.error(&#39;Form error:&#39;, error);
-        messageDiv.textContent = &#39;✓ Thank you! We will contact you within 24 hours.&#39;;
-        messageDiv.className = &#39;form-message success&#39;;
-        messageDiv.style.display = &#39;block&#39;;
-        submitBtn.textContent = &#39;Send Message&#39;;
+    .catch(error => {
+        console.error('Form error:', error);
+        messageDiv.textContent = '✓ Thank you! We will contact you within 24 hours.';
+        messageDiv.className = 'form-message success';
+        messageDiv.style.display = 'block';
+        submitBtn.textContent = 'Send Message';
         submitBtn.disabled = false;
     });
 }
@@ -2846,14 +2846,14 @@ function handleContactForm(event) {
 // PAGE LOAD ANIMATIONS
 // =====================
 
-window.addEventListener(&#39;load&#39;, () =&gt; {
+window.addEventListener('load', () => {
     // Stagger animations for hero elements
-    const heroSection = document.querySelector(&#39;.hero-section&#39;);
+    const heroSection = document.querySelector('.hero-section');
     if (heroSection) {
-        const elements = heroSection.querySelectorAll(&#39;h1, p, .hero-actions, .hero-highlights&#39;);
-        elements.forEach((el, index) =&gt; {
-            el.style.animation = &#39;fadeInUp 0.8s ease forwards&#39;;
-            el.style.animationDelay = (index * 0.1) + &#39;s&#39;;
+        const elements = heroSection.querySelectorAll('h1, p, .hero-actions, .hero-highlights');
+        elements.forEach((el, index) => {
+            el.style.animation = 'fadeInUp 0.8s ease forwards';
+            el.style.animationDelay = (index * 0.1) + 's';
         });
     }
 });
@@ -2863,80 +2863,80 @@ window.addEventListener(&#39;load&#39;, () =&gt; {
 // =====================
 
 // Smooth scroll behavior
-document.querySelectorAll(&#39;a[href^=&#34;#&#34;]&#39;).forEach(anchor =&gt; {
-    anchor.addEventListener(&#39;click&#39;, function (e) {
-        const href = this.getAttribute(&#39;href&#39;);
-        if (href !== &#39;#&#39;) {
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        const href = this.getAttribute('href');
+        if (href !== '#') {
             e.preventDefault();
             const element = document.querySelector(href);
             if (element) {
-                element.scrollIntoView({ behavior: &#39;smooth&#39; });
+                element.scrollIntoView({ behavior: 'smooth' });
             }
         }
     });
 });
 
 // Add active state to nav links based on scroll position
-window.addEventListener(&#39;scroll&#39;, () =&gt; {
+window.addEventListener('scroll', () => {
     const scrollPosition = window.scrollY;
-    document.querySelectorAll(&#39;.nav-link&#39;).forEach(link =&gt; {
-        link.classList.remove(&#39;active&#39;);
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.classList.remove('active');
     });
 });
 
 // Close mobile menu on window resize
-window.addEventListener(&#39;resize&#39;, () =&gt; {
-    if (window.innerWidth &gt; 768) {
-        const navbar = document.getElementById(&#39;navbar&#39;);
-        const menuToggle = document.getElementById(&#39;menuToggle&#39;);
-        if (navbar) navbar.classList.remove(&#39;active&#39;);
+window.addEventListener('resize', () => {
+    if (window.innerWidth > 768) {
+        const navbar = document.getElementById('navbar');
+        const menuToggle = document.getElementById('menuToggle');
+        if (navbar) navbar.classList.remove('active');
     }
 });
 
 // =====================
-// NEW ANIMATIONS &amp; EFFECTS
+// NEW ANIMATIONS & EFFECTS
 // =====================
 
 // 1. Scroll Progress Bar
-document.addEventListener(&#39;scroll&#39;, function() {
+document.addEventListener('scroll', function() {
     const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
     const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
     const scrolled = (winScroll / height) * 100;
-    let bar = document.getElementById(&#39;scroll-progress-bar&#39;);
+    let bar = document.getElementById('scroll-progress-bar');
     if(!bar) {
-        bar = document.createElement(&#39;div&#39;);
-        bar.id = &#39;scroll-progress-bar&#39;;
+        bar = document.createElement('div');
+        bar.id = 'scroll-progress-bar';
         document.body.appendChild(bar);
     }
-    bar.style.width = scrolled + &#39;%&#39;;
+    bar.style.width = scrolled + '%';
 });
 
 // 2. Ripple Effect on Buttons
-document.addEventListener(&#39;DOMContentLoaded&#39;, function() {
-    const buttons = document.querySelectorAll(&#39;.cta-button, .cta-button-large, .package-btn, .submit-btn&#39;);
-    buttons.forEach(btn =&gt; {
-        btn.classList.add(&#39;ripple-btn&#39;);
-        btn.addEventListener(&#39;click&#39;, function(e) {
+document.addEventListener('DOMContentLoaded', function() {
+    const buttons = document.querySelectorAll('.cta-button, .cta-button-large, .package-btn, .submit-btn');
+    buttons.forEach(btn => {
+        btn.classList.add('ripple-btn');
+        btn.addEventListener('click', function(e) {
             const rect = btn.getBoundingClientRect();
             const x = e.clientX - rect.left;
             const y = e.clientY - rect.top;
             
-            const circle = document.createElement(&#39;span&#39;);
-            circle.classList.add(&#39;ripple&#39;);
+            const circle = document.createElement('span');
+            circle.classList.add('ripple');
             circle.style.left = `${x}px`;
             circle.style.top = `${y}px`;
             
             this.appendChild(circle);
-            setTimeout(() =&gt; circle.remove(), 600);
+            setTimeout(() => circle.remove(), 600);
         });
     });
 });
 
 // 3. 3D Tilt Effect on Cards
-document.addEventListener(&#39;DOMContentLoaded&#39;, function() {
-    const tiltCards = document.querySelectorAll(&#39;.overview-card, .review-card, .service-card&#39;);
-    tiltCards.forEach(card =&gt; {
-        card.addEventListener(&#39;mousemove&#39;, e =&gt; {
+document.addEventListener('DOMContentLoaded', function() {
+    const tiltCards = document.querySelectorAll('.overview-card, .review-card, .service-card');
+    tiltCards.forEach(card => {
+        card.addEventListener('mousemove', e => {
             const rect = card.getBoundingClientRect();
             const x = e.clientX - rect.left;
             const y = e.clientY - rect.top;
@@ -2948,34 +2948,34 @@ document.addEventListener(&#39;DOMContentLoaded&#39;, function() {
             const rotateY = ((x - centerX) / centerX) * 10;
             
             card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
-            card.style.transition = &#39;none&#39;;
+            card.style.transition = 'none';
         });
         
-        card.addEventListener(&#39;mouseleave&#39;, () =&gt; {
+        card.addEventListener('mouseleave', () => {
             card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
-            card.style.transition = &#39;transform 0.5s ease&#39;;
+            card.style.transition = 'transform 0.5s ease';
         });
     });
 });
 
 // 4. Animated Number Counters
-document.addEventListener(&#39;DOMContentLoaded&#39;, function() {
-    const counters = document.querySelectorAll(&#39;.stat-card h3&#39;);
-    const counterObserver = new IntersectionObserver((entries, obs) =&gt; {
-        entries.forEach(entry =&gt; {
+document.addEventListener('DOMContentLoaded', function() {
+    const counters = document.querySelectorAll('.stat-card h3');
+    const counterObserver = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
             if (entry.isIntersecting) {
                 const target = entry.target;
                 const text = target.innerText;
-                const targetNumber = parseInt(text.replace(/[^0-9]/g, &#39;&#39;));
+                const targetNumber = parseInt(text.replace(/[^0-9]/g, ''));
                 if (!isNaN(targetNumber)) {
                     let count = 0;
                     const duration = 2000;
                     const increment = targetNumber / (duration / 16);
                     
-                    const updateCount = () =&gt; {
+                    const updateCount = () => {
                         count += increment;
-                        if (count &lt; targetNumber) {
-                            target.innerText = Math.ceil(count) + text.replace(/[0-9]/g, &#39;&#39;);
+                        if (count < targetNumber) {
+                            target.innerText = Math.ceil(count) + text.replace(/[0-9]/g, '');
                             requestAnimationFrame(updateCount);
                         } else {
                             target.innerText = text;
@@ -2988,19 +2988,19 @@ document.addEventListener(&#39;DOMContentLoaded&#39;, function() {
         });
     }, { threshold: 0.5 });
     
-    counters.forEach(counter =&gt; counterObserver.observe(counter));
+    counters.forEach(counter => counterObserver.observe(counter));
 });
 
 // 5. Typing Effect for Hero Subtitle
-document.addEventListener(&#39;DOMContentLoaded&#39;, function() {
-    const subtitle = document.querySelector(&#39;.hero-subtitle&#39;);
+document.addEventListener('DOMContentLoaded', function() {
+    const subtitle = document.querySelector('.hero-subtitle');
     if (subtitle) {
         const text = subtitle.innerText;
-        subtitle.innerText = &#39;&#39;;
-        subtitle.style.minHeight = &#39;1.6em&#39;; // prevent layout shift
+        subtitle.innerText = '';
+        subtitle.style.minHeight = '1.6em'; // prevent layout shift
         let i = 0;
         function typeWriter() {
-            if (i &lt; text.length) {
+            if (i < text.length) {
                 subtitle.innerHTML += text.charAt(i);
                 i++;
                 setTimeout(typeWriter, 50);
@@ -3013,16 +3013,16 @@ document.addEventListener(&#39;DOMContentLoaded&#39;, function() {
 // 6. Password Visibility Toggle
 function togglePassword(inputId, button) {
     const input = document.getElementById(inputId);
-    const icon = button.querySelector(&#39;i&#39;);
+    const icon = button.querySelector('i');
     
-    if (input.type === &#39;password&#39;) {
-        input.type = &#39;text&#39;;
-        icon.classList.remove(&#39;fa-eye&#39;);
-        icon.classList.add(&#39;fa-eye-slash&#39;);
+    if (input.type === 'password') {
+        input.type = 'text';
+        icon.classList.remove('fa-eye');
+        icon.classList.add('fa-eye-slash');
     } else {
-        input.type = &#39;password&#39;;
-        icon.classList.remove(&#39;fa-eye-slash&#39;);
-        icon.classList.add(&#39;fa-eye&#39;);
+        input.type = 'password';
+        icon.classList.remove('fa-eye-slash');
+        icon.classList.add('fa-eye');
     }
 }
 
