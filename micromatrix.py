@@ -1132,6 +1132,7 @@ LOGIN_TEMPLATE = """
     <div class="auth-container">
         <div class="auth-left">
             <div class="auth-brand">
+                <img src="/static/images/logo.png" alt="Micromatrix Icon" style="width: 65px; height: 65px; border-radius: 14px; margin-bottom: 1.2rem; filter: drop-shadow(0 0 15px rgba(161,130,221,0.6));">
                 <h1>MICROMATRIX</h1>
                 <p class="auth-brand-tagline">INNOVATIVE</p>
             </div>
@@ -1191,6 +1192,7 @@ SIGNUP_TEMPLATE = """
     <div class="auth-container">
         <div class="auth-left">
             <div class="auth-brand">
+                <img src="/static/images/logo.png" alt="Micromatrix Icon" style="width: 65px; height: 65px; border-radius: 14px; margin-bottom: 1.2rem; filter: drop-shadow(0 0 15px rgba(161,130,221,0.6));">
                 <h1>MICROMATRIX</h1>
                 <p class="auth-brand-tagline">INNOVATIVE</p>
             </div>
