@@ -1,4 +1,4 @@
-const CACHE_NAME = 'micromatrix-v1';
+const CACHE_NAME = 'micromatrix-v2';
 const ASSETS_TO_CACHE = [
   '/',
   '/home',
@@ -33,25 +33,35 @@ self.addEventListener('activate', event => {
   self.clients.claim();
 });
 
-// Fetch: serve from cache, fallback to network
+// Fetch: Network First for HTML, Cache First for assets
 self.addEventListener('fetch', event => {
   if (event.request.method !== 'GET') return;
+
+  // Network First Strategy for Navigation (HTML)
+  if (event.request.mode === 'navigate' || event.request.destination === 'document') {
+    event.respondWith(
+      fetch(event.request)
+        .then(response => {
+          const clone = response.clone();
+          caches.open(CACHE_NAME).then(cache => cache.put(event.request, clone));
+          return response;
+        })
+        .catch(() => caches.match(event.request).then(cached => cached || caches.match('/home')))
+    );
+    return;
+  }
+
+  // Cache First Strategy for everything else (Images, CSS, JS)
   event.respondWith(
     caches.match(event.request).then(cached => {
       if (cached) return cached;
       return fetch(event.request).then(response => {
-        // Cache successful responses
         if (response && response.status === 200) {
           const clone = response.clone();
           caches.open(CACHE_NAME).then(cache => cache.put(event.request, clone));
         }
         return response;
-      }).catch(() => {
-        // Offline fallback for navigation
-        if (event.request.destination === 'document') {
-          return caches.match('/home');
-        }
-      });
+      }).catch(() => null);
     })
   );
 });
