@@ -4704,9 +4704,12 @@ document.addEventListener('DOMContentLoaded', initVisitorCounter);
 // =====================
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/static/service-worker.js')
-            .then(reg => console.log('[PWA] Service Worker registered:', reg.scope))
-            .catch(err => console.warn('[PWA] SW registration failed:', err));
+        navigator.serviceWorker.getRegistrations().then(function(registrations) {
+            for(let registration of registrations) {
+                registration.unregister();
+                console.log('[PWA] Service Worker unregistered to clear stale cache.');
+            }
+        });
     });
 
     // Show install prompt
