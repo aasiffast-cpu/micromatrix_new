@@ -251,6 +251,25 @@ BASE_TEMPLATE = """<!DOCTYPE html>
         </div>
     </header>
 
+    <!-- Custom Cursor Follower -->
+    <div class="cursor-glow" id="cursorGlow"></div>
+
+    <!-- Live System Status -->
+    <div class="system-status">
+        <div class="status-dot"></div>
+        <span id="statusPing">Systems Operational • Ping: 12ms</span>
+    </div>
+
+    <!-- Real-time Notifications -->
+
+    <div id="notificationToast" class="notification-toast">
+        <div class="notif-icon"><i class="fas fa-shopping-bag"></i></div>
+        <div class="notif-content">
+            <p id="notifMessage">New order from Dubai!</p>
+            <span id="notifTime">2 minutes ago</span>
+        </div>
+    </div>
+
     <!-- Right Sidebar Overlay -->
     <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleMenu()"></div>
 
@@ -313,12 +332,31 @@ BASE_TEMPLATE = """<!DOCTYPE html>
                 <p>✓ Remote Team</p>
                 <p>✓ 15 Service Categories</p>
             </div>
-        </div>
-
+        
+        <!-- Live Visitor & Global Clocks -->
         <div class="footer-bottom">
-            <p>&copy; 2026 Micromatrix. All rights reserved. | Innovative Solutions for Modern Businesses</p>
+            <p>&copy; 2026 Micromatrix. All rights reserved.</p>
+            <div class="global-clocks" id="globalClocks">
+                <div class="clock-item">
+                    <span>New York</span>
+                    <strong id="timeNY">--:--</strong>
+                </div>
+                <div class="clock-item">
+                    <span>London</span>
+                    <strong id="timeLDN">--:--</strong>
+                </div>
+                <div class="clock-item">
+                    <span>Dubai</span>
+                    <strong id="timeDXB">--:--</strong>
+                </div>
+                <div class="clock-item">
+                    <span>Islamabad</span>
+                    <strong id="timeISB">--:--</strong>
+                </div>
+            </div>
         </div>
-    </footer>
+    </div>
+</footer>
 
     <!-- Chatbot Widget -->
     <div class="chatbot-widget" id="chatbotWidget">
@@ -1346,15 +1384,134 @@ CSS_CONTENT = """
     --error-color:  #F43F5E;
     --gradient-hero: linear-gradient(135deg, #0F0D2E 0%, #1E1B4B 40%, #312E81 75%, #1E40AF 100%);
     --gradient-card: linear-gradient(145deg, #ffffff 0%, #f0f4ff 100%);
-    --shadow-sm: 0 2px 8px rgba(30,27,75,0.08);
-    --shadow-md: 0 8px 28px rgba(30,27,75,0.12);
-    --shadow-lg: 0 20px 60px rgba(30,27,75,0.18);
-    --shadow- glow: 0 0 30px rgba(124,58,237,0.25);
+    --shadow-glow: 0 0 30px rgba(124,58,237,0.25);
     --glass-bg: rgba(255, 255, 255, 0.7);
     --glass-border: rgba(255, 255, 255, 0.4);
 }
 
+/* Real-time Notification Toasts */
+.notification-toast {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    background: white;
+    padding: 1rem 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    z-index: 2000;
+    transform: translateX(-150%);
+    transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+    border-left: 4px solid var(--accent-purple);
+}
+
+.notification-toast.active {
+    transform: translateX(0);
+}
+
+.notif-icon {
+    width: 40px;
+    height: 40px;
+    background: var(--navy-primary);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+}
+
+.notif-content p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--text-dark);
+}
+
+.notif-content span {
+    font-size: 0.75rem;
+    color: var(--text-light);
+}
+
+/* Custom Cursor Glow */
+.cursor-glow {
+    position: fixed;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(161,130,221,0.15) 0%, transparent 60%);
+    border-radius: 50%;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+    mix-blend-mode: screen;
+    transition: width 0.3s, height 0.3s;
+}
+
+/* Live System Status */
+.system-status {
+    position: fixed;
+    bottom: 20px;
+    right: 90px; /* To not overlap chatbot */
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--navy-dark);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    z-index: 1000;
+    border: 1px solid var(--border-color);
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    background-color: var(--success-color);
+    border-radius: 50%;
+    animation: ping-pulse 1.5s infinite;
+}
+
+@keyframes ping-pulse {
+    0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(91,194,197, 0.7); }
+    70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(91,194,197, 0); }
+    100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(91,194,197, 0); }
+}
+
+/* Global Clocks in Footer */
+.global-clocks {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+.clock-item {
+    text-align: center;
+}
+
+.clock-item span {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--accent-purple);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.clock-item strong {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.1rem;
+    color: var(--white-primary);
+}
+
 /* Glassmorphism Effect */
+
 .glass {
     background: var(--glass-bg) !important;
     backdrop-filter: blur(12px) saturate(180%) !important;
@@ -4333,6 +4490,19 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // 6. Password Visibility Toggle
+function togglePasswordVisibility(inputId, iconId) {
+    const input = document.getElementById(inputId);
+    const icon = document.getElementById(iconId);
+    if (input && icon) {
+        if (input.type === 'password') {
+            input.type = 'text';
+            icon.classList.remove('fa-eye');
+            icon.classList.add('fa-eye-slash');
+        } else {
+            input.type = 'password';
+            icon.classList.remove('fa-eye-slash');
+            icon.classList.add('fa-eye');
+        }
     }
 }
 
@@ -4375,6 +4545,142 @@ async function handleContactForm(event) {
         submitBtn.disabled = false;
     }
 }
+
+// =====================
+// REAL-TIME SOCIAL PROOF SYSTEM
+// =====================
+
+const socialProofData = [
+    { city: 'London', action: 'purchased Web Development', icon: 'fa-globe' },
+    { city: 'Dubai', action: 'ordered Mobile App', icon: 'fa-mobile-alt' },
+    { city: 'New York', action: 'consulted for AI Solutions', icon: 'fa-robot' },
+    { city: 'Islamabad', action: 'hired Remote Team', icon: 'fa-users' },
+    { city: 'Berlin', action: 'ordered SEO Services', icon: 'fa-search' },
+    { city: 'Singapore', action: 'purchased ERP System', icon: 'fa-cogs' },
+    { city: 'Riyadh', action: 'started Fintech Project', icon: 'fa-credit-card' }
+];
+
+function showSocialProof() {
+    const toast = document.getElementById('notificationToast');
+    const msg = document.getElementById('notifMessage');
+    const time = document.getElementById('notifTime');
+    const icon = toast.querySelector('.notif-icon i');
+    
+    if (!toast) return;
+
+    const data = socialProofData[Math.floor(Math.random() * socialProofData.length)];
+    msg.innerHTML = `Someone from <strong>${data.city}</strong> ${data.action}!`;
+    time.innerText = Math.floor(Math.random() * 5 + 1) + ' minutes ago';
+    icon.className = `fas ${data.icon}`;
+
+    toast.classList.add('active');
+    
+    setTimeout(() => {
+        toast.classList.remove('active');
+    }, 5000);
+}
+
+// Start social proof after 10 seconds
+setTimeout(() => {
+    showSocialProof();
+    setInterval(showSocialProof, 20000); // Every 20 seconds
+}, 10000);
+
+// =====================
+// LIVE VISITOR COUNTER
+// =====================
+function initVisitorCounter() {
+    let count = Math.floor(Math.random() * 50) + 120;
+    const footer = document.querySelector('.footer-bottom');
+    if (footer) {
+        const counterDiv = document.createElement('div');
+        counterDiv.style.marginTop = '1rem';
+        counterDiv.style.color = 'var(--accent-yellow)';
+        counterDiv.style.fontWeight = '700';
+        counterDiv.innerHTML = `<i class="fas fa-users"></i> <span id="liveCount">${count}</span> Visitors online right now`;
+        footer.appendChild(counterDiv);
+
+        setInterval(() => {
+            count += Math.floor(Math.random() * 5) - 2;
+            if (count < 100) count = 100;
+            const display = document.getElementById('liveCount');
+            if (display) display.innerText = count;
+        }, 5000);
+    }
+}
+
+document.addEventListener('DOMContentLoaded', initVisitorCounter);
+
+// =====================
+// NEW REAL-TIME EFFECTS
+// =====================
+
+// 1. Cursor Follower Glow
+document.addEventListener('mousemove', (e) => {
+    const cursor = document.getElementById('cursorGlow');
+    if (cursor) {
+        cursor.style.left = e.clientX + 'px';
+        cursor.style.top = e.clientY + 'px';
+    }
+});
+
+// Enlarge cursor glow on clickable elements
+document.querySelectorAll('a, button, .service-card, .overview-card').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+        const cursor = document.getElementById('cursorGlow');
+        if (cursor) cursor.style.width = '450px';
+        if (cursor) cursor.style.height = '450px';
+    });
+    el.addEventListener('mouseleave', () => {
+        const cursor = document.getElementById('cursorGlow');
+        if (cursor) cursor.style.width = '300px';
+        if (cursor) cursor.style.height = '300px';
+    });
+});
+
+// 2. Live Ping Simulator
+function updatePing() {
+    const pingEl = document.getElementById('statusPing');
+    if (pingEl) {
+        setInterval(() => {
+            const ping = Math.floor(Math.random() * 15) + 8; // Random ping between 8ms and 22ms
+            pingEl.innerHTML = `Systems Operational &bull; Ping: ${ping}ms`;
+        }, 3000);
+    }
+}
+document.addEventListener('DOMContentLoaded', updatePing);
+
+// 3. Global Real-time Clocks
+function updateGlobalClocks() {
+    const now = new Date();
+    
+    // Formatting function
+    const options = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true };
+    
+    // Update New York
+    const ny = document.getElementById('timeNY');
+    if (ny) ny.innerText = new Intl.DateTimeFormat('en-US', { ...options, timeZone: 'America/New_York' }).format(now);
+    
+    // Update London
+    const ldn = document.getElementById('timeLDN');
+    if (ldn) ldn.innerText = new Intl.DateTimeFormat('en-US', { ...options, timeZone: 'Europe/London' }).format(now);
+    
+    // Update Dubai
+    const dxb = document.getElementById('timeDXB');
+    if (dxb) dxb.innerText = new Intl.DateTimeFormat('en-US', { ...options, timeZone: 'Asia/Dubai' }).format(now);
+    
+    // Update Islamabad
+    const isb = document.getElementById('timeISB');
+    if (isb) isb.innerText = new Intl.DateTimeFormat('en-US', { ...options, timeZone: 'Asia/Karachi' }).format(now);
+}
+
+// Start clocks if elements exist
+document.addEventListener('DOMContentLoaded', () => {
+    if (document.getElementById('globalClocks')) {
+        updateGlobalClocks();
+        setInterval(updateGlobalClocks, 1000); // Update every second
+    }
+});
 
 """
 
