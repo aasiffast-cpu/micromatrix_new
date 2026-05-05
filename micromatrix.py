@@ -202,6 +202,13 @@ BASE_TEMPLATE = """<!DOCTYPE html>
     <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
+    <link rel="manifest" href="/static/manifest.json">
+    <meta name="theme-color" content="#2A275D">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Micromatrix">
+    <link rel="apple-touch-icon" href="/static/images/logo.png">
     <style>
         {{ css_content|safe }}
     </style>
@@ -1472,6 +1479,11 @@ CSS_CONTENT = """
     align-items: center;
     gap: 0.75rem;
     cursor: pointer;
+}
+
+@keyframes slideInRight {
+    from { transform: translateX(120%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
 }
 
 /* Custom Cursor Glow */
@@ -4661,6 +4673,57 @@ function initVisitorCounter() {
 }
 
 document.addEventListener('DOMContentLoaded', initVisitorCounter);
+
+// =====================
+// PWA SERVICE WORKER REGISTRATION
+// =====================
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/static/service-worker.js')
+            .then(reg => console.log('[PWA] Service Worker registered:', reg.scope))
+            .catch(err => console.warn('[PWA] SW registration failed:', err));
+    });
+
+    // Show install prompt
+    let deferredPrompt;
+    window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+
+        // Show install banner
+        const banner = document.createElement('div');
+        banner.id = 'pwa-install-banner';
+        banner.innerHTML = `
+            <div style="display:flex;align-items:center;gap:1rem;">
+                <img src="/static/images/logo.png" style="width:40px;height:40px;border-radius:8px;">
+                <div>
+                    <strong style="display:block;">Install Micromatrix App</strong>
+                    <span style="font-size:0.8rem;opacity:0.8;">Add to your home screen for quick access</span>
+                </div>
+            </div>
+            <div style="display:flex;gap:0.5rem;">
+                <button id="pwa-install-btn" style="background:var(--accent-purple);color:#fff;border:none;padding:0.5rem 1rem;border-radius:8px;cursor:pointer;font-weight:600;">Install</button>
+                <button id="pwa-dismiss-btn" style="background:transparent;color:inherit;border:1px solid rgba(255,255,255,0.3);padding:0.5rem 1rem;border-radius:8px;cursor:pointer;">Later</button>
+            </div>`;
+        banner.style.cssText = 'position:fixed;bottom:80px;right:20px;background:rgba(26,24,64,0.95);backdrop-filter:blur(12px);color:#fff;padding:1rem 1.5rem;border-radius:16px;box-shadow:0 10px 40px rgba(0,0,0,0.3);z-index:3000;display:flex;flex-direction:column;gap:1rem;max-width:320px;border:1px solid rgba(161,130,221,0.3);animation:slideInRight 0.5s ease;';
+        document.body.appendChild(banner);
+
+        document.getElementById('pwa-install-btn').addEventListener('click', () => {
+            deferredPrompt.prompt();
+            deferredPrompt.userChoice.then(choice => {
+                if (choice.outcome === 'accepted') console.log('[PWA] User installed the app');
+                banner.remove();
+                deferredPrompt = null;
+            });
+        });
+        document.getElementById('pwa-dismiss-btn').addEventListener('click', () => banner.remove());
+    });
+
+    window.addEventListener('appinstalled', () => {
+        console.log('[PWA] App was installed successfully');
+    });
+}
+}
 
 // =====================
 // NEW REAL-TIME EFFECTS
