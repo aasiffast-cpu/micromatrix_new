@@ -30,7 +30,7 @@ app.config['MAIL_DEFAULT_SENDER'] = os.environ.get('MAIL_DEFAULT_SENDER', 'asifh
 
 mail = Mail(app)
 
-OWNER_EMAIL = 'asifhavelilakha@gmail.com'
+OWNER_EMAIL = 'fa24-bcs-161@students.cuisahiwal.edu.pk'
 OWNER_NAME = 'Asif - Micromatrix Admin'
 
 # =====================
