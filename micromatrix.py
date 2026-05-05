@@ -4,10 +4,13 @@ All backend, frontend, HTML, CSS, and JavaScript combined into a single Python f
 Flask Application with Embedded Templates and Assets
 """
 
-from flask import Flask, render_template_string, request, jsonify, redirect, url_for
+from flask import Flask, render_template_string, request, jsonify, redirect, url_for, session, flash
 from flask_mail import Mail, Message
+from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime
+from functools import wraps
 import os
+import sqlite3
 
 app = Flask(__name__)
 
@@ -21,14 +24,66 @@ app.config['DEBUG'] = True
 app.config['MAIL_SERVER'] = os.environ.get('MAIL_SERVER', 'smtp.gmail.com')
 app.config['MAIL_PORT'] = int(os.environ.get('MAIL_PORT', 587))
 app.config['MAIL_USE_TLS'] = os.environ.get('MAIL_USE_TLS', True)
-app.config['MAIL_USERNAME'] = os.environ.get('MAIL_USERNAME', 'info@micromatrix.tech')
-app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD', '')
-app.config['MAIL_DEFAULT_SENDER'] = os.environ.get('MAIL_DEFAULT_SENDER', 'info@micromatrix.tech')
+app.config['MAIL_USERNAME'] = os.environ.get('MAIL_USERNAME', 'asifhavelilakha@gmail.com')
+app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD', '') # SET THIS IN ENV VAR
+app.config['MAIL_DEFAULT_SENDER'] = os.environ.get('MAIL_DEFAULT_SENDER', 'asifhavelilakha@gmail.com')
 
 mail = Mail(app)
 
-OWNER_EMAIL = 'info@micromatrix.tech'
-OWNER_NAME = 'Muhammad Asif - Micromatrix'
+OWNER_EMAIL = 'asifhavelilakha@gmail.com'
+OWNER_NAME = 'Asif - Micromatrix Admin'
+
+# =====================
+# DATABASE SETUP
+# =====================
+DB_NAME = 'micromatrix.db'
+
+def init_db():
+    with sqlite3.connect(DB_NAME) as conn:
+        cursor = conn.cursor()
+        cursor.execute('''
+            CREATE TABLE IF NOT EXISTS users (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                username TEXT UNIQUE NOT NULL,
+                email TEXT UNIQUE NOT NULL,
+                password_hash TEXT NOT NULL,
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            )
+        ''')
+        cursor.execute('''
+            CREATE TABLE IF NOT EXISTS messages (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                name TEXT NOT NULL,
+                email TEXT NOT NULL,
+                phone TEXT,
+                service TEXT,
+                budget TEXT,
+                message TEXT NOT NULL,
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            )
+        ''')
+        cursor.execute('''
+            CREATE TABLE IF NOT EXISTS comments (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                user_id INTEGER NOT NULL,
+                content TEXT NOT NULL,
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                FOREIGN KEY (user_id) REFERENCES users (id)
+            )
+        ''')
+        
+        # Create default admin if not exists
+        admin_email = 'asifhavelilakha@gmail.com'
+        admin_pass = 'asif1632'
+        cursor.execute('SELECT id FROM users WHERE email = ?', (admin_email,))
+        if not cursor.fetchone():
+            cursor.execute(
+                'INSERT INTO users (username, email, password_hash) VALUES (?, ?, ?)',
+                ('Asif Admin', admin_email, generate_password_hash(admin_pass))
+            )
+        conn.commit()
+
+init_db()
 
 # =====================
 # DATA STRUCTURES
@@ -129,12 +184,15 @@ BASE_TEMPLATE = """<!DOCTYPE html>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Micromatrix{% endblock %}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Outfit:wght@700;900&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
     <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
     <style>
-        {{ css_content }}
+        {{ css_content|safe }}
     </style>
 </head>
 <body>
@@ -156,6 +214,16 @@ BASE_TEMPLATE = """<!DOCTYPE html>
                     <a href="/about" class="nav-link">About</a>
                     <a href="/services" class="nav-link">Services</a>
                     <a href="/contact" class="nav-link">Contact Us</a>
+                    {% if session.get('user_id') %}
+                        {% if session.get('email') == 'asifhavelilakha@gmail.com' %}
+                        <a href="/admin" class="nav-btn nav-btn-admin" style="background: var(--accent-yellow); color: var(--navy-dark);"><i class="fas fa-user-shield"></i> Admin Panel</a>
+                        {% endif %}
+                        <span class="nav-user"><i class="fas fa-user-circle"></i> {{ session.get('username', 'User') }}</span>
+                        <a href="/logout" class="nav-btn nav-btn-logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                    {% else %}
+                    <a href="/login" class="nav-btn nav-btn-login"><i class="fas fa-sign-in-alt"></i> Login</a>
+                    <a href="/signup" class="nav-btn nav-btn-signup"><i class="fas fa-user-plus"></i> Sign Up</a>
+                    {% endif %}
                 </nav>
 
                 <!-- Hamburger Toggle Button (Right Side) -->
@@ -182,6 +250,12 @@ BASE_TEMPLATE = """<!DOCTYPE html>
             <a href="/about" class="sidebar-link"><i class="fas fa-info-circle"></i> About</a>
             <a href="/services" class="sidebar-link"><i class="fas fa-cogs"></i> Services</a>
             <a href="/contact" class="sidebar-link"><i class="fas fa-envelope"></i> Contact Us</a>
+            {% if session.get('user_id') %}
+            <a href="/logout" class="sidebar-link"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            {% else %}
+            <a href="/login" class="sidebar-link"><i class="fas fa-sign-in-alt"></i> Login</a>
+            <a href="/signup" class="sidebar-link"><i class="fas fa-user-plus"></i> Sign Up</a>
+            {% endif %}
         </nav>
     </aside>
 
@@ -260,7 +334,7 @@ BASE_TEMPLATE = """<!DOCTYPE html>
     </button>
 
     <script>
-        {{ js_content }}
+        {{ js_content|safe }}
     </script>
     {% block scripts %}{% endblock %}
 </body>
@@ -990,26 +1064,277 @@ ABOUT_TEMPLATE = """
 </section>
 """
 
+LOGIN_TEMPLATE = """
+<div class="auth-page">
+    <div class="auth-container">
+        <div class="auth-left">
+            <div class="auth-brand">
+                <h1>MICROMATRIX</h1>
+                <p class="auth-brand-tagline">INNOVATIVE</p>
+            </div>
+            <div class="auth-left-content">
+                <h2>Welcome Back!</h2>
+                <p>Login to access your Micromatrix account and manage your projects.</p>
+                <div class="auth-features">
+                    <div class="auth-feature"><i class="fas fa-check-circle"></i> Manage Projects</div>
+                    <div class="auth-feature"><i class="fas fa-check-circle"></i> Track Orders</div>
+                    <div class="auth-feature"><i class="fas fa-check-circle"></i> 24/7 Support</div>
+                </div>
+            </div>
+        </div>
+        <div class="auth-right">
+            <div class="auth-card">
+                <div class="auth-card-header">
+                    <div class="auth-icon"><i class="fas fa-sign-in-alt"></i></div>
+                    <h2>Login to Your Account</h2>
+                    <p>Enter your credentials to continue</p>
+                </div>
+                {% if error %}
+                <div class="auth-alert auth-alert-error">
+                    <i class="fas fa-exclamation-circle"></i> {{ error }}
+                </div>
+                {% endif %}
+                <form class="auth-form" method="POST" action="/login" id="loginForm">
+                    <div class="auth-input-group">
+                        <label for="login_email">Email Address</label>
+                        <div class="auth-input-wrapper">
+                            <i class="fas fa-envelope auth-input-icon"></i>
+                            <input type="email" id="login_email" name="email" placeholder="your@email.com" required autocomplete="email">
+                        </div>
+                    </div>
+                    <div class="auth-input-group">
+                        <label for="login_password">Password</label>
+                        <div class="auth-input-wrapper">
+                            <i class="fas fa-lock auth-input-icon"></i>
+                            <input type="password" id="login_password" name="password" placeholder="Your password" required autocomplete="current-password">
+                            <button type="button" class="toggle-pwd" onclick="togglePassword('login_password', this)" tabindex="-1"><i class="fas fa-eye"></i></button>
+                        </div>
+                    </div>
+                    <button type="submit" class="auth-submit-btn" id="loginBtn">
+                        <span>Login</span> <i class="fas fa-arrow-right"></i>
+                    </button>
+                </form>
+                <div class="auth-footer-link">
+                    Don't have an account? <a href="/signup">Sign Up Here</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+"""
+
+SIGNUP_TEMPLATE = """
+<div class="auth-page">
+    <div class="auth-container">
+        <div class="auth-left">
+            <div class="auth-brand">
+                <h1>MICROMATRIX</h1>
+                <p class="auth-brand-tagline">INNOVATIVE</p>
+            </div>
+            <div class="auth-left-content">
+                <h2>Join Micromatrix!</h2>
+                <p>Create your account and start your digital transformation journey with us.</p>
+                <div class="auth-features">
+                    <div class="auth-feature"><i class="fas fa-check-circle"></i> Free Registration</div>
+                    <div class="auth-feature"><i class="fas fa-check-circle"></i> Project Dashboard</div>
+                    <div class="auth-feature"><i class="fas fa-check-circle"></i> Priority Support</div>
+                </div>
+            </div>
+        </div>
+        <div class="auth-right">
+            <div class="auth-card">
+                <div class="auth-card-header">
+                    <div class="auth-icon"><i class="fas fa-user-plus"></i></div>
+                    <h2>Create New Account</h2>
+                    <p>Fill in the details below to get started</p>
+                </div>
+                {% if error %}
+                <div class="auth-alert auth-alert-error">
+                    <i class="fas fa-exclamation-circle"></i> {{ error }}
+                </div>
+                {% endif %}
+                {% if success %}
+                <div class="auth-alert auth-alert-success">
+                    <i class="fas fa-check-circle"></i> {{ success }}
+                </div>
+                {% endif %}
+                <form class="auth-form" method="POST" action="/signup" id="signupForm">
+                    <div class="auth-input-group">
+                        <label for="signup_username">Full Name / Username</label>
+                        <div class="auth-input-wrapper">
+                            <i class="fas fa-user auth-input-icon"></i>
+                            <input type="text" id="signup_username" name="username" placeholder="Your name" required autocomplete="name" minlength="3">
+                        </div>
+                    </div>
+                    <div class="auth-input-group">
+                        <label for="signup_email">Email Address</label>
+                        <div class="auth-input-wrapper">
+                            <i class="fas fa-envelope auth-input-icon"></i>
+                            <input type="email" id="signup_email" name="email" placeholder="your@email.com" required autocomplete="email">
+                        </div>
+                    </div>
+                    <div class="auth-input-group">
+                        <label for="signup_password">Password</label>
+                        <div class="auth-input-wrapper">
+                            <i class="fas fa-lock auth-input-icon"></i>
+                            <input type="password" id="signup_password" name="password" placeholder="Min 6 characters" required minlength="6" autocomplete="new-password">
+                            <button type="button" class="toggle-pwd" onclick="togglePassword('signup_password', this)" tabindex="-1"><i class="fas fa-eye"></i></button>
+                        </div>
+                    </div>
+                    <div class="auth-input-group">
+                        <label for="signup_confirm">Confirm Password</label>
+                        <div class="auth-input-wrapper">
+                            <i class="fas fa-lock auth-input-icon"></i>
+                            <input type="password" id="signup_confirm" name="confirm_password" placeholder="Repeat password" required minlength="6" autocomplete="new-password">
+                            <button type="button" class="toggle-pwd" onclick="togglePassword('signup_confirm', this)" tabindex="-1"><i class="fas fa-eye"></i></button>
+                        </div>
+                    </div>
+                    <button type="submit" class="auth-submit-btn" id="signupBtn">
+                        <span>Create Account</span> <i class="fas fa-arrow-right"></i>
+                    </button>
+                </form>
+                <div class="auth-footer-link">
+                    Already have an account? <a href="/login">Login Here</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+"""
+
+ADMIN_TEMPLATE = """
+<div class="admin-page" style="padding: 2rem; max-width: 1400px; margin: 0 auto; background: var(--white-primary); min-height: 100vh;">
+    <div class="admin-header" style="margin-bottom: 2rem; display: flex; justify-content: space-between; align-items: center; background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy-primary) 100%); padding: 3rem; border-radius: 24px; color: white; box-shadow: var(--shadow-lg); border: 1px solid rgba(255,255,255,0.1);">
+        <div>
+            <h1 style="font-family: 'Outfit', sans-serif; font-weight: 900; letter-spacing: 3px; font-size: 2.5rem; margin-bottom: 0.5rem; background: linear-gradient(90deg, #fff 0%, var(--accent-violet) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">ADMIN DASHBOARD</h1>
+            <p style="opacity: 0.9; font-size: 1.1rem; font-weight: 500;">Welcome back, Asif! Monitor your business performance here.</p>
+        </div>
+        <div class="admin-stats" style="display: flex; gap: 3rem;">
+            <div class="stat-item" style="text-align: center; background: rgba(255,255,255,0.1); padding: 1.5rem 2rem; border-radius: 20px; backdrop-filter: blur(5px); border: 1px solid rgba(255,255,255,0.1);">
+                <span style="display: block; font-size: 2.5rem; font-weight: 800; color: var(--accent-yellow);">{{ users_count }}</span>
+                <span style="font-size: 0.85rem; text-transform: uppercase; opacity: 0.8; letter-spacing: 1px; font-weight: 700;">Total Users</span>
+            </div>
+            <div class="stat-item" style="text-align: center; background: rgba(255,255,255,0.1); padding: 1.5rem 2rem; border-radius: 20px; backdrop-filter: blur(5px); border: 1px solid rgba(255,255,255,0.1);">
+                <span style="display: block; font-size: 2.5rem; font-weight: 800; color: var(--accent-blue);">{{ messages_count }}</span>
+                <span style="font-size: 0.85rem; text-transform: uppercase; opacity: 0.8; letter-spacing: 1px; font-weight: 700;">Inquiries</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="admin-grid" style="display: grid; grid-template-columns: 1fr; gap: 2.5rem;">
+        <!-- Contact Messages Section -->
+        <div class="admin-section" style="background: white; border-radius: 24px; padding: 2.5rem; box-shadow: var(--shadow-md); border: 1px solid var(--border-color);">
+            <div style="display: flex; align-items: center; gap: 1.2rem; margin-bottom: 2rem;">
+                <div style="width: 50px; height: 50px; background: linear-gradient(135deg, var(--accent-purple) 0%, var(--navy-primary) 100%); color: white; display: flex; align-items: center; justify-content: center; border-radius: 12px; font-size: 1.5rem; box-shadow: 0 8px 16px rgba(124,58,237,0.2);">
+                    <i class="fas fa-envelope-open-text"></i>
+                </div>
+                <h2 style="font-family: 'Outfit', sans-serif; font-size: 1.8rem; color: var(--navy-primary);">Customer Inquiries & Orders</h2>
+            </div>
+            
+            <div style="overflow-x: auto; border-radius: 15px; border: 1px solid var(--border-color);">
+                <table style="width: 100%; border-collapse: collapse;">
+                    <thead>
+                        <tr style="text-align: left; background: #f8faff; border-bottom: 2px solid var(--border-color);">
+                            <th style="padding: 1.2rem; font-weight: 700; color: var(--navy-primary);">Date</th>
+                            <th style="padding: 1.2rem; font-weight: 700; color: var(--navy-primary);">Customer Details</th>
+                            <th style="padding: 1.2rem; font-weight: 700; color: var(--navy-primary);">Service Type</th>
+                            <th style="padding: 1.2rem; font-weight: 700; color: var(--navy-primary);">Budget</th>
+                            <th style="padding: 1.2rem; font-weight: 700; color: var(--navy-primary);">Message Content</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% if messages %}
+                            {% for msg in messages %}
+                            <tr style="border-bottom: 1px solid var(--border-color); transition: background 0.3s;" onmouseover="this.style.background='#f0f4ff'" onmouseout="this.style.background='transparent'">
+                                <td style="padding: 1.2rem; font-size: 0.9rem; color: var(--text-light); white-space: nowrap;">{{ msg.created_at }}</td>
+                                <td style="padding: 1.2rem;">
+                                    <div style="font-weight: 700; color: var(--navy-primary);">{{ msg.name }}</div>
+                                    <div style="font-size: 0.85rem; color: var(--accent-purple); font-weight: 600;">{{ msg.email }}</div>
+                                    <div style="font-size: 0.85rem; color: var(--text-light);">{{ msg.phone }}</div>
+                                </td>
+                                <td style="padding: 1.2rem;"><span style="background: linear-gradient(135deg, var(--accent-blue) 0%, var(--accent-teal) 100%); color: white; padding: 0.4rem 1rem; border-radius: 50px; font-size: 0.8rem; font-weight: 700; box-shadow: 0 4px 10px rgba(6,182,212,0.2);">{{ msg.service }}</span></td>
+                                <td style="padding: 1.2rem; font-weight: 800; color: var(--success-color); font-size: 1rem;">{{ msg.budget }}</td>
+                                <td style="padding: 1.2rem; font-size: 0.95rem; color: var(--text-dark); line-height: 1.5;">{{ msg.message }}</td>
+                            </tr>
+                            {% endfor %}
+                        {% else %}
+                            <tr>
+                                <td colspan="5" style="padding: 4rem; text-align: center; color: var(--text-light); font-weight: 500;">
+                                    <i class="fas fa-inbox" style="display: block; font-size: 3rem; margin-bottom: 1rem; opacity: 0.3;"></i>
+                                    No inquiries found yet.
+                                </td>
+                            </tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Users Section -->
+        <div class="admin-section" style="background: white; border-radius: 24px; padding: 2.5rem; box-shadow: var(--shadow-md); border: 1px solid var(--border-color);">
+            <div style="display: flex; align-items: center; gap: 1.2rem; margin-bottom: 2rem;">
+                <div style="width: 50px; height: 50px; background: linear-gradient(135deg, var(--accent-blue) 0%, var(--navy-primary) 100%); color: white; display: flex; align-items: center; justify-content: center; border-radius: 12px; font-size: 1.5rem; box-shadow: 0 8px 16px rgba(6,182,212,0.2);">
+                    <i class="fas fa-users"></i>
+                </div>
+                <h2 style="font-family: 'Outfit', sans-serif; font-size: 1.8rem; color: var(--navy-primary);">Registered Community</h2>
+            </div>
+            
+            <div style="overflow-x: auto; border-radius: 15px; border: 1px solid var(--border-color);">
+                <table style="width: 100%; border-collapse: collapse;">
+                    <thead>
+                        <tr style="text-align: left; background: #f8faff; border-bottom: 2px solid var(--border-color);">
+                            <th style="padding: 1.2rem; font-weight: 700; color: var(--navy-primary);">User ID</th>
+                            <th style="padding: 1.2rem; font-weight: 700; color: var(--navy-primary);">Username</th>
+                            <th style="padding: 1.2rem; font-weight: 700; color: var(--navy-primary);">Email Address</th>
+                            <th style="padding: 1.2rem; font-weight: 700; color: var(--navy-primary);">Join Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for user in users %}
+                        <tr style="border-bottom: 1px solid var(--border-color);">
+                            <td style="padding: 1.2rem; color: var(--text-light); font-weight: 700;">#{{ user.id }}</td>
+                            <td style="padding: 1.2rem; font-weight: 700; color: var(--navy-primary);">{{ user.username }}</td>
+                            <td style="padding: 1.2rem; font-weight: 500;">{{ user.email }}</td>
+                            <td style="padding: 1.2rem; font-size: 0.9rem; color: var(--text-light);">{{ user.created_at }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+"""
+
 # =====================
 # CSS CONTENT
 # =====================
 
 CSS_CONTENT = """
 :root {
-    --navy-primary: #2A275D;
-    --navy-dark: #1A1840;
-    --navy-light: #3D397C;
-    --white-primary: #FEFCF3;
+    --navy-primary: #1E1B4B;
+    --navy-dark:    #0F0D2E;
+    --navy-light:   #312E81;
+    --white-primary:  #F8F7FF;
     --white-secondary: #FFFFFF;
-    --accent-purple: #A182DD;
-    --accent-blue: #5BC2C5;
-    --accent-yellow: #FDE55A;
-    --accent-red: #F15E58;
-    --text-dark: #2A275D;
-    --text-light: #5A5A7A;
-    --border-color: #E6E1D1;
-    --success-color: #5BC2C5;
-    --error-color: #F15E58;
+    --accent-purple:  #7C3AED;
+    --accent-violet:  #A78BFA;
+    --accent-blue:    #06B6D4;
+    --accent-teal:    #14B8A6;
+    --accent-yellow:  #FBBF24;
+    --accent-red:     #F43F5E;
+    --accent-green:   #10B981;
+    --text-dark:    #1E1B4B;
+    --text-light:   #6B7280;
+    --border-color: #E0E7FF;
+    --success-color: #10B981;
+    --error-color:  #F43F5E;
+    --gradient-hero: linear-gradient(135deg, #0F0D2E 0%, #1E1B4B 40%, #312E81 75%, #1E40AF 100%);
+    --gradient-card: linear-gradient(145deg, #ffffff 0%, #f0f4ff 100%);
+    --shadow-sm: 0 2px 8px rgba(30,27,75,0.08);
+    --shadow-md: 0 8px 28px rgba(30,27,75,0.12);
+    --shadow-lg: 0 20px 60px rgba(30,27,75,0.18);
+    --shadow-glow: 0 0 30px rgba(124,58,237,0.25);
 }
 
 * {
@@ -1023,21 +1348,23 @@ html {
 }
 
 body {
-    font-family: 'Times New Roman', Times, Georgia, serif;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     background-color: var(--white-primary);
     color: var(--text-dark);
     line-height: 1.7;
-    font-size: 1.2rem;
+    font-size: 1.05rem;
 }
 
 .header {
-    background: var(--navy-primary);
+    background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy-primary) 60%, var(--navy-light) 100%);
     color: var(--white-primary);
-    padding: 1rem 2rem;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 0.9rem 2rem;
+    box-shadow: 0 4px 20px rgba(15,13,46,0.35);
     position: sticky;
     top: 0;
     z-index: 1000;
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(124,58,237,0.2);
 }
 
 .header-container {
@@ -1056,17 +1383,24 @@ body {
 }
 
 .company-info h1 {
-    font-size: 1.5rem;
+    font-size: 1.6rem;
     margin: 0;
-    letter-spacing: 1px;
+    letter-spacing: 3px;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 900;
+    background: linear-gradient(90deg, #fff 0%, var(--accent-violet) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
 .company-info p {
-    font-size: 0.75rem;
+    font-size: 0.68rem;
     margin: 0;
-    letter-spacing: 2px;
-    color: var(--accent-purple);
-    font-weight: 600;
+    letter-spacing: 3px;
+    color: var(--accent-violet);
+    font-weight: 700;
+    text-transform: uppercase;
 }
 
 .navbar {
@@ -1305,15 +1639,29 @@ body {
 }
 
 .hero-content {
-    background: var(--white-primary);
+    background: linear-gradient(145deg, #ffffff 0%, #f0f4ff 100%);
     padding: 3rem;
     border-radius: 24px;
-    box-shadow: 0 24px 70px rgba(22, 37, 67, 0.08);
-    border-left: 10px solid #0f2651;
+    box-shadow: 0 24px 70px rgba(30,27,75,0.14);
+    border-left: 6px solid var(--accent-purple);
     display: flex;
     flex-direction: column;
     justify-content: center;
     color: var(--navy-primary);
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-content::before {
+    content: '';
+    position: absolute;
+    top: -60px;
+    right: -60px;
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, rgba(124,58,237,0.1) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
 }
 
 .hero-content h1 {
@@ -1345,51 +1693,64 @@ body {
 }
 
 .cta-button {
-    display: inline-block;
-    padding: 0.85rem 2.5rem;
-    background: var(--accent-purple);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.85rem 2.2rem;
+    background: linear-gradient(135deg, var(--accent-purple) 0%, #5B21B6 100%);
     color: #ffffff;
     text-decoration: none;
-    border-radius: 6px;
-    font-weight: 600;
+    border-radius: 50px;
+    font-weight: 700;
     transition: all 0.3s ease;
     border: none;
     cursor: pointer;
-    font-size: 1rem;
+    font-size: 0.95rem;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 15px rgba(124,58,237,0.35);
 }
 
 .cta-button:hover {
-    background: var(--accent-blue);
+    background: linear-gradient(135deg, #6D28D9 0%, var(--accent-blue) 100%);
     transform: translateY(-3px);
-    box-shadow: 0 10px 25px rgba(91, 194, 197, 0.3);
+    box-shadow: 0 12px 30px rgba(124,58,237,0.45);
 }
 
 .cta-button.secondary {
     background: transparent;
-    border: none;
+    border: 2px solid var(--accent-purple);
     color: var(--navy-primary);
-    padding-left: 1rem;
-    padding-right: 1rem;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    box-shadow: none;
+}
+
+.cta-button.secondary:hover {
+    background: var(--accent-purple);
+    color: #fff;
 }
 
 .cta-button-large {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
     padding: 1rem 3rem;
-    background: var(--accent-purple);
+    background: linear-gradient(135deg, var(--accent-purple) 0%, #1E40AF 100%);
     color: var(--white-primary);
     text-decoration: none;
-    border-radius: 8px;
+    border-radius: 50px;
     font-weight: 700;
     transition: all 0.3s ease;
-    font-size: 1.1rem;
+    font-size: 1rem;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 1.5px;
+    box-shadow: 0 6px 20px rgba(124,58,237,0.4);
 }
 
 .cta-button-large:hover {
-    background: var(--accent-blue);
+    background: linear-gradient(135deg, #6D28D9 0%, var(--accent-blue) 100%);
     transform: translateY(-3px);
-    box-shadow: 0 15px 30px rgba(59, 130, 246, 0.3);
+    box-shadow: 0 16px 35px rgba(124,58,237,0.5);
 }
 
 .hero-highlights {
@@ -1417,8 +1778,9 @@ body {
 }
 
 .company-overview {
-    padding: 3rem 2rem;
-    background: var(--white-secondary);
+    padding: 4rem 2rem;
+    background: linear-gradient(180deg, var(--white-secondary) 0%, var(--white-primary) 100%);
+    position: relative;
 }
 
 .company-overview h2,
@@ -2947,6 +3309,440 @@ body {
     will-change: transform;
     transform-style: preserve-3d;
 }
+
+/* =====================
+   HEADER AUTH BUTTONS
+   ===================== */
+.nav-user {
+    color: var(--accent-yellow);
+    font-weight: 600;
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.nav-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.45rem 1.1rem;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-decoration: none;
+    transition: all 0.25s ease;
+    border: 2px solid transparent;
+}
+
+.nav-btn-login {
+    background: transparent;
+    border-color: var(--accent-purple);
+    color: var(--white-primary);
+}
+
+.nav-btn-login:hover {
+    background: var(--accent-purple);
+    color: #fff;
+}
+
+.nav-btn-signup {
+    background: var(--accent-purple);
+    color: #fff;
+}
+
+.nav-btn-signup:hover {
+    background: var(--accent-blue);
+    border-color: var(--accent-blue);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(91,194,197,0.35);
+}
+
+.nav-btn-logout {
+    background: transparent;
+    border-color: var(--accent-red);
+    color: var(--accent-red);
+}
+
+.nav-btn-logout:hover {
+    background: var(--accent-red);
+    color: #fff;
+}
+
+/* =====================
+   AUTH PAGES
+   ===================== */
+.auth-page {
+    min-height: calc(100vh - 80px);
+    display: flex;
+    align-items: stretch;
+    background: var(--white-primary);
+}
+
+.auth-container {
+    display: flex;
+    width: 100%;
+    min-height: 100%;
+}
+
+.auth-left {
+    flex: 1;
+    background: linear-gradient(145deg, var(--navy-dark) 0%, var(--navy-primary) 50%, var(--navy-light) 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 4rem 3rem;
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+}
+
+.auth-left::before {
+    content: '';
+    position: absolute;
+    top: -100px;
+    right: -100px;
+    width: 350px;
+    height: 350px;
+    border-radius: 50%;
+    background: rgba(161, 130, 221, 0.15);
+}
+
+.auth-left::after {
+    content: '';
+    position: absolute;
+    bottom: -80px;
+    left: -80px;
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    background: rgba(91, 194, 197, 0.12);
+}
+
+.auth-brand h1 {
+    font-size: 2.2rem;
+    font-weight: 900;
+    letter-spacing: 3px;
+    color: #fff;
+    margin-bottom: 0;
+}
+
+.auth-brand-tagline {
+    font-size: 0.75rem;
+    letter-spacing: 4px;
+    color: var(--accent-purple);
+    font-weight: 700;
+    margin-bottom: 3rem;
+}
+
+.auth-left-content h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: #fff;
+}
+
+.auth-left-content p {
+    color: rgba(255,255,255,0.8);
+    font-size: 1rem;
+    line-height: 1.7;
+    margin-bottom: 2rem;
+}
+
+.auth-features {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.auth-feature {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    color: rgba(255,255,255,0.9);
+    font-size: 1rem;
+}
+
+.auth-feature i {
+    color: var(--accent-blue);
+    font-size: 1.1rem;
+}
+
+.auth-right {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 2rem;
+    background: var(--white-primary);
+}
+
+.auth-card {
+    width: 100%;
+    max-width: 480px;
+    background: #fff;
+    border-radius: 20px;
+    padding: 2.5rem;
+    box-shadow: 0 20px 60px rgba(42, 39, 93, 0.12);
+    border: 1px solid var(--border-color);
+}
+
+.auth-card-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.auth-icon {
+    width: 70px;
+    height: 70px;
+    background: linear-gradient(135deg, var(--navy-primary), var(--accent-purple));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.2rem;
+    font-size: 1.8rem;
+    color: #fff;
+    box-shadow: 0 8px 24px rgba(161, 130, 221, 0.4);
+}
+
+.auth-card-header h2 {
+    font-size: 1.6rem;
+    color: var(--navy-primary);
+    margin-bottom: 0.3rem;
+}
+
+.auth-card-header p {
+    color: var(--text-light);
+    font-size: 0.95rem;
+}
+
+.auth-alert {
+    padding: 0.85rem 1.2rem;
+    border-radius: 8px;
+    margin-bottom: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+.auth-alert-error {
+    background: #fef2f2;
+    color: #b91c1c;
+    border: 1px solid #fecaca;
+}
+
+.auth-alert-success {
+    background: #f0fdf4;
+    color: #15803d;
+    border: 1px solid #bbf7d0;
+}
+
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+.auth-input-group label {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--navy-primary);
+    margin-bottom: 0.4rem;
+}
+
+.auth-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.auth-input-icon {
+    position: absolute;
+    left: 1rem;
+    color: var(--text-light);
+    font-size: 0.95rem;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.auth-input-wrapper input {
+    width: 100%;
+    padding: 0.85rem 2.8rem;
+    border: 2px solid var(--border-color);
+    border-radius: 10px;
+    font-size: 1rem;
+    color: var(--text-dark);
+    background: var(--white-primary);
+    transition: all 0.25s ease;
+    outline: none;
+    font-family: inherit;
+}
+
+.auth-input-wrapper input:focus {
+    border-color: var(--accent-purple);
+    box-shadow: 0 0 0 3px rgba(161, 130, 221, 0.15);
+    background: #fff;
+}
+
+.toggle-pwd {
+    position: absolute;
+    right: 0.8rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--text-light);
+    font-size: 0.95rem;
+    padding: 0.3rem;
+    transition: color 0.2s ease;
+    z-index: 1;
+}
+
+.toggle-pwd:hover {
+    color: var(--accent-purple);
+}
+
+.auth-submit-btn {
+    width: 100%;
+    padding: 0.95rem;
+    background: linear-gradient(135deg, var(--navy-primary), var(--accent-purple));
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.05rem;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    transition: all 0.3s ease;
+    letter-spacing: 0.5px;
+    margin-top: 0.5rem;
+    font-family: inherit;
+}
+
+.auth-submit-btn:hover {
+    background: linear-gradient(135deg, var(--accent-purple), var(--accent-blue));
+    transform: translateY(-2px);
+    box-shadow: 0 10px 28px rgba(161, 130, 221, 0.45);
+}
+
+.auth-footer-link {
+    text-align: center;
+    margin-top: 1.5rem;
+    font-size: 0.95rem;
+    color: var(--text-light);
+}
+
+.auth-footer-link a {
+    color: var(--accent-purple);
+    font-weight: 700;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.auth-footer-link a:hover {
+    color: var(--navy-primary);
+}
+
+@media (max-width: 768px) {
+    .auth-container { flex-direction: column; }
+    .auth-left { padding: 2.5rem 1.5rem; min-height: 220px; }
+    .auth-right { padding: 2rem 1rem; }
+    .auth-card { padding: 1.8rem 1.2rem; }
+    .nav-user, .nav-btn { font-size: 0.82rem; padding: 0.35rem 0.7rem; }
+}
+
+/* =====================
+   RESPONSIVE NAVIGATION
+   ===================== */
+
+/* Desktop: show nav links, hide hamburger */
+@media (min-width: 769px) {
+    .menu-toggle {
+        display: none !important;
+    }
+    .navbar {
+        display: flex !important;
+    }
+}
+
+/* Mobile: hide nav links, show hamburger on right */
+@media (max-width: 768px) {
+    .header-right {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-left: auto;
+    }
+
+    .navbar {
+        display: none !important;
+    }
+
+    .menu-toggle {
+        display: flex !important;
+        flex-direction: column;
+        justify-content: center;
+        gap: 6px;
+        background: none;
+        border: 1.5px solid rgba(255,255,255,0.25);
+        border-radius: 6px;
+        cursor: pointer;
+        padding: 6px 8px;
+        z-index: 1100;
+        margin-left: auto;
+    }
+
+    .menu-toggle .bar {
+        width: 24px;
+        height: 2.5px;
+        background: var(--white-primary);
+        border-radius: 3px;
+        transition: all 0.35s ease;
+        display: block;
+    }
+
+    .header-container {
+        flex-wrap: nowrap;
+    }
+
+    .hero-title { font-size: 2rem; }
+    .hero-subtitle { font-size: 1rem; }
+
+    .footer-content {
+        grid-template-columns: 1fr;
+    }
+
+    .services-grid,
+    .overview-grid,
+    .about-grid,
+    .promise-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .section-header h2 { font-size: 1.8rem; }
+
+    .chatbot-widget {
+        bottom: 1rem;
+        right: 1rem;
+    }
+
+    .chatbot-window {
+        width: calc(100vw - 2rem);
+        right: 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .header { padding: 0.75rem 1rem; }
+    .company-info h1 { font-size: 1.2rem; }
+    .auth-left { display: none; }
+    .auth-right { padding: 1.5rem 1rem; }
+}
 """
 
 # =====================
@@ -3468,17 +4264,108 @@ document.addEventListener('DOMContentLoaded', function() {
         setTimeout(typeWriter, 1000);
     }
 });
+
+// 6. Password Visibility Toggle
+    }
+}
+
+// 7. Handle Contact Form AJAX
+async function handleContactForm(event) {
+    event.preventDefault();
+    const form = event.target;
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const originalBtnText = submitBtn.innerHTML;
+    
+    // UI Loading State
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+    submitBtn.disabled = true;
+    
+    const formData = new FormData(form);
+    const data = Object.fromEntries(formData.entries());
+    
+    try {
+        const response = await fetch('/contact', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data)
+        });
+        
+        const result = await response.json();
+        
+        if (result.status === 'success') {
+            alert('Success! ' + result.message);
+            form.reset();
+        } else {
+            alert('Error: ' + result.message);
+        }
+    } catch (error) {
+        console.error('Submission error:', error);
+        alert('An unexpected error occurred. Please try again.');
+    } finally {
+        submitBtn.innerHTML = originalBtnText;
+        submitBtn.disabled = false;
+    }
+}
+
 """
 
 # =====================
 # FLASK ROUTES
 # =====================
 
+def login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if not session.get('user_id'):
+            return redirect(url_for('login'))
+        return f(*args, **kwargs)
+    return decorated_function
+
+def admin_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if not session.get('user_id') or session.get('email') != 'asifhavelilakha@gmail.com':
+            flash('Access denied. Administrator only.', 'error')
+            return redirect(url_for('home'))
+        return f(*args, **kwargs)
+    return decorated_function
+
 @app.route('/')
 def index():
-    return redirect(url_for('home'))
+    if session.get('user_id'):
+        if session.get('email') == 'asifhavelilakha@gmail.com':
+            return redirect(url_for('admin_dashboard'))
+        return redirect(url_for('home'))
+    return redirect(url_for('login'))
+
+@app.route('/admin')
+@admin_required
+def admin_dashboard():
+    with sqlite3.connect(DB_NAME) as conn:
+        conn.row_factory = sqlite3.Row
+        cursor = conn.cursor()
+        
+        # Get users
+        cursor.execute('SELECT id, username, email, created_at FROM users ORDER BY created_at DESC')
+        users = cursor.fetchall()
+        
+        # Get messages
+        cursor.execute('SELECT * FROM messages ORDER BY created_at DESC')
+        messages = cursor.fetchall()
+        
+        users_count = len(users)
+        messages_count = len(messages)
+        
+    html = BASE_TEMPLATE.replace('{% block content %}{% endblock %}', 
+        render_template_string(ADMIN_TEMPLATE, users=users, messages=messages, 
+                              users_count=users_count, messages_count=messages_count))
+    html = render_template_string(html, css_content=CSS_CONTENT, js_content=JS_CONTENT)
+    return html
 
 @app.route('/home')
+@login_required
 def home():
     content = render_template_string(HOME_TEMPLATE, reviews=reviews)
     html = BASE_TEMPLATE.replace('{% block content %}{% endblock %}', content)
@@ -3486,6 +4373,7 @@ def home():
     return html
 
 @app.route('/services')
+@login_required
 def services():
     content = render_template_string(SERVICES_TEMPLATE, services=services_data, pricing=pricing_data)
     html = BASE_TEMPLATE.replace('{% block content %}{% endblock %}', content)
@@ -3493,98 +4381,82 @@ def services():
     return html
 
 @app.route('/contact', methods=['GET', 'POST'])
+@login_required
 def contact():
     if request.method == 'POST':
-        name = request.form.get('name')
-        email = request.form.get('email')
-        phone = request.form.get('phone')
-        message = request.form.get('message')
-        
-        contact_data = {
-            'name': name,
-            'email': email,
-            'phone': phone,
-            'message': message,
-            'timestamp': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-        }
-        
         try:
-            owner_email_body = f"""
-New Contact/Order Inquiry from Micromatrix Website
+            # Handle both JSON and Form data
+            if request.is_json:
+                data = request.get_json()
+            else:
+                data = request.form
+            
+            name = data.get('name')
+            email = data.get('email')
+            phone = data.get('phone', 'N/A')
+            service = data.get('service', 'General Inquiry')
+            budget = data.get('budget', 'Not Specified')
+            message = data.get('message')
+            
+            # 1. Save to Database
+            with sqlite3.connect(DB_NAME) as conn:
+                conn.execute('''
+                    INSERT INTO messages (name, email, phone, service, budget, message)
+                    VALUES (?, ?, ?, ?, ?, ?)
+                ''', (name, email, phone, service, budget, message))
+                conn.commit()
+            
+            # 2. Send Email Alert to Admin
+            try:
+                timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+                subject = f"New Project Order: {service} from {name}"
+                body = f"""
+NEW ORDER / INQUIRY RECEIVED
 
 Client Details:
+---------------
 Name: {name}
 Email: {email}
 Phone: {phone}
-Date & Time: {contact_data['timestamp']}
+Service: {service}
+Budget: {budget}
+Time: {timestamp}
 
-Message/Project Details:
+Message:
+--------
 {message}
 
-This is an automated notification from your Micromatrix website.
-Please respond to the client at their email or phone number above.
-            """
+---
+This is an automated notification from your Micromatrix Admin Panel.
+                """
+                msg = Message(subject=subject,
+                             recipients=[OWNER_EMAIL],
+                             body=body)
+                mail.send(msg)
+            except Exception as e:
+                print(f"Email sending failed: {str(e)}")
             
-            owner_msg = Message(
-                subject=f'New Order/Inquiry: {name} - Micromatrix',
-                recipients=[OWNER_EMAIL],
-                body=owner_email_body
-            )
-            
-            user_email_body = f"""
-Hello {name},
-
-Thank you for contacting Micromatrix! We have received your inquiry and will get back to you shortly.
-
-Your Details:
-Name: {name}
-Email: {email}
-Phone: {phone}
-Received on: {contact_data['timestamp']}
-
-Your Message:
-{message}
-
-Our team will review your request and contact you within 24 hours.
-
-Best regards,
-Muhammad Asif
-Founder, Micromatrix
-info@micromatrix.tech
-+923316170980
-            """
-            
-            user_msg = Message(
-                subject='We Received Your Inquiry - Micromatrix',
-                recipients=[email],
-                body=user_email_body
-            )
-            
-            try:
-                mail.send(owner_msg)
-                mail.send(user_msg)
-            except:
-                pass
-            
-            return jsonify({
-                'status': 'success',
-                'message': 'Thank you for your inquiry! We will contact you within 24 hours.',
-                'data': contact_data
-            })
-            
+            if request.is_json:
+                return jsonify({'status': 'success', 'message': 'Order submitted successfully! We will contact you soon.'})
+            else:
+                flash('Your inquiry has been sent successfully!', 'success')
+                return redirect(url_for('contact'))
+                
         except Exception as e:
-            print(f"Error: {str(e)}")
-            return jsonify({
-                'status': 'success',
-                'message': 'Thank you for your inquiry! We will contact you within 24 hours.',
-                'data': contact_data
-            }), 200
+            print(f"Error in contact: {str(e)}")
+            if request.is_json:
+                return jsonify({'status': 'error', 'message': 'There was an error. Please try again.'}), 500
+            else:
+                flash('An error occurred. Please try again.', 'error')
+                return redirect(url_for('contact'))
     
     html = BASE_TEMPLATE.replace('{% block content %}{% endblock %}', render_template_string(CONTACT_TEMPLATE, pricing=pricing_data))
     html = render_template_string(html, css_content=CSS_CONTENT, js_content=JS_CONTENT)
     return html
 
+
 @app.route('/about')
+@login_required
 def about():
     html = BASE_TEMPLATE.replace('{% block content %}{% endblock %}', render_template_string(ABOUT_TEMPLATE))
     html = render_template_string(html, css_content=CSS_CONTENT, js_content=JS_CONTENT)
@@ -3603,17 +4475,125 @@ def chatbot():
     user_message = request.json.get('message', '').lower().strip()
     if not user_message:
         return jsonify({'response': 'Please ask me a question about Micromatrix.'})
+
+    # Step 1: Exact match
     if user_message in chatbot_knowledge:
         return jsonify({'response': chatbot_knowledge[user_message]})
+
+    # Step 2: Key is contained in user message or user message contains key
     for key, value in chatbot_knowledge.items():
         if key in user_message or user_message in key:
             return jsonify({'response': value})
+
+    # Step 3: Keyword-based matching (smarter fuzzy)
+    keyword_map = {
+        ('service', 'offer', 'do', 'provide', 'work', 'speciali'): 'what services do you offer',
+        ('contact', 'reach', 'phone', 'call', 'whatsapp', 'number'): 'how can i contact you',
+        ('email', 'mail', 'inbox'): 'what is your email',
+        ('price', 'cost', 'fee', 'charge', 'budget', 'rate', 'how much'): 'pricing',
+        ('remote', 'office', 'location', 'where', 'based', 'country'): 'what is your location',
+        ('founder', 'owner', 'ceo', 'who lead', 'started', 'created', 'asif'): 'founder',
+        ('support', '24/7', 'help', 'assist'): 'do you provide support',
+        ('ai', 'machine learning', 'artificial', 'ml', 'data', 'deep'): 'what technology do you use',
+        ('experience', 'year', 'portfolio', 'project'): 'do you have experience',
+        ('hello', 'hey', 'salam', 'salaam', 'assalam', 'hola'): 'hello',
+        ('hi', 'hiya', 'howdy'): 'hi',
+        ('thank', 'shukriya', 'shukria'): 'thank you',
+        ('process', 'method', 'approach', 'how you work', 'procedure'): 'process',
+        ('tech', 'stack', 'language', 'framework', 'tool'): 'what technology do you use',
+        ('about', 'micromatrix', 'company', 'firm', 'business'): 'what is micromatrix',
+        ('start', 'begin', 'initiate', 'project', 'discuss'): 'can you help with my project',
+    }
+    for keywords, knowledge_key in keyword_map.items():
+        for kw in keywords:
+            if kw in user_message:
+                return jsonify({'response': chatbot_knowledge.get(knowledge_key, '')})
+
     default_response = (
-        "That's a great question! I'm still learning. However, you can always reach our team at "
-        "+923316170980 or info@micromatrix.tech for more detailed information. "
-        "You can also visit our Services page to explore what we offer, or use the Contact page to send us a message."
+        "That's an interesting question! "
+        "For detailed information, you can reach our team directly:\n"
+        "📞 Phone: +923316170980\n"
+        "📧 Email: info@micromatrix.tech\n"
+        "💬 WhatsApp: wa.me/923316170980\n"
+        "Or visit our Services or Contact page for more details."
     )
     return jsonify({'response': default_response})
+
+# =====================
+# AUTH ROUTES
+# =====================
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if session.get('user_id'):
+        return redirect(url_for('home'))
+    error = None
+    if request.method == 'POST':
+        email = request.form.get('email', '').strip().lower()
+        password = request.form.get('password', '')
+        if not email or not password:
+            error = 'Please fill in all fields.'
+        else:
+            with sqlite3.connect(DB_NAME) as conn:
+                conn.row_factory = sqlite3.Row
+                user = conn.execute('SELECT * FROM users WHERE email = ?', (email,)).fetchone()
+            if user and check_password_hash(user['password_hash'], password):
+                session['user_id'] = user['id']
+                session['username'] = user['username']
+                session['email'] = user['email']
+                return redirect(url_for('home'))
+            else:
+                error = 'Invalid email or password. Please try again.'
+    html = BASE_TEMPLATE.replace('{% block content %}{% endblock %}',
+        render_template_string(LOGIN_TEMPLATE, error=error))
+    html = render_template_string(html, css_content=CSS_CONTENT, js_content=JS_CONTENT)
+    return html
+
+@app.route('/signup', methods=['GET', 'POST'])
+def signup():
+    if session.get('user_id'):
+        return redirect(url_for('home'))
+    error = None
+    success = None
+    if request.method == 'POST':
+        username = request.form.get('username', '').strip()
+        email = request.form.get('email', '').strip().lower()
+        password = request.form.get('password', '')
+        confirm = request.form.get('confirm_password', '')
+        if not username or not email or not password or not confirm:
+            error = 'Please fill in all fields.'
+        elif len(username) < 3:
+            error = 'Username must be at least 3 characters.'
+        elif len(password) < 6:
+            error = 'Password must be at least 6 characters.'
+        elif password != confirm:
+            error = 'Passwords do not match. Please try again.'
+        else:
+            try:
+                pw_hash = generate_password_hash(password)
+                with sqlite3.connect(DB_NAME) as conn:
+                    conn.execute(
+                        'INSERT INTO users (username, email, password_hash) VALUES (?, ?, ?)',
+                        (username, email, pw_hash)
+                    )
+                    conn.commit()
+                success = 'Account created successfully! You can now login.'
+            except sqlite3.IntegrityError as e:
+                if 'email' in str(e):
+                    error = 'An account with this email already exists.'
+                elif 'username' in str(e):
+                    error = 'This username is already taken. Please choose another.'
+                else:
+                    error = 'Registration failed. Please try again.'
+    html = BASE_TEMPLATE.replace('{% block content %}{% endblock %}',
+        render_template_string(SIGNUP_TEMPLATE, error=error, success=success))
+    html = render_template_string(html, css_content=CSS_CONTENT, js_content=JS_CONTENT)
+    return html
+
+@app.route('/logout')
+def logout():
+    session.clear()
+    return redirect(url_for('home'))
 
 if __name__ == '__main__':
     print("=" * 50)
