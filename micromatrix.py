@@ -207,7 +207,11 @@ BASE_TEMPLATE = """<!DOCTYPE html>
     </style>
 </head>
 <body>
-    <!-- Header -->
+    <!-- Decorative Blobs -->
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+
     <header class="header">
         <div class="header-container">
             <!-- Logo on Left -->
@@ -1345,8 +1349,41 @@ CSS_CONTENT = """
     --shadow-sm: 0 2px 8px rgba(30,27,75,0.08);
     --shadow-md: 0 8px 28px rgba(30,27,75,0.12);
     --shadow-lg: 0 20px 60px rgba(30,27,75,0.18);
-    --shadow-glow: 0 0 30px rgba(124,58,237,0.25);
+    --shadow- glow: 0 0 30px rgba(124,58,237,0.25);
+    --glass-bg: rgba(255, 255, 255, 0.7);
+    --glass-border: rgba(255, 255, 255, 0.4);
 }
+
+/* Glassmorphism Effect */
+.glass {
+    background: var(--glass-bg) !important;
+    backdrop-filter: blur(12px) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(12px) saturate(180%) !important;
+    border: 1px solid var(--glass-border) !important;
+}
+
+/* Animated Floating Blobs */
+.blob {
+    position: fixed;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(124,58,237,0.1) 0%, transparent 70%);
+    border-radius: 50%;
+    z-index: -1;
+    filter: blur(50px);
+    pointer-events: none;
+    animation: blob-float 20s infinite alternate;
+}
+
+.blob-1 { top: -100px; left: -100px; animation-delay: 0s; }
+.blob-2 { bottom: -100px; right: -100px; background: radial-gradient(circle, rgba(6,182,212,0.1) 0%, transparent 70%); animation-delay: -5s; }
+.blob-3 { top: 40%; left: 30%; background: radial-gradient(circle, rgba(167,139,250,0.08) 0%, transparent 70%); animation-delay: -10s; }
+
+@keyframes blob-float {
+    from { transform: translate(0, 0) scale(1); }
+    to { transform: translate(100px, 50px) scale(1.1); }
+}
+
 
 * {
     margin: 0;
@@ -1661,6 +1698,9 @@ body {
     color: var(--navy-primary);
     position: relative;
     overflow: hidden;
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .hero-content::before {
