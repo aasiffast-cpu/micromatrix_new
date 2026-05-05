@@ -1900,13 +1900,13 @@ body {
 }
 
 .hero-section {
-    background: url('/static/images/hero_bg.png') no-repeat center center;
+    background: url('/static/images/services_bg.png') no-repeat center center;
     background-size: cover;
     color: var(--white-primary);
     padding: 6rem 2rem;
     margin-bottom: 3rem;
     position: relative;
-    box-shadow: inset 0 0 0 2000px rgba(15, 13, 46, 0.75); /* Dark overlay */
+    box-shadow: inset 0 0 0 2000px rgba(15, 13, 46, 0.78); /* Match services dark overlay */
 }
 
 .hero-badge {
