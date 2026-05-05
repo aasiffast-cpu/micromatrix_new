@@ -4946,10 +4946,26 @@ Message:
 ---
 This is an automated notification from your Micromatrix Admin Panel.
                 """
-                msg = Message(subject=subject,
-                             recipients=[OWNER_EMAIL],
-                             body=body)
-                mail.send(msg)
+                if app.config.get('MAIL_PASSWORD'):
+                    msg = Message(subject=subject,
+                                 recipients=[OWNER_EMAIL],
+                                 body=body)
+                    mail.send(msg)
+                else:
+                    # Fallback to FormSubmit API if no SMTP password is provided
+                    import urllib.request, json
+                    url = f"https://formsubmit.co/ajax/{OWNER_EMAIL}"
+                    payload = json.dumps({
+                        "name": name,
+                        "email": email,
+                        "phone": phone,
+                        "service": service,
+                        "budget": budget,
+                        "message": message,
+                        "_subject": subject
+                    }).encode('utf-8')
+                    req = urllib.request.Request(url, data=payload, headers={'Content-Type': 'application/json', 'Accept': 'application/json'})
+                    urllib.request.urlopen(req)
             except Exception as e:
                 print(f"Email sending failed: {str(e)}")
             
