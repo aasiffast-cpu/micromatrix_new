@@ -4984,7 +4984,8 @@ def api_reviews():
 
 @app.route('/api/chatbot', methods=['POST'])
 def chatbot():
-    user_message = request.json.get('message', '').lower().strip()
+    data = request.get_json(silent=True) or {}
+    user_message = data.get('message', '').lower().strip()
     if not user_message:
         return jsonify({'response': 'Please ask me a question about Micromatrix.'})
 
