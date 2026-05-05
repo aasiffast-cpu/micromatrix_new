@@ -1823,12 +1823,13 @@ body {
 }
 
 .hero-section {
-    background: radial-gradient(circle at top left, rgba(15, 38, 81, 0.18), transparent 34%),
-                linear-gradient(180deg, #ffffff 0%, #eef4ff 45%, #ffffff 100%);
-    color: var(--navy-primary);
-    padding: 4rem 2rem;
+    background: url('/static/images/hero_bg.png') no-repeat center center;
+    background-size: cover;
+    color: var(--white-primary);
+    padding: 6rem 2rem;
     margin-bottom: 3rem;
     position: relative;
+    box-shadow: inset 0 0 0 2000px rgba(15, 13, 46, 0.75); /* Dark overlay */
 }
 
 .hero-badge {
@@ -2263,10 +2264,13 @@ body {
 
 .services-hero,
 .contact-hero {
-    background: linear-gradient(135deg, var(--navy-primary) 0%, var(--navy-light) 100%);
+    background: url('/static/images/services_bg.png') no-repeat center center;
+    background-size: cover;
     color: var(--white-primary);
-    padding: 3rem 2rem;
+    padding: 5rem 2rem;
     text-align: center;
+    position: relative;
+    box-shadow: inset 0 0 0 2000px rgba(15, 13, 46, 0.78);
 }
 
 .services-hero h1,
@@ -2817,10 +2821,15 @@ body {
 }
 
 .about-hero {
-    padding: 4rem 2rem;
-    background: linear-gradient(135deg, rgba(15, 38, 81, 0.18), rgba(255, 255, 255, 0.98));
+    padding: 5rem 2rem;
+    background: url('/static/images/hero_bg.png') no-repeat center center;
+    background-size: cover;
     margin-bottom: 2rem;
     border-radius: 32px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: inset 0 0 0 2000px rgba(15, 13, 46, 0.72);
+    color: var(--white-primary);
 }
 
 .about-hero-content {
@@ -3596,7 +3605,8 @@ body {
 
 .auth-left {
     flex: 1;
-    background: linear-gradient(145deg, var(--navy-dark) 0%, var(--navy-primary) 50%, var(--navy-light) 100%);
+    background: url('/static/images/auth_bg.png') no-repeat center center;
+    background-size: cover;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -3604,6 +3614,7 @@ body {
     color: #fff;
     position: relative;
     overflow: hidden;
+    box-shadow: inset 0 0 0 2000px rgba(15, 13, 46, 0.72);
 }
 
 .auth-left::before {
