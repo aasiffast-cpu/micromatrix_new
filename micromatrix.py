@@ -36,54 +36,65 @@ OWNER_NAME = 'Asif - Micromatrix Admin'
 # =====================
 # DATABASE SETUP
 # =====================
-DB_NAME = 'micromatrix.db'
+# Use /tmp for database on Vercel since the filesystem is read-only
+if os.environ.get('VERCEL'):
+    DB_NAME = '/tmp/micromatrix.db'
+else:
+    DB_NAME = 'micromatrix.db'
 
 def init_db():
-    with sqlite3.connect(DB_NAME) as conn:
-        cursor = conn.cursor()
-        cursor.execute('''
-            CREATE TABLE IF NOT EXISTS users (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
-                username TEXT UNIQUE NOT NULL,
-                email TEXT UNIQUE NOT NULL,
-                password_hash TEXT NOT NULL,
-                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-            )
-        ''')
-        cursor.execute('''
-            CREATE TABLE IF NOT EXISTS messages (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
-                name TEXT NOT NULL,
-                email TEXT NOT NULL,
-                phone TEXT,
-                service TEXT,
-                budget TEXT,
-                message TEXT NOT NULL,
-                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-            )
-        ''')
-        cursor.execute('''
-            CREATE TABLE IF NOT EXISTS comments (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
-                user_id INTEGER NOT NULL,
-                content TEXT NOT NULL,
-                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                FOREIGN KEY (user_id) REFERENCES users (id)
-            )
-        ''')
-        
-        # Create default admin if not exists
-        admin_email = 'asifhavelilakha@gmail.com'
-        admin_pass = 'asif1632'
-        cursor.execute('SELECT id FROM users WHERE email = ?', (admin_email,))
-        if not cursor.fetchone():
-            cursor.execute(
-                'INSERT INTO users (username, email, password_hash) VALUES (?, ?, ?)',
-                ('Asif Admin', admin_email, generate_password_hash(admin_pass))
-            )
-        conn.commit()
+    try:
+        with sqlite3.connect(DB_NAME) as conn:
+            cursor = conn.cursor()
+            cursor.execute('''
+                CREATE TABLE IF NOT EXISTS users (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    username TEXT UNIQUE NOT NULL,
+                    email TEXT UNIQUE NOT NULL,
+                    password_hash TEXT NOT NULL,
+                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                )
+            ''')
+            cursor.execute('''
+                CREATE TABLE IF NOT EXISTS messages (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    name TEXT NOT NULL,
+                    email TEXT NOT NULL,
+                    phone TEXT,
+                    service TEXT,
+                    budget TEXT,
+                    message TEXT NOT NULL,
+                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                )
+            ''')
+            cursor.execute('''
+                CREATE TABLE IF NOT EXISTS comments (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_id INTEGER NOT NULL,
+                    content TEXT NOT NULL,
+                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                    FOREIGN KEY (user_id) REFERENCES users (id)
+                )
+            ''')
+            
+            # Create default admin if not exists
+            admin_email = 'asifhavelilakha@gmail.com'
+            admin_pass = 'asif1632'
+            cursor.execute('SELECT id FROM users WHERE email = ?', (admin_email,))
+            if not cursor.fetchone():
+                cursor.execute(
+                    'INSERT INTO users (username, email, password_hash) VALUES (?, ?, ?)',
+                    ('Asif Admin', admin_email, generate_password_hash(admin_pass))
+                )
+            conn.commit()
+    except Exception as e:
+        print(f"Database initialization failed: {str(e)}")
 
-init_db()
+# Initialize DB on startup
+try:
+    init_db()
+except:
+    pass
 
 # =====================
 # DATA STRUCTURES
