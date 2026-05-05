@@ -3810,15 +3810,57 @@ document.addEventListener('DOMContentLoaded', function() {
 // NAVIGATION TOGGLE
 // =====================
 
-function toggleMenu() {
+// =====================
+// NAVIGATION TOGGLE - IMPROVED
+// =====================
+
+window.toggleMenu = function() {
+    console.log('toggleMenu called');
     const sidebar = document.getElementById('sidebar');
     const overlay = document.getElementById('sidebarOverlay');
     const menuToggle = document.getElementById('menuToggle');
     
-    sidebar.classList.toggle('open');
-    overlay.classList.toggle('active');
-    menuToggle.classList.toggle('open');
-}
+    if (sidebar && overlay && menuToggle) {
+        sidebar.classList.toggle('open');
+        overlay.classList.toggle('active');
+        menuToggle.classList.toggle('open');
+        console.log('Sidebar state:', sidebar.classList.contains('open'));
+    } else {
+        console.error('Menu elements not found!');
+    }
+};
+
+// =====================
+// CHATBOT TOGGLE - IMPROVED
+// =====================
+
+window.chatbotOpen = false;
+window.toggleChatbot = function() {
+    console.log('toggleChatbot called');
+    const widget = document.getElementById('chatbotWidget');
+    if (widget) {
+        window.chatbotOpen = !window.chatbotOpen;
+        if (window.chatbotOpen) {
+            widget.style.display = 'flex';
+            widget.style.flexDirection = 'column';
+            widget.style.visibility = 'visible';
+            widget.style.opacity = '1';
+            widget.classList.add('active');
+        } else {
+            widget.style.opacity = '0';
+            setTimeout(() => {
+                if (!window.chatbotOpen) {
+                    widget.style.display = 'none';
+                    widget.style.visibility = 'hidden';
+                    widget.classList.remove('active');
+                }
+            }, 300);
+        }
+    } else {
+        console.error('Chatbot widget not found!');
+    }
+};
+
 
 document.querySelectorAll('.sidebar-link').forEach(link => {
     link.addEventListener('click', () => {
@@ -3952,34 +3994,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-// =====================
-// CHATBOT FUNCTIONALITY - FIXED
-// =====================
-
-let chatbotOpen = false;
-
-function toggleChatbot() {
-    const widget = document.getElementById('chatbotWidget');
-    const toggle = document.querySelector('.chatbot-toggle');
-    
-    if (widget) {
-        chatbotOpen = !chatbotOpen;
-        if (chatbotOpen) {
-            widget.classList.add('active');
-            widget.style.display = 'flex';
-            widget.style.flexDirection = 'column';
-            widget.style.visibility = 'visible';
-            widget.style.opacity = '1';
-        } else {
-            widget.classList.remove('active');
-            widget.style.opacity = '0';
-            setTimeout(() => {
-                widget.style.display = 'none';
-                widget.style.visibility = 'hidden';
-            }, 300);
-        }
-    }
-}
+// Chatbot functionality is now moved to the top for reliability
 
 function sendChatbotMessage() {
     const input = document.getElementById('chatbotInput');
