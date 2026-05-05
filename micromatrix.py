@@ -4748,7 +4748,6 @@ if ('serviceWorker' in navigator) {
         console.log('[PWA] App was installed successfully');
     });
 }
-}
 
 // =====================
 // NEW REAL-TIME EFFECTS
