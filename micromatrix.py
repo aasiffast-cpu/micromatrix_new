@@ -215,7 +215,10 @@ BASE_TEMPLATE = """<!DOCTYPE html>
     <header class="header">
         <div class="header-container">
             <!-- Logo on Left -->
-            <div class="logo-header">
+            <div class="logo-header" onclick="window.location.href='/home'">
+                <div class="logo-img-wrap">
+                    <img src="/static/images/logo.png" alt="Micromatrix Logo" class="logo-img animated-logo">
+                </div>
                 <div class="company-info">
                     <h1>MICROMATRIX</h1>
                     <p>INNOVATIVE</p>
@@ -1432,6 +1435,43 @@ CSS_CONTENT = """
 .notif-content span {
     font-size: 0.75rem;
     color: var(--text-light);
+}
+
+/* ---- Animated Logo ---- */
+.logo-img-wrap {
+    position: relative;
+    width: 52px;
+    height: 52px;
+    flex-shrink: 0;
+}
+
+.logo-img {
+    width: 52px;
+    height: 52px;
+    object-fit: contain;
+    border-radius: 12px;
+}
+
+.animated-logo {
+    animation: logo-float 3s ease-in-out infinite, logo-glow 3s ease-in-out infinite;
+    filter: drop-shadow(0 0 8px rgba(161,130,221,0.8));
+}
+
+@keyframes logo-float {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-6px) rotate(3deg); }
+}
+
+@keyframes logo-glow {
+    0%, 100% { filter: drop-shadow(0 0 6px rgba(161,130,221,0.7)); }
+    50% { filter: drop-shadow(0 0 18px rgba(91,194,197,1)) drop-shadow(0 0 30px rgba(161,130,221,0.5)); }
+}
+
+.logo-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    cursor: pointer;
 }
 
 /* Custom Cursor Glow */
