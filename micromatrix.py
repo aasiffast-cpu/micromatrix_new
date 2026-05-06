@@ -4,7 +4,7 @@ All backend, frontend, HTML, CSS, and JavaScript combined into a single Python f
 Flask Application with Embedded Templates and Assets
 """
 
-from flask import Flask, render_template_string, request, jsonify, redirect, url_for, session, flash
+from flask import Flask, render_template_string, request, jsonify, redirect, url_for, session, flash, Response, send_from_directory
 from flask_mail import Mail, Message
 from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime
@@ -228,6 +228,31 @@ BASE_TEMPLATE = """<!DOCTYPE html>
     <link rel="manifest" href="/static/manifest.json">
     <link rel="shortcut icon" href="/static/images/logo.png" type="image/png">
     <link rel="apple-touch-icon" href="/static/images/logo.png">
+    <link rel="canonical" href="{{ request.url }}">
+    
+    <!-- JSON-LD Structured Data for SEO -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Micromatrix",
+      "url": "https://micromatrix.vercel.app/",
+      "logo": "https://micromatrix.vercel.app/static/images/logo.png",
+      "description": "Micromatrix is an innovative technology company specializing in custom software solutions, web development, AI/ML, and cloud services.",
+      "address": {
+        "@type": "PostalAddress",
+        "addressCountry": "Pakistan"
+      },
+      "founder": {
+        "@type": "Person",
+        "name": "Muhammad Asif"
+      },
+      "foundingDate": "2020",
+      "sameAs": [
+        "https://www.linkedin.com/company/micromatrix"
+      ]
+    }
+    </script>
     <meta name="theme-color" content="#2A275D">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -4776,7 +4801,7 @@ if ('serviceWorker' in navigator) {
         banner.id = 'pwa-install-banner';
         banner.innerHTML = `
             <div style="display:flex;align-items:center;gap:1rem;">
-                <img src="/static/images/logo.png" style="width:40px;height:40px;border-radius:8px;">
+                                    <img src="/static/images/logo.png" alt="Micromatrix Logo" style="width:40px;height:40px;border-radius:8px;">
                 <div>
                     <strong style="display:block;">Install Micromatrix App</strong>
                     <span style="font-size:0.8rem;opacity:0.8;">Add to your home screen for quick access</span>
@@ -5178,6 +5203,26 @@ def signup():
 def logout():
     session.clear()
     return redirect(url_for('home'))
+
+@app.route('/sitemap.xml')
+def sitemap():
+    pages = []
+    # Dynamic sitemap generation
+    for rule in app.url_map.iter_rules():
+        if "GET" in rule.methods and len(rule.arguments) == 0:
+            if not any(x in rule.rule for x in ['/admin', '/api', '/logout', '/sitemap', '/robots']):
+                pages.append(["https://micromatrix.vercel.app" + rule.rule, datetime.now().strftime('%Y-%m-%d')])
+    
+    sitemap_xml = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+    for page in pages:
+        sitemap_xml += f'  <url>\n    <loc>{page[0]}</loc>\n    <lastmod>{page[1]}</lastmod>\n    <changefreq>weekly</changefreq>\n    <priority>0.8</priority>\n  </url>\n'
+    sitemap_xml += '</urlset>'
+    
+    return Response(sitemap_xml, mimetype='application/xml')
+
+@app.route('/robots.txt')
+def robots():
+    return send_from_directory(app.static_folder, 'robots.txt')
 
 if __name__ == '__main__':
     print("=" * 50)

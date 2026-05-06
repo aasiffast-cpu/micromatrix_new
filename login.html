@@ -29,6 +29,23 @@
 
     <link rel="shortcut icon" href="/static/images/logo.png" type="image/png">
     <link rel="apple-touch-icon" href="/static/images/logo.png">
+    <link rel="canonical" href="https://micromatrix.vercel.app/login">
+    
+    <!-- JSON-LD Structured Data for SEO -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Micromatrix",
+      "url": "https://micromatrix.vercel.app/",
+      "logo": "https://micromatrix.vercel.app/static/images/logo.png",
+      "description": "Login to your Micromatrix account to manage your projects, track orders, and access 24/7 premium enterprise support.",
+      "address": {
+        "@type": "PostalAddress",
+        "addressCountry": "Pakistan"
+      }
+    }
+    </script>
     <meta name="theme-color" content="#2A275D">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -3173,7 +3190,7 @@ function togglePassword(inputId, button) {
             banner.id = 'pwa-install-banner';
             banner.innerHTML = `
                 <div style="display:flex;align-items:center;gap:1rem;">
-                    <img src="/static/images/logo.png" style="width:40px;height:40px;border-radius:8px;">
+                                    <img src="/static/images/logo.png" alt="Micromatrix Logo" style="width:40px;height:40px;border-radius:8px;">
                     <div>
                         <strong style="display:block;">Install Micromatrix App</strong>
                         <span style="font-size:0.8rem;opacity:0.8;">Add to your home screen for quick access</span>

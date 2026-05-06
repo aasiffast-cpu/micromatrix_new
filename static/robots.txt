@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /api/
+Disallow: /logout
+
+Sitemap: https://micromatrix.vercel.app/sitemap.xml
