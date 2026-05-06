@@ -2012,17 +2012,16 @@ body {
 }
 
 .cta-button.secondary {
-    background: transparent;
-    border: 2px solid var(--accent-purple);
-    color: var(--navy-primary);
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
-    box-shadow: none;
+    background: linear-gradient(135deg, var(--accent-cyan) 0%, #0891B2 100%);
+    border: none;
+    color: #ffffff;
+    box-shadow: 0 4px 15px rgba(91, 194, 197, 0.35);
 }
 
 .cta-button.secondary:hover {
-    background: var(--accent-purple);
-    color: #fff;
+    background: linear-gradient(135deg, #0891B2 0%, var(--accent-purple) 100%);
+    box-shadow: 0 12px 30px rgba(91, 194, 197, 0.45);
+    transform: translateY(-3px);
 }
 
 .cta-button-large {
