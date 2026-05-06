@@ -1925,30 +1925,29 @@ body {
 }
 
 .hero-content {
-    background: linear-gradient(145deg, #ffffff 0%, #f0f4ff 100%);
-    padding: 3rem;
-    border-radius: 24px;
-    box-shadow: 0 24px 70px rgba(30,27,75,0.14);
-    border-left: 6px solid var(--accent-purple);
+    padding: 3.5rem;
+    border-radius: 28px;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.6), inset 0 0 40px rgba(161, 130, 221, 0.15);
+    border-left: 8px solid var(--accent-purple);
     display: flex;
     flex-direction: column;
     justify-content: center;
-    color: var(--navy-primary);
+    color: #ffffff;
     position: relative;
     overflow: hidden;
-    background: rgba(255, 255, 255, 0.6);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
+    background: rgba(15, 13, 46, 0.85); /* Deep rich dark glass */
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(161, 130, 221, 0.4); /* Glowing purple border */
 }
 
 .hero-content::before {
     content: '';
     position: absolute;
-    top: -60px;
-    right: -60px;
-    width: 200px;
-    height: 200px;
-    background: radial-gradient(circle, rgba(124,58,237,0.1) 0%, transparent 70%);
+    top: -80px;
+    right: -80px;
+    width: 250px;
+    height: 250px;
+    background: radial-gradient(circle, rgba(91, 194, 197, 0.25) 0%, transparent 70%);
     border-radius: 50%;
     pointer-events: none;
 }
@@ -1956,22 +1955,27 @@ body {
 .hero-content h1 {
     font-size: 5rem;
     margin-bottom: 1.5rem;
-    font-weight: 800;
+    font-weight: 900;
     line-height: 1.1;
-    text-align: center;
+    text-align: left;
+    text-shadow: 0 4px 20px rgba(0,0,0,0.5);
 }
 
 .hero-subtitle {
-    font-size: 1.6rem;
-    margin-bottom: 1rem;
-    opacity: 0.95;
+    font-size: 1.8rem;
+    margin-bottom: 1.2rem;
+    font-weight: 700;
+    color: var(--accent-cyan);
+    text-shadow: 0 2px 10px rgba(91, 194, 197, 0.3);
 }
 
 .hero-description {
-    font-size: 1.25rem;
-    margin-bottom: 2rem;
-    opacity: 0.9;
-    max-width: 750px;
+    font-size: 1.35rem;
+    margin-bottom: 2.5rem;
+    color: #e2e8f0;
+    line-height: 1.7;
+    font-weight: 500;
+    max-width: 800px;
 }
 
 .hero-actions {
@@ -2045,25 +2049,36 @@ body {
 .hero-highlights {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 1rem;
+    gap: 1.2rem;
 }
 
 .hero-highlights div {
-    background: rgba(255, 255, 255, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(161, 130, 221, 0.2);
     border-radius: 18px;
-    padding: 1.25rem;
+    padding: 1.5rem;
+    backdrop-filter: blur(8px);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.hero-highlights div:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(161, 130, 221, 0.2);
+    border-color: var(--accent-cyan);
 }
 
 .hero-highlights h4 {
-    margin-bottom: 0.5rem;
-    color: var(--navy-primary);
+    margin-bottom: 0.8rem;
+    color: #ffffff;
+    font-weight: 800;
+    font-size: 1.15rem;
 }
 
 .hero-highlights p {
-    color: var(--text-light);
-    font-size: 0.95rem;
+    color: #cbd5e1;
+    font-size: 1rem;
     margin: 0;
+    line-height: 1.5;
 }
 
 .company-overview {
@@ -3444,33 +3459,41 @@ body {
 .founder-mini-card {
     display: flex;
     align-items: center;
-    gap: 1rem;
-    background: #f4f4f4;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    padding: 0.85rem 1.2rem;
-    margin-top: 1.5rem;
-    max-width: 420px;
+    gap: 1.2rem;
+    background: linear-gradient(135deg, rgba(161, 130, 221, 0.15) 0%, rgba(91, 194, 197, 0.05) 100%);
+    border: 1px solid rgba(161, 130, 221, 0.4);
+    border-radius: 14px;
+    padding: 1rem 1.5rem;
+    margin-top: 2rem;
+    max-width: 450px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    backdrop-filter: blur(10px);
 }
 
 .founder-mini-avatar {
-    width: 44px;
-    height: 44px;
-    min-width: 44px;
-    background: #111;
+    width: 50px;
+    height: 50px;
+    min-width: 50px;
+    background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan));
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     color: #fff;
-    font-size: 1.3rem;
+    font-size: 1.5rem;
+    box-shadow: 0 4px 15px rgba(161, 130, 221, 0.4);
+}
+
+.founder-mini-card strong {
+    color: #ffffff;
+    font-size: 1.1rem;
 }
 
 .founder-mini-tag {
     display: block;
-    font-size: 0.85rem;
-    color: #666;
-    margin-top: 0.2rem;
+    font-size: 0.9rem;
+    color: #cbd5e1;
+    margin-top: 0.3rem;
 }
 
 @media (max-width: 768px) {
