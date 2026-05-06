@@ -433,7 +433,9 @@ HOME_TEMPLATE = """
         <div class="hero-content hero-content-wide">
 <div class="hero-badge">Welcome to Micromatrix</div>
             <div class="hero-title-container">
-                <h1><span id="micromatrix-text">Micromatrix</span></h1>
+                <h1 class="animated-hero-title">
+                    <span class="anim-micro">Micro</span><span class="anim-matri">matri</span><span class="anim-x">x</span>
+                </h1>
             </div>
             <p class="hero-subtitle">Your Partner in Digital Innovation</p>
             <p class="hero-description">Transforming businesses through cutting-edge technology solutions with premium design, AI, cloud services, and enterprise-grade software.</p>
@@ -3573,22 +3575,57 @@ body {
     display: block;
 }
 
-#welcome-text, #micromatrix-text {
+#welcome-text {
     display: inline-block;
     opacity: 1;
-}
-
-#welcome-text {
     color: var(--accent-purple);
     font-weight: 700;
 }
 
-#micromatrix-text {
-    color: #ffffff;
-    background-color: var(--accent-blue);
-    padding: 0.2rem 1.5rem;
-    font-weight: 700;
+.animated-hero-title {
+    display: inline-flex;
+    overflow: hidden;
+    padding: 0.2rem 0; /* Prevents shadow clipping */
+    margin-bottom: 1.5rem;
+    font-size: 5rem;
+    font-weight: 900;
+    line-height: 1.1;
+    text-align: left;
+    text-shadow: 0 4px 20px rgba(0,0,0,0.5);
+}
+
+.anim-micro, .anim-matri, .anim-x {
     display: inline-block;
+    color: #ffffff;
+    background: transparent;
+    font-weight: 900;
+}
+
+.anim-micro {
+    animation: slideMicro 1s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+.anim-matri {
+    animation: slideMatri 1s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+.anim-x {
+    animation: slideX 1s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+@keyframes slideMicro {
+    0% { transform: translateX(-150%); opacity: 0; }
+    100% { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes slideMatri {
+    0% { transform: translateX(150%); opacity: 0; }
+    100% { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes slideX {
+    0% { transform: translateY(-150%); opacity: 0; }
+    100% { transform: translateY(0); opacity: 1; }
 }
 
 /* =====================
@@ -4103,18 +4140,7 @@ function animateSlideIn(element, startX, duration, delay) {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-    const welcomeText = document.getElementById('welcome-text');
-    const micromatrixText = document.getElementById('micromatrix-text');
-    // Simple fade-in instead of slide from outside to avoid clipping
-    if(micromatrixText) {
-        micromatrixText.style.opacity = '0';
-        micromatrixText.style.transform = 'scale(0.8)';
-        micromatrixText.style.transition = 'all 0.8s ease';
-        setTimeout(() => {
-            micromatrixText.style.opacity = '1';
-            micromatrixText.style.transform = 'scale(1)';
-        }, 300);
-    }
+    // Initial load logic here
 });
 
 // =====================
