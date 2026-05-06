@@ -226,6 +226,8 @@ BASE_TEMPLATE = """<!DOCTYPE html>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
     <link rel="manifest" href="/static/manifest.json">
+    <link rel="shortcut icon" href="/static/images/logo.png" type="image/png">
+    <link rel="apple-touch-icon" href="/static/images/logo.png">
     <meta name="theme-color" content="#2A275D">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
