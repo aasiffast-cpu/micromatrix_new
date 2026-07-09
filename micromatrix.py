@@ -21,16 +21,19 @@ app.config['SECRET_KEY'] = "micromatrix_secret_key_2026"
 app.config['DEBUG'] = True
 
 # Email Configuration
-app.config['MAIL_SERVER'] = os.environ.get('MAIL_SERVER', 'smtp.gmail.com')
-app.config['MAIL_PORT'] = int(os.environ.get('MAIL_PORT', 587))
-app.config['MAIL_USE_TLS'] = os.environ.get('MAIL_USE_TLS', True)
-app.config['MAIL_USERNAME'] = os.environ.get('MAIL_USERNAME', 'asifhavelilakha@gmail.com')
-app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD', '') # SET THIS IN ENV VAR
-app.config['MAIL_DEFAULT_SENDER'] = os.environ.get('MAIL_DEFAULT_SENDER', 'asifhavelilakha@gmail.com')
+GMAIL_APP_PASSWORD = os.environ.get('MAIL_PASSWORD', '')  # Set via env var OR directly below
+# TO SET DIRECTLY: replace '' above with your Gmail App Password in quotes
+
+app.config['MAIL_SERVER'] = 'smtp.gmail.com'
+app.config['MAIL_PORT'] = 587
+app.config['MAIL_USE_TLS'] = True
+app.config['MAIL_USERNAME'] = 'asifhavelilakha@gmail.com'
+app.config['MAIL_PASSWORD'] = GMAIL_APP_PASSWORD
+app.config['MAIL_DEFAULT_SENDER'] = ('Micromatrix Contact Form', 'asifhavelilakha@gmail.com')
 
 mail = Mail(app)
 
-OWNER_EMAIL = 'fa24-bcs-161@students.cuisahiwal.edu.pk'
+OWNER_EMAIL = 'asifhavelilakha@gmail.com'
 OWNER_NAME = 'Asif - Micromatrix Admin'
 
 # =====================
@@ -289,16 +292,10 @@ BASE_TEMPLATE = """<!DOCTYPE html>
                     <a href="/about" class="nav-link">About</a>
                     <a href="/services" class="nav-link">Services</a>
                     <a href="/contact" class="nav-link">Contact Us</a>
-                    {% if session.get('user_id') %}
-                        {% if session.get('email') == 'asifhavelilakha@gmail.com' %}
+                    {% if session.get('user_id') and session.get('email') == 'asifhavelilakha@gmail.com' %}
                         <a href="/admin" class="nav-btn nav-btn-admin" style="background: var(--accent-yellow); color: var(--navy-dark);"><i class="fas fa-user-shield"></i> Admin Panel</a>
-                        {% endif %}
-                        <span class="nav-user"><i class="fas fa-user-circle"></i> {{ session.get('username', 'User') }}</span>
-                        <a href="/logout" class="nav-btn nav-btn-logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
-                    {% else %}
-                    <a href="/login" class="nav-btn nav-btn-login"><i class="fas fa-sign-in-alt"></i> Login</a>
-                    <a href="/signup" class="nav-btn nav-btn-signup"><i class="fas fa-user-plus"></i> Sign Up</a>
                     {% endif %}
+                    <a href="/contact" class="nav-btn nav-btn-cta"><i class="fas fa-rocket"></i> Get Started</a>
                 </nav>
 
                 <!-- Hamburger Toggle Button (Right Side) -->
@@ -344,12 +341,10 @@ BASE_TEMPLATE = """<!DOCTYPE html>
             <a href="/about" class="sidebar-link"><i class="fas fa-info-circle"></i> About</a>
             <a href="/services" class="sidebar-link"><i class="fas fa-cogs"></i> Services</a>
             <a href="/contact" class="sidebar-link"><i class="fas fa-envelope"></i> Contact Us</a>
-            {% if session.get('user_id') %}
-            <a href="/logout" class="sidebar-link"><i class="fas fa-sign-out-alt"></i> Logout</a>
-            {% else %}
-            <a href="/login" class="sidebar-link"><i class="fas fa-sign-in-alt"></i> Login</a>
-            <a href="/signup" class="sidebar-link"><i class="fas fa-user-plus"></i> Sign Up</a>
+            {% if session.get('user_id') and session.get('email') == 'asifhavelilakha@gmail.com' %}
+            <a href="/admin" class="sidebar-link"><i class="fas fa-user-shield"></i> Admin Panel</a>
             {% endif %}
+            <a href="/contact" class="sidebar-link sidebar-cta"><i class="fas fa-rocket"></i> Get Started</a>
         </nav>
     </aside>
 
@@ -458,126 +453,33 @@ HOME_TEMPLATE = """
 <div class="hero-section">
     <div class="home-hero-grid">
         <div class="hero-content hero-content-wide">
-<div class="hero-badge">Welcome to Micromatrix</div>
+<span class="hero-badge"><i class="fas fa-microchip"></i> &nbsp; AI-First Technology Company</span>
             <div class="hero-title-container">
                 <h1 class="animated-hero-title">
                     <span class="anim-micro">Micro</span><span class="anim-matri">matri</span><span class="anim-x">x</span>
                 </h1>
             </div>
-            <p class="hero-subtitle">Your Partner in Digital Innovation</p>
-            <p class="hero-description">Transforming businesses through cutting-edge technology solutions with premium design, AI, cloud services, and enterprise-grade software.</p>
+            <p class="hero-subtitle">We Build the Future with Artificial Intelligence</p>
+            <p class="hero-description">Transforming businesses with cutting-edge AI, machine learning, intelligent automation, and enterprise-grade software solutions. Your vision, powered by AI.</p>
             <div class="hero-actions">
-                <a href="/services" class="cta-button">Explore Our Services</a>
-                <a href="/contact" class="cta-button secondary">Request Consultation</a>
+                <a href="/services" class="cta-button"><i class="fas fa-robot"></i> Explore AI Services</a>
+                <a href="/contact" class="cta-button secondary"><i class="fas fa-comment-dots"></i> Free Consultation</a>
             </div>
             <div class="hero-highlights">
                 <div>
-                    <h4>15 Expert Services</h4>
-                    <p>From software to AI, cloud, fintech and custom automation.</p>
+                    <h4>🧠 AI & Machine Learning</h4>
+                    <p>Custom AI models, chatbots, and intelligent automation systems.</p>
                 </div>
                 <div>
-                    <h4>Remote Global Team</h4>
-                    <p>Delivered by a distributed team with modern collaboration.</p>
+                    <h4>⚡ Rapid Deployment</h4>
+                    <p>From idea to production-ready AI solution in record time.</p>
                 </div>
                 <div>
-                    <h4>Quality First</h4>
-                    <p>Designed for trust, performance, and long-term success.</p>
+                    <h4>🌐 Global AI Team</h4>
+                    <p>Remote-first AI experts serving clients across 20+ countries.</p>
                 </div>
             </div>
             <div class="founder-mini-card">
-                <div class="founder-mini-avatar"><i class="fas fa-user-tie"></i></div>
-                <div>
-                    <strong>Muhammad Asif</strong> &mdash; Founder &amp; CEO
-                    <span class="founder-mini-tag"><i class="fas fa-map-marker-alt"></i> Pakistan &nbsp;|&nbsp; <i class="fas fa-calendar-alt"></i> Est. 2020</span>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Company Overview -->
-<section class="company-overview">
-    <h2>About Micromatrix</h2>
-    <div class="overview-grid">
-        <div class="overview-card">
-            <div class="card-icon"><i class="fas fa-globe-americas"></i></div>
-            <h3>Global Remote Company</h3>
-            <p>Operating worldwide with a distributed team of talented professionals</p>
-        </div>
-        <div class="overview-card">
-            <div class="card-icon"><i class="fas fa-bolt"></i></div>
-            <h3>Fast & Reliable</h3>
-            <p>Quick turnaround times without compromising on quality</p>
-        </div>
-        <div class="overview-card">
-            <div class="card-icon"><i class="fas fa-lock"></i></div>
-            <h3>Secure Solutions</h3>
-            <p>Enterprise-grade security for all our services and projects</p>
-        </div>
-        <div class="overview-card">
-            <div class="card-icon"><i class="fas fa-rocket"></i></div>
-            <h3>Innovation Focused</h3>
-            <p>Always using the latest technologies for modern solutions</p>
-        </div>
-    </div>
-</section>
-
-<!-- Customer Reviews & Ratings -->
-<section id="review-section" class="reviews-section">
-    <h2>Customer Reviews & Ratings</h2>
-    <div class="reviews-container">
-        {% for review in reviews %}
-        <div class="review-card">
-            <div class="review-header">
-                <div class="reviewer-info">
-                    <div class="avatar">{{ review.image|safe }}</div>
-                    <div>
-                        <h4>{{ review.name }}</h4>
-                        <p class="company">{{ review.company }}</p>
-                    </div>
-                </div>
-                <div class="rating">
-                    <span class="stars">
-                        {% if review.rating >= 5 %}⭐⭐⭐⭐⭐{% elif review.rating >= 4 %}⭐⭐⭐⭐{% elif review.rating >= 3 %}⭐⭐⭐{% elif review.rating >= 2 %}⭐⭐{% else %}⭐{% endif %}
-                    </span>
-                    <span class="rating-value">{{ review.rating }}/5</span>
-                </div>
-            </div>
-            <p class="review-text">"{{ review.text }}"</p>
-        </div>
-        {% endfor %}
-    </div>
-
-    <div class="average-rating">
-        <h3>Overall Rating</h3>
-        <div class="rating-display">
-            <span class="big-rating">4.9</span>
-            <span class="out-of">/5.0</span>
-        </div>
-        <p>Based on customer reviews</p>
-    </div>
-</section>
-
-<!-- Quick Stats -->
-<section class="stats-section">
-    <div class="stat-card">
-        <h3>100+</h3>
-        <p>Projects Delivered</p>
-    </div>
-    <div class="stat-card">
-        <h3>15</h3>
-        <p>Service Categories</p>
-    </div>
-    <div class="stat-card">
-        <h3>24/7</h3>
-        <p>Support Available</p>
-    </div>
-    <div class="stat-card">
-        <h3>∞</h3>
-        <p>Global Reach</p>
-    </div>
-</section>
-
 <!-- Services Showcase Section -->
 <section id="services-highlights" class="services-showcase">
     <div class="showcase-header">
@@ -668,9 +570,14 @@ HOME_TEMPLATE = """
 
 <!-- Call to Action -->
 <section class="cta-section">
-    <h2>Ready to Transform Your Business?</h2>
-    <p>Let's discuss your project and explore how Micromatrix can help you achieve your goals</p>
-    <a href="/contact" class="cta-button-large">Contact Us Today</a>
+    <div class="cta-neural-bg"></div>
+    <span class="cta-tag"><i class="fas fa-microchip"></i> AI-Powered Solutions</span>
+    <h2>Ready to Supercharge Your Business with AI?</h2>
+    <p>Join 100+ businesses that trust Micromatrix to build intelligent, scalable AI solutions. Let's create something extraordinary together.</p>
+    <div class="cta-actions-row">
+        <a href="/contact" class="cta-button-large"><i class="fas fa-rocket"></i> &nbsp;Start Your AI Journey</a>
+        <a href="/services" class="cta-button-large cta-outline"><i class="fas fa-search"></i> &nbsp;Explore AI Services</a>
+    </div>
 </section>
 
 """
@@ -1430,27 +1337,30 @@ ADMIN_TEMPLATE = """
 CSS_CONTENT = """
 :root {
     --navy-primary: #1E1B4B;
-    --navy-dark:    #0F0D2E;
+    --navy-dark:    #0A0A1A;
     --navy-light:   #312E81;
-    --white-primary:  #F8F7FF;
-    --white-secondary: #FFFFFF;
+    --white-primary:  #F0EEFF;
+    --white-secondary: #F8F7FF;
     --accent-purple:  #7C3AED;
     --accent-violet:  #A78BFA;
-    --accent-blue:    #06B6D4;
+    --accent-blue:    #00D4FF;
+    --accent-cyan:    #00D4FF;
     --accent-teal:    #14B8A6;
     --accent-yellow:  #FBBF24;
     --accent-red:     #F43F5E;
     --accent-green:   #10B981;
+    --accent-pink:    #FF00AA;
     --text-dark:    #1E1B4B;
     --text-light:   #6B7280;
     --border-color: #E0E7FF;
     --success-color: #10B981;
     --error-color:  #F43F5E;
-    --gradient-hero: linear-gradient(135deg, #0F0D2E 0%, #1E1B4B 40%, #312E81 75%, #1E40AF 100%);
-    --gradient-card: linear-gradient(145deg, #ffffff 0%, #f0f4ff 100%);
-    --shadow-glow: 0 0 30px rgba(124,58,237,0.25);
-    --glass-bg: rgba(255, 255, 255, 0.7);
-    --glass-border: rgba(255, 255, 255, 0.4);
+    --gradient-hero: linear-gradient(135deg, #0A0A1A 0%, #1A0A2E 40%, #0F0D2E 75%, #1E1B4B 100%);
+    --gradient-card: linear-gradient(145deg, rgba(124,58,237,0.08) 0%, rgba(0,212,255,0.05) 100%);
+    --shadow-glow: 0 0 40px rgba(124,58,237,0.35);
+    --shadow-cyan: 0 0 30px rgba(0,212,255,0.25);
+    --glass-bg: rgba(10, 10, 30, 0.7);
+    --glass-border: rgba(124, 58, 237, 0.3);
 }
 
 /* Real-time Notification Toasts */
@@ -1663,22 +1573,37 @@ html {
 
 body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    background-color: var(--white-primary);
-    color: var(--text-dark);
+    background: linear-gradient(135deg, #0A0A1A 0%, #0D0A24 50%, #0A0A1A 100%);
+    background-attachment: fixed;
+    color: #E2E8F0;
     line-height: 1.7;
     font-size: 1.05rem;
 }
 
+/* Neural network animated grid background */
+body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(124,58,237,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(124,58,237,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    z-index: -2;
+    pointer-events: none;
+}
+
 .header {
-    background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy-primary) 60%, var(--navy-light) 100%);
+    background: rgba(10, 10, 26, 0.92);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     color: var(--white-primary);
     padding: 0.9rem 2rem;
-    box-shadow: 0 4px 20px rgba(15,13,46,0.35);
+    box-shadow: 0 4px 30px rgba(124,58,237,0.2), 0 1px 0 rgba(124,58,237,0.3);
     position: sticky;
     top: 0;
     z-index: 1000;
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(124,58,237,0.2);
+    border-bottom: 1px solid rgba(124,58,237,0.25);
 }
 
 .header-container {
@@ -1870,10 +1795,11 @@ body {
 }
 
 .footer {
-    background: var(--navy-primary);
-    color: var(--white-primary);
+    background: linear-gradient(180deg, #0D0A24 0%, #0A0A1A 100%);
+    color: rgba(255,255,255,0.85);
     padding: 3rem 2rem 1rem;
     margin-top: 4rem;
+    border-top: 1px solid rgba(124,58,237,0.2);
 }
 
 .footer-content {
@@ -1888,7 +1814,9 @@ body {
 .footer-section h3,
 .footer-section h4 {
     margin-bottom: 1rem;
-    color: var(--accent-purple);
+    color: var(--accent-cyan);
+    font-weight: 700;
+    letter-spacing: 1px;
 }
 
 .footer-section p {
@@ -2110,8 +2038,8 @@ body {
 }
 
 .company-overview {
-    padding: 4rem 2rem;
-    background: linear-gradient(180deg, var(--white-secondary) 0%, var(--white-primary) 100%);
+    padding: 5rem 2rem;
+    background: linear-gradient(180deg, #0D0A24 0%, #0A0A1A 100%);
     position: relative;
 }
 
@@ -2123,9 +2051,22 @@ body {
 .faq-section h2,
 .quick-contact h2 {
     text-align: center;
-    font-size: 2.5rem;
-    color: var(--navy-primary);
+    font-size: 2.8rem;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 900;
+    background: linear-gradient(135deg, #fff 0%, var(--accent-cyan) 50%, var(--accent-violet) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
     margin-bottom: 0.5rem;
+}
+
+.section-subtitle {
+    text-align: center;
+    color: rgba(255,255,255,0.5);
+    font-size: 1.1rem;
+    margin-bottom: 3rem;
+    margin-top: 0.5rem;
 }
 
 .overview-grid,
@@ -2145,43 +2086,86 @@ body {
 .overview-card,
 .detail-card,
 .quick-card {
-    background: var(--white-primary);
-    padding: 2rem;
-    border-radius: 10px;
+    background: rgba(15, 12, 40, 0.7);
+    padding: 2.5rem;
+    border-radius: 20px;
     text-align: center;
-    transition: all 0.3s ease;
-    border: 2px solid transparent;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    transition: all 0.4s ease;
+    border: 1px solid rgba(124,58,237,0.2);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    backdrop-filter: blur(10px);
+    position: relative;
+    overflow: hidden;
+}
+
+.overview-card::before,
+.detail-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--gradient-card);
+    border-radius: 20px;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.overview-card:hover::before {
+    opacity: 1;
 }
 
 .overview-card:hover,
 .detail-card:hover,
 .quick-card:hover {
-    transform: translateY(-5px);
-    border-color: var(--accent-purple);
-    box-shadow: 0 10px 30px rgba(124, 58, 237, 0.2);
+    transform: translateY(-10px);
+    border-color: var(--accent-cyan);
+    box-shadow: 0 20px 50px rgba(0,212,255,0.2), 0 0 0 1px rgba(0,212,255,0.15);
 }
 
 .card-icon,
 .detail-icon,
 .quick-icon {
     font-size: 2.5rem;
-    margin-bottom: 1rem;
+    margin-bottom: 1.2rem;
+    display: block;
+}
+
+.ai-icon {
+    width: 70px;
+    height: 70px;
+    margin: 0 auto 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 18px;
+    font-size: 2rem;
+    background: linear-gradient(135deg, rgba(124,58,237,0.3) 0%, rgba(0,212,255,0.2) 100%);
+    border: 1px solid rgba(0,212,255,0.3);
+    animation: ai-icon-pulse 3s ease-in-out infinite;
+}
+
+@keyframes ai-icon-pulse {
+    0%, 100% { box-shadow: 0 0 15px rgba(124,58,237,0.3); }
+    50% { box-shadow: 0 0 30px rgba(0,212,255,0.5), 0 0 60px rgba(124,58,237,0.2); }
 }
 
 .overview-card h3,
 .detail-card h4,
 .quick-card h4 {
-    color: var(--navy-primary);
-    margin-bottom: 0.5rem;
+    color: #ffffff;
+    margin-bottom: 0.75rem;
+    font-size: 1.2rem;
+    font-weight: 700;
 }
 
 .overview-card p,
 .detail-card p,
 .quick-card p {
-    color: var(--text-light);
-    font-size: 1.1rem;
+    color: rgba(255,255,255,0.6);
+    font-size: 1rem;
+    line-height: 1.6;
 }
+
+
 
 .reviews-section {
     padding: 3rem 2rem;
@@ -2296,93 +2280,143 @@ body {
 .stats-section {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 2rem;
-    padding: 3rem 2rem;
-    background: linear-gradient(135deg, var(--navy-primary), var(--navy-light));
-    margin: 3rem auto;
-    max-width: 1400px;
+    gap: 0;
+    padding: 4rem 2rem;
+    background: linear-gradient(135deg, #0D0A24 0%, #120830 50%, #0A0A1A 100%);
+    margin: 0;
+    position: relative;
+    border-top: 1px solid rgba(124,58,237,0.15);
+    border-bottom: 1px solid rgba(0,212,255,0.1);
+}
+
+.stats-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at center, rgba(124,58,237,0.1) 0%, transparent 70%);
+    pointer-events: none;
 }
 
 .stat-card {
-    background: rgba(255, 255, 255, 0.1);
-    padding: 2rem;
-    border-radius: 10px;
+    padding: 2.5rem;
     text-align: center;
-    color: var(--white-primary);
-    border: 2px solid rgba(255, 255, 255, 0.2);
-    transition: all 0.3s ease;
+    color: #ffffff;
+    border-right: 1px solid rgba(124,58,237,0.15);
+    transition: all 0.4s ease;
+    position: relative;
 }
 
+.stat-card:last-child { border-right: none; }
+
 .stat-card:hover {
-    background: rgba(255, 255, 255, 0.15);
-    transform: translateY(-5px);
+    background: rgba(124,58,237,0.08);
+}
+
+.stat-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    display: block;
 }
 
 .stat-card h3 {
-    font-size: 2.5rem;
+    font-size: 3rem;
     margin-bottom: 0.5rem;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 900;
+    background: linear-gradient(135deg, #fff 0%, var(--accent-cyan) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
 .stat-card p {
-    font-size: 1.1rem;
-    opacity: 0.9;
+    font-size: 0.95rem;
+    color: rgba(255,255,255,0.55);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-weight: 600;
 }
 
 .services-showcase {
-    padding: 3rem 2rem;
-    background: var(--white-primary);
+    padding: 5rem 2rem;
+    background: linear-gradient(180deg, #0A0A1A 0%, #0D0A24 100%);
 }
 
 .showcase-header {
     text-align: center;
-    margin-bottom: 2rem;
+    margin-bottom: 3rem;
 }
 
 .showcase-header h2 {
-    font-size: 2.5rem;
-    color: var(--navy-primary);
+    font-size: 2.8rem;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 900;
+    background: linear-gradient(135deg, #fff 0%, var(--accent-cyan) 50%, var(--accent-violet) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.showcase-header p {
+    color: rgba(255,255,255,0.5);
+    font-size: 1.1rem;
+    margin-top: 0.5rem;
 }
 
 .showcase-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 1.2rem;
     max-width: 1400px;
     margin: 0 auto 2rem;
 }
 
 .showcase-service {
-    background: var(--white-secondary);
-    padding: 1.5rem;
-    border-radius: 10px;
+    background: rgba(15,12,40,0.7);
+    padding: 1.5rem 1rem;
+    border-radius: 16px;
     text-align: center;
-    transition: all 0.3s ease;
-    border: 2px solid transparent;
+    transition: all 0.35s ease;
+    border: 1px solid rgba(124,58,237,0.15);
+    backdrop-filter: blur(8px);
 }
 
 .showcase-service:hover {
-    border-color: var(--accent-purple);
-    transform: translateY(-3px);
+    border-color: var(--accent-cyan);
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0,212,255,0.15);
+    background: rgba(124,58,237,0.1);
 }
 
 .showcase-icon {
-    font-size: 2rem;
-    margin-bottom: 0.5rem;
+    font-size: 2.2rem;
+    margin-bottom: 0.75rem;
+    background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    display: block;
 }
 
 .showcase-service h4 {
-    color: var(--navy-primary);
-    font-size: 0.95rem;
-    margin-bottom: 0.5rem;
+    color: #ffffff;
+    font-size: 0.9rem;
+    margin-bottom: 0.4rem;
+    font-weight: 700;
 }
 
 .showcase-service p {
-    color: var(--text-light);
-    font-size: 0.85rem;
+    color: rgba(255,255,255,0.45);
+    font-size: 0.8rem;
 }
 
 .showcase-cta {
     text-align: center;
+    margin-top: 2rem;
 }
 
 .services-hero,
@@ -4926,11 +4960,7 @@ def admin_required(f):
 
 @app.route('/')
 def index():
-    if session.get('user_id'):
-        if session.get('email') == 'asifhavelilakha@gmail.com':
-            return redirect(url_for('admin_dashboard'))
-        return redirect(url_for('home'))
-    return redirect(url_for('login'))
+    return redirect(url_for('home'))
 
 @app.route('/admin')
 @admin_required
@@ -4957,7 +4987,6 @@ def admin_dashboard():
     return html
 
 @app.route('/home')
-@login_required
 def home():
     content = render_template_string(HOME_TEMPLATE, reviews=reviews)
     html = BASE_TEMPLATE.replace('{% block content %}{% endblock %}', content)
@@ -4965,7 +4994,6 @@ def home():
     return html
 
 @app.route('/services')
-@login_required
 def services():
     content = render_template_string(SERVICES_TEMPLATE, services=services_data, pricing=pricing_data)
     html = BASE_TEMPLATE.replace('{% block content %}{% endblock %}', content)
@@ -4973,7 +5001,6 @@ def services():
     return html
 
 @app.route('/contact', methods=['GET', 'POST'])
-@login_required
 def contact():
     if request.method == 'POST':
         try:
@@ -5064,7 +5091,6 @@ This is an automated notification from your Micromatrix Admin Panel.
 
 
 @app.route('/about')
-@login_required
 def about():
     html = BASE_TEMPLATE.replace('{% block content %}{% endblock %}', render_template_string(ABOUT_TEMPLATE))
     html = render_template_string(html, css_content=CSS_CONTENT, js_content=JS_CONTENT)
