@@ -122,7 +122,7 @@ chatbot_knowledge = {
     'what services do you offer': 'We offer 15 comprehensive services including: Software Development, Web Development, Mobile App Development, AI & Machine Learning, Cloud Computing, Data Science, E-Commerce Solutions, Digital Marketing, Software Testing, IT Consulting, Fintech Solutions, ERP Systems, Game Development, UI/UX Design, and Emerging Technologies.',
     'how can i contact you': 'You can reach us at: Phone: +923316170980 | WhatsApp: https://wa.me/923316170980 | Email: info@micromatrix.tech. We provide 24/7 support for all inquiries.',
     'what is your phone': 'Our phone number is +923316170980. Call us anytime!',
-    'what is your email': 'Our email is info@micromatrix.tech. We respond to emails within 24 hours.',
+    'what is your email': 'Our email is asifhavelilakha@gmail.com. We respond to emails within 24 hours.',
     'are you a remote company': 'Yes! Micromatrix is a remote-first company. This allows us to serve clients globally with flexibility and efficiency.',
     'do you provide support': 'Absolutely! We provide 24/7 support to all our clients. Our team is always available to assist you.',
     'what is your location': 'Micromatrix is a remote-first company with a global team. We serve clients worldwide without geographical limitations.',
@@ -367,7 +367,7 @@ BASE_TEMPLATE = """<!DOCTYPE html>
                 <p><i class="fas fa-phone-alt"></i> Phone: +923316170980</p>
                 <p><i class="fas fa-phone-alt"></i> Personal: +92 3039977330</p>
                 <p><i class="fas fa-comment-dots"></i> WhatsApp: <a href="https://wa.me/923316170980" target="_blank" class="footer-link">+923316170980</a></p>
-                <p><i class="fas fa-envelope"></i> Email: info@micromatrix.tech</p>
+                <p><i class="fas fa-envelope"></i> Email: asifhavelilakha@gmail.com</p>
                 <p><i class="fas fa-globe-americas"></i> Service: Global Remote Services</p>
             </div>
 
@@ -752,7 +752,7 @@ CONTACT_TEMPLATE = """
                 <div class="info-card">
                     <div class="info-icon"><i class="fas fa-envelope"></i></div>
                     <h4>Email Address</h4>
-                    <p>info@micromatrix.tech</p>
+                    <p>asifhavelilakha@gmail.com</p>
                     <p class="subtext">Response within 24 hours</p>
                 </div>
 
@@ -921,10 +921,10 @@ CONTACT_TEMPLATE = """
             <span class="quick-action">Click to call →</span>
         </a>
 
-        <a href="mailto:info@micromatrix.tech" class="quick-card email-card">
+        <a href="mailto:asifhavelilakha@gmail.com" class="quick-card email-card">
             <div class="quick-icon"><i class="fas fa-envelope"></i></div>
             <h4>Email Us</h4>
-            <p>info@micromatrix.tech</p>
+            <p>asifhavelilakha@gmail.com</p>
             <span class="quick-action">Click to email →</span>
         </a>
 
@@ -1009,7 +1009,7 @@ ABOUT_TEMPLATE = """
                 </div>
             </div>
             <div class="founder-contact">
-                <a href="mailto:info@micromatrix.tech" class="founder-link"><i class="fas fa-envelope"></i> info@micromatrix.tech</a>
+                <a href="mailto:asifhavelilakha@gmail.com" class="founder-link"><i class="fas fa-envelope"></i> asifhavelilakha@gmail.com</a>
                 <a href="https://wa.me/923316170980" class="founder-link" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
                 <a href="tel:+923316170980" class="founder-link"><i class="fas fa-phone"></i> +92 331 617 0980</a>
             </div>
@@ -5148,7 +5148,7 @@ def chatbot():
         "That's an interesting question! "
         "For detailed information, you can reach our team directly:\n"
         "📞 Phone: +923316170980\n"
-        "📧 Email: info@micromatrix.tech\n"
+        "📧 Email: asifhavelilakha@gmail.com\n"
         "💬 WhatsApp: wa.me/923316170980\n"
         "Or visit our Services or Contact page for more details."
     )
