@@ -117,7 +117,7 @@ reviews = [
 ]
 
 chatbot_knowledge = {
-    'who are you': "I'm the Micromatrix Assistant. I'm here to help you with information about our company, services, and how we can help your business.",
+    'who are you': "I&#39;m the Micromatrix Assistant. I&#39;m here to help you with information about our company, services, and how we can help your business.",
     'what is micromatrix': 'Micromatrix is an innovative technology company specializing in custom software solutions, web development, mobile apps, AI/ML, cloud services, and much more. We have a remote-first team dedicated to delivering excellence.',
     'what services do you offer': 'We offer 15 comprehensive services including: Software Development, Web Development, Mobile App Development, AI & Machine Learning, Cloud Computing, Data Science, E-Commerce Solutions, Digital Marketing, Software Testing, IT Consulting, Fintech Solutions, ERP Systems, Game Development, UI/UX Design, and Emerging Technologies.',
     'how can i contact you': 'You can reach us at: Phone: +923316170980 | WhatsApp: https://wa.me/923316170980 | Email: info@micromatrix.tech. We provide 24/7 support for all inquiries.',
@@ -134,7 +134,7 @@ chatbot_knowledge = {
     'pricing': 'Our pricing is structured into Starter ($100-$500), Basic ($500-$1000), and Professional ($1000-$2000) tiers. It varies based on your project requirements.',
     'process': 'We start with a detailed assessment, followed by an estimated timeline. We maintain transparent communication and ensure rigorous testing throughout the process.',
     'hello': 'Hello! Welcome to Micromatrix. How can I help you today?',
-    'hi': "Hi there! I'm the Micromatrix Assistant. Feel free to ask me anything about our services or company.",
+    'hi': "Hi there! I&#39;m the Micromatrix Assistant. Feel free to ask me anything about our services or company.",
     'help': 'I can help you with information about Micromatrix services, pricing, contact details, or any questions about our company. What would you like to know?',
     'thanks': "You're welcome! Feel free to ask me anything else about Micromatrix.",
     'thank you': "My pleasure! Is there anything else you'd like to know?"
@@ -163,21 +163,21 @@ pricing_data = {
         {
             "name": "Starter",
             "range": "$100 - $500",
-            "features": ["✓ Single Service", "✓ 1-2 weeks delivery", "✓ Basic Support", "✓ 1 Revision Round"],
+            "features": ["&#10003; Single Service", "&#10003; 1-2 weeks delivery", "&#10003; Basic Support", "&#10003; 1 Revision Round"],
             "badge": "Most Affordable",
             "color": "#10b981"
         },
         {
             "name": "Basic",
             "range": "$500 - $1,000",
-            "features": ["✓ 2-3 Services", "✓ 2-4 weeks delivery", "✓ Standard Support", "✓ 3 Revision Rounds", "✓ Basic Analytics"],
+            "features": ["&#10003; 2-3 Services", "&#10003; 2-4 weeks delivery", "&#10003; Standard Support", "&#10003; 3 Revision Rounds", "&#10003; Basic Analytics"],
             "badge": "Most Popular",
             "color": "#3b82f6"
         },
         {
             "name": "Professional",
             "range": "$1,000 - $2,000",
-            "features": ["✓ Multiple Services", "✓ 1-3 months", "✓ Priority Support 24/7", "✓ Unlimited Revisions", "✓ Dedicated Manager", "✓ Advanced Analytics"],
+            "features": ["&#10003; Multiple Services", "&#10003; 1-3 months", "&#10003; Priority Support 24/7", "&#10003; Unlimited Revisions", "&#10003; Dedicated Manager", "&#10003; Advanced Analytics"],
             "badge": "Premium",
             "color": "#8b5cf6"
         }
@@ -314,7 +314,7 @@ BASE_TEMPLATE = """<!DOCTYPE html>
     <!-- Live System Status -->
     <div class="system-status">
         <div class="status-dot"></div>
-        <span id="statusPing">Systems Operational • Ping: 12ms</span>
+        <span id="statusPing">Systems Operational &bull; Ping: 12ms</span>
     </div>
 
     <!-- Real-time Notifications -->
@@ -383,9 +383,9 @@ BASE_TEMPLATE = """<!DOCTYPE html>
 
             <div class="footer-section">
                 <h4>Company Stats</h4>
-                <p>✓ 100+ Projects Delivered</p>
-                <p>✓ Remote Team</p>
-                <p>✓ 15 Service Categories</p>
+                <p>&#10003; 100+ Projects Delivered</p>
+                <p>&#10003; Remote Team</p>
+                <p>&#10003; 15 Service Categories</p>
             </div>
         
         <!-- Live Visitor & Global Clocks -->
@@ -421,7 +421,7 @@ BASE_TEMPLATE = """<!DOCTYPE html>
         </div>
         <div class="chatbot-messages" id="chatbotMessages">
             <div class="chatbot-message bot-message">
-                <p>Hi! <i class="fas fa-hand-paper"></i> I'm the Micromatrix Assistant. Ask me anything about our services, contact info, or company!</p>
+                <p>Hi! <i class="fas fa-hand-paper"></i> I&#39;m the Micromatrix Assistant. Ask me anything about our services, contact info, or company!</p>
             </div>
         </div>
         <div class="chatbot-input-area">
@@ -564,7 +564,7 @@ HOME_TEMPLATE = """
         </div>
     </div>
     <div class="showcase-cta">
-        <a href="/services" class="cta-button">Explore All Services →</a>
+        <a href="/services" class="cta-button">Explore All Services &rarr;</a>
     </div>
 </section>
 
@@ -573,7 +573,7 @@ HOME_TEMPLATE = """
     <div class="cta-neural-bg"></div>
     <span class="cta-tag"><i class="fas fa-microchip"></i> AI-Powered Solutions</span>
     <h2>Ready to Supercharge Your Business with AI?</h2>
-    <p>Join 100+ businesses that trust Micromatrix to build intelligent, scalable AI solutions. Let's create something extraordinary together.</p>
+    <p>Join 100+ businesses that trust Micromatrix to build intelligent, scalable AI solutions. Let&#39;s create something extraordinary together.</p>
     <div class="cta-actions-row">
         <a href="/contact" class="cta-button-large"><i class="fas fa-rocket"></i> &nbsp;Start Your AI Journey</a>
         <a href="/services" class="cta-button-large cta-outline"><i class="fas fa-search"></i> &nbsp;Explore AI Services</a>
@@ -583,135 +583,556 @@ HOME_TEMPLATE = """
 """
 
 SERVICES_TEMPLATE = """
-<div class="services-hero">
-    <h1>Our Services</h1>
-    <p>Comprehensive technology solutions tailored to your business needs</p>
+<!-- Services Hero -->
+<div class="services-hero-new">
+    <div class="svc-hero-bg"></div>
+    <div class="svc-hero-content">
+        <span class="svc-hero-badge"><i class="fas fa-microchip"></i> &nbsp;AI-Powered Solutions</span>
+        <h1>Our <span class="svc-gradient-text">Services</span></h1>
+        <p>Cutting-edge technology solutions built for the future. From AI to cloud - we do it all.</p>
+        <div class="svc-hero-stats">
+            <div class="svc-stat"><strong>15+</strong><span>Services</span></div>
+            <div class="svc-stat"><strong>100+</strong><span>Projects</span></div>
+            <div class="svc-stat"><strong>20+</strong><span>Countries</span></div>
+            <div class="svc-stat"><strong>24/7</strong><span>Support</span></div>
+        </div>
+    </div>
 </div>
 
-<section class="services-main">
-    <div class="services-container">
-        {% for service_name, service_data in services.items() %}
-        <div class="service-card" onmouseover="showSubcategories(this)" onmouseout="hideSubcategories(this)">
-            <div class="service-main">
-                <div class="service-icon">{{ service_data.icon|safe }}</div>
-                <h3>{{ service_name }}</h3>
-                <p class="service-description">{{ service_data.description }}</p>
-                <span class="hover-hint">Hover to see details →</span>
-            </div>
+<!-- Filter Tabs -->
+<section class="svc-filter-section">
+    <div class="svc-filter-tabs" id="filterTabs">
+        <button class="svc-filter-btn active" data-filter="all" onclick="filterServices('all', this)">
+            <i class="fas fa-th"></i> All Services
+        </button>
+        <button class="svc-filter-btn" data-filter="ai" onclick="filterServices('ai', this)">
+            <i class="fas fa-brain"></i> AI & ML
+        </button>
+        <button class="svc-filter-btn" data-filter="web" onclick="filterServices('web', this)">
+            <i class="fas fa-code"></i> Web & Mobile
+        </button>
+        <button class="svc-filter-btn" data-filter="cloud" onclick="filterServices('cloud', this)">
+            <i class="fas fa-cloud"></i> Cloud & Data
+        </button>
+        <button class="svc-filter-btn" data-filter="business" onclick="filterServices('business', this)">
+            <i class="fas fa-briefcase"></i> Business
+        </button>
+    </div>
+</section>
 
-            <!-- Subcategories (Hidden by default, shown on hover) -->
-            <div class="subcategories-dropdown">
-                <div class="subcategories-header">
-                    <h4>{{ service_name }}</h4>
+<!-- Services Grid - Flip Cards -->
+<section class="svc-grid-section">
+    <div class="svc-cards-grid" id="servicesGrid">
+
+        <div class="svc-flip-card" data-category="ai web">
+            <div class="svc-flip-inner">
+                <div class="svc-flip-front">
+                    <div class="svc-card-glow" style="--glow:#7C3AED"></div>
+                    <div class="svc-card-icon" style="background:linear-gradient(135deg,#7C3AED,#A78BFA)"><i class="fas fa-laptop-code"></i></div>
+                    <h3>Software Development</h3>
+                    <p>Custom software built with precision, scalability &amp; modern stack</p>
+                    <span class="svc-tag">Enterprise</span>
                 </div>
-                <ul class="subcategories-list">
-                    {% for subcategory in service_data.subcategories %}
-                    <li class="subcategory-item">
-                        <span class="checkbox"><i class="fas fa-check"></i></span>
-                        {{ subcategory }}
-                    </li>
-                    {% endfor %}
-                </ul>
-                <div class="subcategories-action">
-                    <button class="inquiry-btn" onclick="scrollToContact()">Inquire Now</button>
+                <div class="svc-flip-back" style="--back:#7C3AED">
+                    <h4><i class="fas fa-laptop-code"></i> Software Dev</h4>
+                    <ul>
+                        <li><i class="fas fa-check-circle"></i> Custom Desktop Applications</li>
+                        <li><i class="fas fa-check-circle"></i> ERP & CRM Systems</li>
+                        <li><i class="fas fa-check-circle"></i> API Development & Integration</li>
+                        <li><i class="fas fa-check-circle"></i> Microservices Architecture</li>
+                        <li><i class="fas fa-check-circle"></i> Legacy System Modernization</li>
+                    </ul>
+                    <a href="/contact" class="svc-back-btn">Get Quote <i class="fas fa-arrow-right"></i></a>
                 </div>
             </div>
         </div>
-        {% endfor %}
+
+        <div class="svc-flip-card" data-category="web">
+            <div class="svc-flip-inner">
+                <div class="svc-flip-front">
+                    <div class="svc-card-glow" style="--glow:#00D4FF"></div>
+                    <div class="svc-card-icon" style="background:linear-gradient(135deg,#00D4FF,#0891B2)"><i class="fas fa-globe"></i></div>
+                    <h3>Web Development</h3>
+                    <p>Stunning, fast, and SEO-optimized websites &amp; web apps</p>
+                    <span class="svc-tag">Popular</span>
+                </div>
+                <div class="svc-flip-back" style="--back:#00D4FF">
+                    <h4><i class="fas fa-globe"></i> Web Dev</h4>
+                    <ul>
+                        <li><i class="fas fa-check-circle"></i> React / Next.js / Vue Apps</li>
+                        <li><i class="fas fa-check-circle"></i> E-Commerce Stores</li>
+                        <li><i class="fas fa-check-circle"></i> Landing Pages & Portfolios</li>
+                        <li><i class="fas fa-check-circle"></i> PWA Development</li>
+                        <li><i class="fas fa-check-circle"></i> SEO Optimization</li>
+                    </ul>
+                    <a href="/contact" class="svc-back-btn">Get Quote <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="svc-flip-card" data-category="web">
+            <div class="svc-flip-inner">
+                <div class="svc-flip-front">
+                    <div class="svc-card-glow" style="--glow:#10B981"></div>
+                    <div class="svc-card-icon" style="background:linear-gradient(135deg,#10B981,#059669)"><i class="fas fa-mobile-alt"></i></div>
+                    <h3>Mobile App Development</h3>
+                    <p>iOS &amp; Android apps that users love - fast and intuitive</p>
+                    <span class="svc-tag">Trending</span>
+                </div>
+                <div class="svc-flip-back" style="--back:#10B981">
+                    <h4><i class="fas fa-mobile-alt"></i> Mobile Dev</h4>
+                    <ul>
+                        <li><i class="fas fa-check-circle"></i> Flutter Cross-Platform</li>
+                        <li><i class="fas fa-check-circle"></i> React Native</li>
+                        <li><i class="fas fa-check-circle"></i> Native iOS (Swift)</li>
+                        <li><i class="fas fa-check-circle"></i> Native Android (Kotlin)</li>
+                        <li><i class="fas fa-check-circle"></i> App Store Publishing</li>
+                    </ul>
+                    <a href="/contact" class="svc-back-btn">Get Quote <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="svc-flip-card" data-category="ai">
+            <div class="svc-flip-inner">
+                <div class="svc-flip-front">
+                    <div class="svc-card-glow" style="--glow:#F59E0B"></div>
+                    <div class="svc-card-icon" style="background:linear-gradient(135deg,#F59E0B,#D97706)"><i class="fas fa-brain"></i></div>
+                    <h3>AI & Machine Learning</h3>
+                    <p>Intelligent systems that learn, predict, and automate your business</p>
+                    <span class="svc-tag">Hot Hot</span>
+                </div>
+                <div class="svc-flip-back" style="--back:#F59E0B">
+                    <h4><i class="fas fa-brain"></i> AI & ML</h4>
+                    <ul>
+                        <li><i class="fas fa-check-circle"></i> Custom AI Model Training</li>
+                        <li><i class="fas fa-check-circle"></i> Natural Language Processing</li>
+                        <li><i class="fas fa-check-circle"></i> Computer Vision</li>
+                        <li><i class="fas fa-check-circle"></i> Chatbot Development</li>
+                        <li><i class="fas fa-check-circle"></i> Predictive Analytics</li>
+                    </ul>
+                    <a href="/contact" class="svc-back-btn">Get Quote <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="svc-flip-card" data-category="cloud">
+            <div class="svc-flip-inner">
+                <div class="svc-flip-front">
+                    <div class="svc-card-glow" style="--glow:#6366F1"></div>
+                    <div class="svc-card-icon" style="background:linear-gradient(135deg,#6366F1,#4F46E5)"><i class="fas fa-cloud"></i></div>
+                    <h3>Cloud Computing</h3>
+                    <p>Scalable cloud infrastructure on AWS, Azure &amp; Google Cloud</p>
+                    <span class="svc-tag">Enterprise</span>
+                </div>
+                <div class="svc-flip-back" style="--back:#6366F1">
+                    <h4><i class="fas fa-cloud"></i> Cloud</h4>
+                    <ul>
+                        <li><i class="fas fa-check-circle"></i> AWS / Azure / GCP Setup</li>
+                        <li><i class="fas fa-check-circle"></i> Cloud Migration</li>
+                        <li><i class="fas fa-check-circle"></i> Serverless Architecture</li>
+                        <li><i class="fas fa-check-circle"></i> Docker & Kubernetes</li>
+                        <li><i class="fas fa-check-circle"></i> CI/CD Pipelines</li>
+                    </ul>
+                    <a href="/contact" class="svc-back-btn">Get Quote <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="svc-flip-card" data-category="cloud ai">
+            <div class="svc-flip-inner">
+                <div class="svc-flip-front">
+                    <div class="svc-card-glow" style="--glow:#EC4899"></div>
+                    <div class="svc-card-icon" style="background:linear-gradient(135deg,#EC4899,#BE185D)"><i class="fas fa-database"></i></div>
+                    <h3>Data Science</h3>
+                    <p>Transform raw data into powerful business intelligence &amp; insights</p>
+                    <span class="svc-tag">Analytics</span>
+                </div>
+                <div class="svc-flip-back" style="--back:#EC4899">
+                    <h4><i class="fas fa-database"></i> Data Science</h4>
+                    <ul>
+                        <li><i class="fas fa-check-circle"></i> Data Pipeline Building</li>
+                        <li><i class="fas fa-check-circle"></i> BI Dashboards (Power BI)</li>
+                        <li><i class="fas fa-check-circle"></i> Statistical Analysis</li>
+                        <li><i class="fas fa-check-circle"></i> Data Visualization</li>
+                        <li><i class="fas fa-check-circle"></i> ETL Processes</li>
+                    </ul>
+                    <a href="/contact" class="svc-back-btn">Get Quote <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="svc-flip-card" data-category="business web">
+            <div class="svc-flip-inner">
+                <div class="svc-flip-front">
+                    <div class="svc-card-glow" style="--glow:#14B8A6"></div>
+                    <div class="svc-card-icon" style="background:linear-gradient(135deg,#14B8A6,#0D9488)"><i class="fas fa-shopping-cart"></i></div>
+                    <h3>E-Commerce Solutions</h3>
+                    <p>Complete online stores built to sell - fast, secure, and beautiful</p>
+                    <span class="svc-tag">Sales</span>
+                </div>
+                <div class="svc-flip-back" style="--back:#14B8A6">
+                    <h4><i class="fas fa-shopping-cart"></i> E-Commerce</h4>
+                    <ul>
+                        <li><i class="fas fa-check-circle"></i> Shopify / WooCommerce</li>
+                        <li><i class="fas fa-check-circle"></i> Custom Cart Systems</li>
+                        <li><i class="fas fa-check-circle"></i> Payment Gateway Integration</li>
+                        <li><i class="fas fa-check-circle"></i> Inventory Management</li>
+                        <li><i class="fas fa-check-circle"></i> Multi-vendor Platforms</li>
+                    </ul>
+                    <a href="/contact" class="svc-back-btn">Get Quote <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="svc-flip-card" data-category="business">
+            <div class="svc-flip-inner">
+                <div class="svc-flip-front">
+                    <div class="svc-card-glow" style="--glow:#F43F5E"></div>
+                    <div class="svc-card-icon" style="background:linear-gradient(135deg,#F43F5E,#BE123C)"><i class="fas fa-bullhorn"></i></div>
+                    <h3>Digital Marketing</h3>
+                    <p>Grow your brand online with data-driven marketing strategies</p>
+                    <span class="svc-tag">Growth</span>
+                </div>
+                <div class="svc-flip-back" style="--back:#F43F5E">
+                    <h4><i class="fas fa-bullhorn"></i> Marketing</h4>
+                    <ul>
+                        <li><i class="fas fa-check-circle"></i> SEO & Content Marketing</li>
+                        <li><i class="fas fa-check-circle"></i> Social Media Management</li>
+                        <li><i class="fas fa-check-circle"></i> Google & Meta Ads</li>
+                        <li><i class="fas fa-check-circle"></i> Email Marketing Campaigns</li>
+                        <li><i class="fas fa-check-circle"></i> Brand Strategy</li>
+                    </ul>
+                    <a href="/contact" class="svc-back-btn">Get Quote <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="svc-flip-card" data-category="business cloud">
+            <div class="svc-flip-inner">
+                <div class="svc-flip-front">
+                    <div class="svc-card-glow" style="--glow:#8B5CF6"></div>
+                    <div class="svc-card-icon" style="background:linear-gradient(135deg,#8B5CF6,#7C3AED)"><i class="fas fa-shield-alt"></i></div>
+                    <h3>Software Testing</h3>
+                    <p>Bulletproof QA testing to ensure flawless product performance</p>
+                    <span class="svc-tag">Quality</span>
+                </div>
+                <div class="svc-flip-back" style="--back:#8B5CF6">
+                    <h4><i class="fas fa-shield-alt"></i> QA Testing</h4>
+                    <ul>
+                        <li><i class="fas fa-check-circle"></i> Automated Testing (Selenium)</li>
+                        <li><i class="fas fa-check-circle"></i> Performance Testing</li>
+                        <li><i class="fas fa-check-circle"></i> Security Audits</li>
+                        <li><i class="fas fa-check-circle"></i> Mobile App Testing</li>
+                        <li><i class="fas fa-check-circle"></i> API Testing</li>
+                    </ul>
+                    <a href="/contact" class="svc-back-btn">Get Quote <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="svc-flip-card" data-category="business">
+            <div class="svc-flip-inner">
+                <div class="svc-flip-front">
+                    <div class="svc-card-glow" style="--glow:#FBBF24"></div>
+                    <div class="svc-card-icon" style="background:linear-gradient(135deg,#FBBF24,#D97706)"><i class="fas fa-handshake"></i></div>
+                    <h3>IT Consulting</h3>
+                    <p>Strategic technology guidance to accelerate your digital journey</p>
+                    <span class="svc-tag">Strategy</span>
+                </div>
+                <div class="svc-flip-back" style="--back:#FBBF24">
+                    <h4><i class="fas fa-handshake"></i> Consulting</h4>
+                    <ul>
+                        <li><i class="fas fa-check-circle"></i> Digital Transformation</li>
+                        <li><i class="fas fa-check-circle"></i> Tech Stack Advisory</li>
+                        <li><i class="fas fa-check-circle"></i> Architecture Review</li>
+                        <li><i class="fas fa-check-circle"></i> Startup Tech Strategy</li>
+                        <li><i class="fas fa-check-circle"></i> Cost Optimization</li>
+                    </ul>
+                    <a href="/contact" class="svc-back-btn">Get Quote <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="svc-flip-card" data-category="business cloud">
+            <div class="svc-flip-inner">
+                <div class="svc-flip-front">
+                    <div class="svc-card-glow" style="--glow:#06B6D4"></div>
+                    <div class="svc-card-icon" style="background:linear-gradient(135deg,#06B6D4,#0284C7)"><i class="fas fa-university"></i></div>
+                    <h3>Fintech Solutions</h3>
+                    <p>Secure financial technology - payments, banking &amp; blockchain</p>
+                    <span class="svc-tag">Finance</span>
+                </div>
+                <div class="svc-flip-back" style="--back:#06B6D4">
+                    <h4><i class="fas fa-university"></i> Fintech</h4>
+                    <ul>
+                        <li><i class="fas fa-check-circle"></i> Payment Gateway Systems</li>
+                        <li><i class="fas fa-check-circle"></i> Blockchain & Smart Contracts</li>
+                        <li><i class="fas fa-check-circle"></i> Digital Wallets</li>
+                        <li><i class="fas fa-check-circle"></i> KYC & Compliance Tools</li>
+                        <li><i class="fas fa-check-circle"></i> Crypto Exchange Platforms</li>
+                    </ul>
+                    <a href="/contact" class="svc-back-btn">Get Quote <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="svc-flip-card" data-category="ai web">
+            <div class="svc-flip-inner">
+                <div class="svc-flip-front">
+                    <div class="svc-card-glow" style="--glow:#A78BFA"></div>
+                    <div class="svc-card-icon" style="background:linear-gradient(135deg,#A78BFA,#7C3AED)"><i class="fas fa-gamepad"></i></div>
+                    <h3>Game Development</h3>
+                    <p>Immersive games - 2D, 3D, mobile, and browser-based</p>
+                    <span class="svc-tag">Creative</span>
+                </div>
+                <div class="svc-flip-back" style="--back:#A78BFA">
+                    <h4><i class="fas fa-gamepad"></i> Game Dev</h4>
+                    <ul>
+                        <li><i class="fas fa-check-circle"></i> Unity 3D / 2D Games</li>
+                        <li><i class="fas fa-check-circle"></i> Mobile Games (iOS/Android)</li>
+                        <li><i class="fas fa-check-circle"></i> Browser-Based Games</li>
+                        <li><i class="fas fa-check-circle"></i> Multiplayer Systems</li>
+                        <li><i class="fas fa-check-circle"></i> Game Art & Assets</li>
+                    </ul>
+                    <a href="/contact" class="svc-back-btn">Get Quote <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+
     </div>
 </section>
 
-<!-- Services Details Section -->
-<section class="services-details">
-    <h2>Why Choose Micromatrix?</h2>
-    <div class="details-grid">
-        <div class="detail-card">
-            <div class="detail-icon"><i class="fas fa-bullseye"></i></div>
-            <h4>Focused Solutions</h4>
-            <p>Each service is carefully crafted with specific business needs in mind</p>
+<!-- Tech Stack -->
+<section class="svc-tech-section">
+    <h2>Technologies We Master</h2>
+    <p class="section-subtitle">Industry-leading tools for world-class solutions</p>
+    <div class="svc-tech-wrapper">
+        <div class="svc-tech-group">
+            <div class="svc-tech-label"><i class="fas fa-code"></i> Frontend</div>
+            <div class="svc-tech-pills">
+                <span class="tech-pill">React</span><span class="tech-pill">Next.js</span><span class="tech-pill">Vue.js</span><span class="tech-pill">Angular</span><span class="tech-pill">TypeScript</span>
+            </div>
         </div>
-        <div class="detail-card">
-            <div class="detail-icon"><i class="fas fa-bolt"></i></div>
-            <h4>Fast Delivery</h4>
-            <p>Quick implementation without compromising on quality standards</p>
+        <div class="svc-tech-group">
+            <div class="svc-tech-label"><i class="fas fa-server"></i> Backend</div>
+            <div class="svc-tech-pills">
+                <span class="tech-pill">Node.js</span><span class="tech-pill">Django</span><span class="tech-pill">Flask</span><span class="tech-pill">FastAPI</span><span class="tech-pill">Laravel</span>
+            </div>
         </div>
-        <div class="detail-card">
-            <div class="detail-icon"><i class="fas fa-lightbulb"></i></div>
-            <h4>Innovation</h4>
-            <p>Latest technologies and best practices to keep you ahead</p>
+        <div class="svc-tech-group">
+            <div class="svc-tech-label"><i class="fas fa-brain"></i> AI / ML</div>
+            <div class="svc-tech-pills">
+                <span class="tech-pill">TensorFlow</span><span class="tech-pill">PyTorch</span><span class="tech-pill">OpenAI</span><span class="tech-pill">LangChain</span><span class="tech-pill">Scikit-learn</span>
+            </div>
         </div>
-        <div class="detail-card">
-            <div class="detail-icon"><i class="fas fa-wrench"></i></div>
-            <h4>Expert Team</h4>
-            <p>Experienced professionals with proven track record</p>
+        <div class="svc-tech-group">
+            <div class="svc-tech-label"><i class="fas fa-cloud"></i> Cloud</div>
+            <div class="svc-tech-pills">
+                <span class="tech-pill">AWS</span><span class="tech-pill">Azure</span><span class="tech-pill">GCP</span><span class="tech-pill">Docker</span><span class="tech-pill">Kubernetes</span>
+            </div>
         </div>
-        <div class="detail-card">
-            <div class="detail-icon"><i class="fas fa-chart-line"></i></div>
-            <h4>Results Driven</h4>
-            <p>Focused on delivering measurable business outcomes</p>
+        <div class="svc-tech-group">
+            <div class="svc-tech-label"><i class="fas fa-database"></i> Database</div>
+            <div class="svc-tech-pills">
+                <span class="tech-pill">PostgreSQL</span><span class="tech-pill">MongoDB</span><span class="tech-pill">MySQL</span><span class="tech-pill">Redis</span><span class="tech-pill">Firebase</span>
+            </div>
         </div>
-        <div class="detail-card">
-            <div class="detail-icon"><i class="fas fa-globe-americas"></i></div>
-            <h4>Global Support</h4>
-            <p>24/7 support available from our distributed team</p>
-        </div>
-    </div>
-</section>
-
-<!-- Technology Stack -->
-<section class="tech-stack">
-    <h2>Our Technology Stack</h2>
-    <div class="tech-grid">
-        <div class="tech-category">
-            <h4>Web Technologies</h4>
-            <p>React, Angular, Vue.js, Node.js, Django, Flask</p>
-        </div>
-        <div class="tech-category">
-            <h4>Mobile Development</h4>
-            <p>Flutter, React Native, Swift, Kotlin</p>
-        </div>
-        <div class="tech-category">
-            <h4>Cloud & DevOps</h4>
-            <p>AWS, Azure, Google Cloud, Docker, Kubernetes</p>
-        </div>
-        <div class="tech-category">
-            <h4>AI & Data</h4>
-            <p>Python, TensorFlow, PyTorch, Scikit-learn, SQL</p>
-        </div>
-        <div class="tech-category">
-            <h4>Databases</h4>
-            <p>PostgreSQL, MongoDB, MySQL, Redis, Firebase</p>
-        </div>
-        <div class="tech-category">
-            <h4>Tools & Frameworks</h4>
-            <p>Git, Jenkins, OpenCV, Blockchain, IoT Solutions</p>
+        <div class="svc-tech-group">
+            <div class="svc-tech-label"><i class="fas fa-mobile-alt"></i> Mobile</div>
+            <div class="svc-tech-pills">
+                <span class="tech-pill">Flutter</span><span class="tech-pill">React Native</span><span class="tech-pill">Swift</span><span class="tech-pill">Kotlin</span>
+            </div>
         </div>
     </div>
 </section>
 
-<!-- Package Plans -->
-<section class="service-packages">
-    <h2>Service Packages</h2>
-    <div class="packages-container">
+<!-- Process Steps -->
+<section class="svc-process-section">
+    <h2>How We Work</h2>
+    <p class="section-subtitle">Our proven 5-step process to deliver excellence</p>
+    <div class="svc-process-steps">
+        <div class="svc-step">
+            <div class="svc-step-num">01</div>
+            <div class="svc-step-icon"><i class="fas fa-comments"></i></div>
+            <h4>Discover</h4>
+            <p>Free consultation to understand your goals and requirements</p>
+        </div>
+        <div class="svc-step-line"></div>
+        <div class="svc-step">
+            <div class="svc-step-num">02</div>
+            <div class="svc-step-icon"><i class="fas fa-pencil-ruler"></i></div>
+            <h4>Design</h4>
+            <p>Architecture planning and UI/UX wireframing</p>
+        </div>
+        <div class="svc-step-line"></div>
+        <div class="svc-step">
+            <div class="svc-step-num">03</div>
+            <div class="svc-step-icon"><i class="fas fa-code"></i></div>
+            <h4>Build</h4>
+            <p>Agile development with regular progress updates</p>
+        </div>
+        <div class="svc-step-line"></div>
+        <div class="svc-step">
+            <div class="svc-step-num">04</div>
+            <div class="svc-step-icon"><i class="fas fa-vial"></i></div>
+            <h4>Test</h4>
+            <p>Rigorous QA testing for performance &amp; security</p>
+        </div>
+        <div class="svc-step-line"></div>
+        <div class="svc-step">
+            <div class="svc-step-num">05</div>
+            <div class="svc-step-icon"><i class="fas fa-rocket"></i></div>
+            <h4>Launch</h4>
+            <p>Deployment &amp; ongoing support after launch</p>
+        </div>
+    </div>
+</section>
+
+<!-- Pricing Packages -->
+<section class="svc-pricing-section">
+    <h2>Pricing Packages</h2>
+    <p class="section-subtitle">Transparent pricing - no hidden fees, ever</p>
+    <div class="svc-pricing-grid">
         {% for tier in pricing.tiers %}
-        <div class="package {% if tier.badge == 'Most Popular' %}featured{% endif %}">
-            {% if tier.badge %}
-            <div class="badge">{{ tier.badge }}</div>
-            {% endif %}
-            <h3>{{ tier.name }}</h3>
-            <p class="price">{{ tier.range }}</p>
-            <ul class="features-list">
+        <div class="svc-price-card {% if tier.badge == 'Most Popular' %}svc-price-featured{% endif %}">
+            {% if tier.badge %}<div class="svc-price-badge">⭐ {{ tier.badge }}</div>{% endif %}
+            <div class="svc-price-header">
+                <h3>{{ tier.name }}</h3>
+                <div class="svc-price-amount">{{ tier.range }}</div>
+            </div>
+            <ul class="svc-price-features">
                 {% for feature in tier.features %}
-                <li>{{ feature }}</li>
+                <li><i class="fas fa-check"></i> {{ feature }}</li>
                 {% endfor %}
             </ul>
-            <button class="package-btn {% if tier.badge == 'Most Popular' %}featured-btn{% endif %}">
-                {% if tier.name == 'Professional' %}Get Quote{% else %}Get Started{% endif %}
-            </button>
+            <a href="/contact" class="svc-price-btn {% if tier.badge == 'Most Popular' %}svc-price-btn-featured{% endif %}">
+                {% if tier.name == 'Professional' %}Get Custom Quote{% else %}Get Started{% endif %}
+                <i class="fas fa-arrow-right"></i>
+            </a>
         </div>
         {% endfor %}
     </div>
 </section>
+
+<!-- CTA Banner -->
+<section class="svc-cta-banner">
+    <div class="svc-cta-glow"></div>
+    <h2>Not sure which service you need?</h2>
+    <p>Talk to our experts for a <strong>free consultation</strong> - we will help you find the perfect solution</p>
+    <div class="svc-cta-btns">
+        <a href="/contact" class="svc-cta-primary"><i class="fas fa-comment-dots"></i> Free Consultation</a>
+        <a href="https://wa.me/923316170980" target="_blank" class="svc-cta-secondary"><i class="fab fa-whatsapp"></i> WhatsApp Us</a>
+    </div>
+</section>
+
+<style>
+.services-hero-new{position:relative;padding:6rem 2rem 4rem;text-align:center;overflow:hidden;background:linear-gradient(135deg,#0A0A1A 0%,#1A0A2E 50%,#0A0A1A 100%);border-bottom:1px solid rgba(124,58,237,0.2)}
+.svc-hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 30% 50%,rgba(124,58,237,0.15) 0%,transparent 60%),radial-gradient(ellipse at 70% 50%,rgba(0,212,255,0.1) 0%,transparent 60%);pointer-events:none}
+.svc-hero-badge{display:inline-block;background:rgba(124,58,237,0.2);border:1px solid rgba(124,58,237,0.4);color:#A78BFA;padding:0.5rem 1.5rem;border-radius:50px;font-size:0.9rem;font-weight:600;margin-bottom:1.5rem;letter-spacing:1px}
+.svc-hero-content{position:relative;z-index:1;max-width:900px;margin:0 auto}
+.svc-hero-content h1{font-size:4rem;font-weight:900;color:#fff;margin-bottom:1rem;line-height:1.1}
+.svc-gradient-text{background:linear-gradient(135deg,#A78BFA 0%,#00D4FF 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.svc-hero-content p{font-size:1.2rem;color:rgba(255,255,255,0.6);margin-bottom:3rem}
+.svc-hero-stats{display:flex;justify-content:center;gap:3rem;flex-wrap:wrap}
+.svc-stat{text-align:center}
+.svc-stat strong{display:block;font-size:2.5rem;font-weight:900;background:linear-gradient(135deg,#A78BFA,#00D4FF);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.svc-stat span{font-size:0.85rem;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:1px}
+.svc-filter-section{padding:2.5rem 2rem;background:#0A0A1A;border-bottom:1px solid rgba(124,58,237,0.1)}
+.svc-filter-tabs{display:flex;gap:0.75rem;justify-content:center;flex-wrap:wrap}
+.svc-filter-btn{padding:0.65rem 1.4rem;background:rgba(255,255,255,0.05);border:1px solid rgba(124,58,237,0.2);border-radius:50px;color:rgba(255,255,255,0.6);font-size:0.9rem;font-weight:600;cursor:pointer;transition:all 0.3s ease;display:flex;align-items:center;gap:0.5rem}
+.svc-filter-btn:hover,.svc-filter-btn.active{background:linear-gradient(135deg,rgba(124,58,237,0.3),rgba(0,212,255,0.2));border-color:#00D4FF;color:#fff;box-shadow:0 0 20px rgba(0,212,255,0.15)}
+.svc-grid-section{padding:4rem 2rem;background:linear-gradient(180deg,#0A0A1A,#0D0A24)}
+.svc-cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.8rem;max-width:1400px;margin:0 auto}
+.svc-flip-card{height:300px;perspective:1000px;cursor:pointer}
+.svc-flip-inner{position:relative;width:100%;height:100%;transition:transform 0.7s cubic-bezier(0.4,0,0.2,1);transform-style:preserve-3d}
+.svc-flip-card:hover .svc-flip-inner{transform:rotateY(180deg)}
+.svc-flip-front,.svc-flip-back{position:absolute;inset:0;border-radius:20px;backface-visibility:hidden;-webkit-backface-visibility:hidden;padding:2rem}
+.svc-flip-front{background:rgba(15,12,40,0.85);border:1px solid rgba(124,58,237,0.15);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;overflow:hidden;backdrop-filter:blur(10px)}
+.svc-card-glow{position:absolute;top:-60px;right:-60px;width:180px;height:180px;background:radial-gradient(circle,rgba(124,58,237,0.2) 0%,transparent 70%);border-radius:50%;pointer-events:none}
+.svc-card-icon{width:65px;height:65px;border-radius:18px;display:flex;align-items:center;justify-content:center;font-size:1.8rem;color:#fff;margin-bottom:1.2rem;box-shadow:0 8px 25px rgba(0,0,0,0.3)}
+.svc-flip-front h3{color:#fff;font-size:1.1rem;font-weight:700;margin-bottom:0.6rem}
+.svc-flip-front p{color:rgba(255,255,255,0.55);font-size:0.88rem;line-height:1.5;margin-bottom:1rem}
+.svc-tag{background:rgba(124,58,237,0.2);border:1px solid rgba(124,58,237,0.3);color:#A78BFA;padding:0.3rem 0.9rem;border-radius:50px;font-size:0.75rem;font-weight:700}
+.svc-flip-back{background:linear-gradient(135deg,rgba(15,12,40,0.97),rgba(20,15,50,0.97));border:1px solid rgba(0,212,255,0.3);transform:rotateY(180deg);display:flex;flex-direction:column;justify-content:space-between;box-shadow:inset 0 0 30px rgba(0,212,255,0.05)}
+.svc-flip-back h4{color:#00D4FF;font-size:1rem;font-weight:700;margin-bottom:0.8rem;display:flex;align-items:center;gap:0.5rem}
+.svc-flip-back ul{list-style:none;flex:1}
+.svc-flip-back ul li{color:rgba(255,255,255,0.8);font-size:0.83rem;padding:0.3rem 0;display:flex;align-items:center;gap:0.5rem}
+.svc-flip-back ul li i{color:#10B981;font-size:0.75rem}
+.svc-back-btn{display:inline-flex;align-items:center;gap:0.5rem;background:linear-gradient(135deg,rgba(0,212,255,0.2),rgba(124,58,237,0.2));border:1px solid rgba(0,212,255,0.4);color:#00D4FF;text-decoration:none;padding:0.6rem 1.2rem;border-radius:50px;font-size:0.85rem;font-weight:700;margin-top:0.8rem;width:fit-content;transition:all 0.3s ease}
+.svc-back-btn:hover{background:rgba(0,212,255,0.3);box-shadow:0 0 20px rgba(0,212,255,0.3)}
+.svc-tech-section{padding:5rem 2rem;background:#0A0A1A;border-top:1px solid rgba(124,58,237,0.1)}
+.svc-tech-section h2{text-align:center;font-size:2.5rem;font-weight:900;background:linear-gradient(135deg,#fff,#00D4FF);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:0.5rem}
+.section-subtitle{text-align:center;color:rgba(255,255,255,0.5);margin-bottom:3rem;font-size:1rem}
+.svc-tech-wrapper{max-width:1200px;margin:0 auto;display:flex;flex-direction:column;gap:1.5rem}
+.svc-tech-group{display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap}
+.svc-tech-label{min-width:130px;color:#A78BFA;font-weight:700;font-size:0.9rem;display:flex;align-items:center;gap:0.5rem}
+.svc-tech-pills{display:flex;flex-wrap:wrap;gap:0.6rem}
+.tech-pill{background:rgba(124,58,237,0.1);border:1px solid rgba(124,58,237,0.25);color:rgba(255,255,255,0.75);padding:0.4rem 1rem;border-radius:50px;font-size:0.85rem;font-weight:600;transition:all 0.3s ease;cursor:default}
+.tech-pill:hover{background:rgba(0,212,255,0.15);border-color:#00D4FF;color:#00D4FF;transform:translateY(-2px)}
+.svc-process-section{padding:5rem 2rem;background:linear-gradient(180deg,#0D0A24,#0A0A1A);border-top:1px solid rgba(0,212,255,0.08)}
+.svc-process-section h2{text-align:center;font-size:2.5rem;font-weight:900;background:linear-gradient(135deg,#fff,#A78BFA);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:0.5rem}
+.svc-process-steps{display:flex;align-items:flex-start;justify-content:center;flex-wrap:wrap;gap:0;max-width:1200px;margin:3.5rem auto 0}
+.svc-step{text-align:center;flex:1;min-width:140px;max-width:200px;padding:0 1rem}
+.svc-step-num{font-size:0.75rem;font-weight:900;color:rgba(124,58,237,0.5);letter-spacing:2px;margin-bottom:0.5rem}
+.svc-step-icon{width:70px;height:70px;border-radius:50%;background:linear-gradient(135deg,rgba(124,58,237,0.3),rgba(0,212,255,0.2));border:2px solid rgba(0,212,255,0.3);display:flex;align-items:center;justify-content:center;font-size:1.6rem;color:#00D4FF;margin:0 auto 1rem;transition:all 0.3s ease;box-shadow:0 0 20px rgba(0,212,255,0.1)}
+.svc-step:hover .svc-step-icon{box-shadow:0 0 35px rgba(0,212,255,0.4);transform:scale(1.1)}
+.svc-step h4{color:#fff;font-weight:700;font-size:1rem;margin-bottom:0.5rem}
+.svc-step p{color:rgba(255,255,255,0.5);font-size:0.82rem;line-height:1.5}
+.svc-step-line{flex:0.5;height:2px;background:linear-gradient(90deg,rgba(124,58,237,0.3),rgba(0,212,255,0.3));margin-top:35px;min-width:30px}
+.svc-pricing-section{padding:5rem 2rem;background:#0A0A1A;border-top:1px solid rgba(124,58,237,0.1)}
+.svc-pricing-section h2{text-align:center;font-size:2.5rem;font-weight:900;background:linear-gradient(135deg,#fff,#00D4FF,#A78BFA);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:0.5rem}
+.svc-pricing-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:2rem;max-width:1200px;margin:3rem auto 0}
+.svc-price-card{background:rgba(15,12,40,0.8);border:1px solid rgba(124,58,237,0.2);border-radius:24px;padding:2.5rem;position:relative;transition:all 0.4s ease;backdrop-filter:blur(10px);display:flex;flex-direction:column}
+.svc-price-card:hover{transform:translateY(-8px);border-color:rgba(0,212,255,0.4);box-shadow:0 25px 60px rgba(0,212,255,0.1)}
+.svc-price-featured{background:linear-gradient(145deg,rgba(124,58,237,0.2),rgba(0,212,255,0.1));border-color:rgba(0,212,255,0.4);box-shadow:0 0 40px rgba(124,58,237,0.2);transform:scale(1.04)}
+.svc-price-featured:hover{transform:scale(1.04) translateY(-8px)}
+.svc-price-badge{position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#7C3AED,#00D4FF);color:#fff;padding:0.4rem 1.5rem;border-radius:50px;font-size:0.8rem;font-weight:700;white-space:nowrap}
+.svc-price-header{margin-bottom:1.5rem}
+.svc-price-header h3{color:#fff;font-size:1.4rem;font-weight:800;margin-bottom:0.5rem}
+.svc-price-amount{font-size:1.6rem;font-weight:900;background:linear-gradient(135deg,#A78BFA,#00D4FF);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.svc-price-features{list-style:none;flex:1;margin-bottom:2rem}
+.svc-price-features li{color:rgba(255,255,255,0.75);padding:0.55rem 0;font-size:0.9rem;border-bottom:1px solid rgba(255,255,255,0.05);display:flex;align-items:center;gap:0.7rem}
+.svc-price-features li i{color:#10B981;font-size:0.8rem}
+.svc-price-btn{display:flex;text-align:center;text-decoration:none;padding:0.9rem;border-radius:12px;font-weight:700;font-size:0.95rem;background:rgba(124,58,237,0.2);border:1px solid rgba(124,58,237,0.4);color:#A78BFA;transition:all 0.3s ease;align-items:center;justify-content:center;gap:0.5rem}
+.svc-price-btn:hover{background:rgba(124,58,237,0.4);color:#fff}
+.svc-price-btn-featured{background:linear-gradient(135deg,#7C3AED,#00D4FF);color:#fff;border:none;box-shadow:0 8px 25px rgba(124,58,237,0.4)}
+.svc-price-btn-featured:hover{box-shadow:0 12px 35px rgba(124,58,237,0.6);transform:translateY(-2px)}
+.svc-cta-banner{padding:5rem 2rem;text-align:center;position:relative;overflow:hidden;background:linear-gradient(135deg,#1A0A2E 0%,#0F0D2E 100%);border-top:1px solid rgba(124,58,237,0.2)}
+.svc-cta-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;height:300px;background:radial-gradient(ellipse,rgba(124,58,237,0.2) 0%,transparent 70%);pointer-events:none}
+.svc-cta-banner h2{position:relative;font-size:2.2rem;font-weight:900;color:#fff;margin-bottom:1rem}
+.svc-cta-banner p{position:relative;color:rgba(255,255,255,0.6);font-size:1.1rem;margin-bottom:2.5rem}
+.svc-cta-banner p strong{color:#00D4FF}
+.svc-cta-btns{position:relative;display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+.svc-cta-primary{display:inline-flex;align-items:center;gap:0.6rem;background:linear-gradient(135deg,#7C3AED,#00D4FF);color:#fff;text-decoration:none;padding:0.9rem 2.5rem;border-radius:50px;font-weight:700;font-size:1rem;box-shadow:0 8px 25px rgba(124,58,237,0.4);transition:all 0.3s ease}
+.svc-cta-primary:hover{transform:translateY(-3px);box-shadow:0 15px 35px rgba(124,58,237,0.5)}
+.svc-cta-secondary{display:inline-flex;align-items:center;gap:0.6rem;background:rgba(37,211,102,0.15);border:1px solid rgba(37,211,102,0.4);color:#25D366;text-decoration:none;padding:0.9rem 2.5rem;border-radius:50px;font-weight:700;font-size:1rem;transition:all 0.3s ease}
+.svc-cta-secondary:hover{background:rgba(37,211,102,0.25);transform:translateY(-3px)}
+@media(max-width:768px){
+  .svc-hero-content h1{font-size:2.5rem}
+  .svc-hero-stats{gap:1.5rem}
+  .svc-process-steps{flex-direction:column;align-items:center}
+  .svc-step-line{width:2px;height:30px;margin:0;background:linear-gradient(180deg,rgba(124,58,237,0.3),rgba(0,212,255,0.3))}
+  .svc-price-featured{transform:scale(1)}
+  .svc-tech-group{flex-direction:column;align-items:flex-start}
+}
+</style>
+
+<script>
+function filterServices(category, btn) {
+    document.querySelectorAll('.svc-filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.svc-flip-card').forEach(card => {
+        var cats = card.dataset.category || '';
+        if (category === 'all' || cats.indexOf(category) !== -1) {
+            card.style.display = '';
+            card.style.animation = 'fadeInUp 0.4s ease forwards';
+        } else {
+            card.style.display = 'none';
+        }
+    });
+}
+</script>
 
 """
 
@@ -918,21 +1339,21 @@ CONTACT_TEMPLATE = """
             <div class="quick-icon"><i class="fas fa-phone-alt"></i></div>
             <h4>Call Us</h4>
             <p>+923316170980</p>
-            <span class="quick-action">Click to call →</span>
+            <span class="quick-action">Click to call &rarr;</span>
         </a>
 
         <a href="mailto:asifhavelilakha@gmail.com" class="quick-card email-card">
             <div class="quick-icon"><i class="fas fa-envelope"></i></div>
             <h4>Email Us</h4>
             <p>asifhavelilakha@gmail.com</p>
-            <span class="quick-action">Click to email →</span>
+            <span class="quick-action">Click to email &rarr;</span>
         </a>
 
         <div class="quick-card chat-card">
             <div class="quick-icon"><i class="fas fa-comment-dots"></i></div>
             <h4>Chat Support</h4>
             <p>Available 24/7</p>
-            <span class="quick-action">Start chat →</span>
+            <span class="quick-action">Start chat &rarr;</span>
         </div>
     </div>
 </section>
@@ -961,7 +1382,7 @@ ABOUT_TEMPLATE = """
     <div class="about-grid">
         <div class="about-card">
             <h3>Our Story</h3>
-            <p>Founded in 2020, Micromatrix emerged from a vision to deliver world-class software solutions. We've evolved into a dynamic, remote-first organization trusted by 100+ clients globally.</p>
+            <p>Founded in 2020, Micromatrix emerged from a vision to deliver world-class software solutions. We&#39;ve evolved into a dynamic, remote-first organization trusted by 100+ clients globally.</p>
         </div>
         <div class="about-card">
             <h3>Our Mission</h3>
@@ -1050,27 +1471,27 @@ ABOUT_TEMPLATE = """
 
     <div class="promise-grid">
         <div class="promise-card">
-            <h3>✓ Quality Excellence</h3>
+            <h3>&#10003; Quality Excellence</h3>
             <p>Every deliverable meets the highest industry standards through rigorous testing and quality assurance.</p>
         </div>
         <div class="promise-card">
-            <h3>✓ Transparent Communication</h3>
+            <h3>&#10003; Transparent Communication</h3>
             <p>Weekly updates and clear progress reports. You'll always know where your project stands.</p>
         </div>
         <div class="promise-card">
-            <h3>✓ Timely Delivery</h3>
+            <h3>&#10003; Timely Delivery</h3>
             <p>We respect your timelines and deliver on schedule using proven project management methodology.</p>
         </div>
         <div class="promise-card">
-            <h3>✓ Scalable Solutions</h3>
+            <h3>&#10003; Scalable Solutions</h3>
             <p>Your software grows with your business. We design for scalability from day one.</p>
         </div>
         <div class="promise-card">
-            <h3>✓ Security & Compliance</h3>
+            <h3>&#10003; Security & Compliance</h3>
             <p>Enterprise-grade security and global compliance standards to safeguard your sensitive information.</p>
         </div>
         <div class="promise-card">
-            <h3>✓ 24/7 Support</h3>
+            <h3>&#10003; 24/7 Support</h3>
             <p>Continuous monitoring, maintenance, and technical support to keep your systems running smoothly.</p>
         </div>
     </div>
@@ -1078,7 +1499,7 @@ ABOUT_TEMPLATE = """
 
 <section class="about-cta">
     <h2>Ready to Transform Your Business?</h2>
-    <p>Let's collaborate and build something extraordinary together</p>
+    <p>Let&#39;s collaborate and build something extraordinary together</p>
     <div class="cta-actions">
         <a href="/contact" class="cta-button">Start Your Project Today</a>
         <a href="tel:+923316170980" class="cta-button secondary">Call Us Now</a>
@@ -4499,7 +4920,7 @@ function handleContactForm(event) {
     .then(response => response.json())
     .then(data => {
         if (data.status === 'success') {
-            messageDiv.textContent = '✓ Thank you! We will contact you within 24 hours.';
+            messageDiv.textContent = '&#10003; Thank you! We will contact you within 24 hours.';
             messageDiv.className = 'form-message success';
             messageDiv.style.display = 'block';
             document.getElementById('contactForm').reset();
@@ -4513,7 +4934,7 @@ function handleContactForm(event) {
     })
     .catch(error => {
         console.error('Form error:', error);
-        messageDiv.textContent = '✓ Thank you! We will contact you within 24 hours.';
+        messageDiv.textContent = '&#10003; Thank you! We will contact you within 24 hours.';
         messageDiv.className = 'form-message success';
         messageDiv.style.display = 'block';
         submitBtn.textContent = 'Send Message';
