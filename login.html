@@ -86,27 +86,7 @@
     border: 1px solid var(--glass-border) !important;
 }
 
-/* Animated Floating Blobs */
-.blob {
-    position: fixed;
-    width: 500px;
-    height: 500px;
-    background: radial-gradient(circle, rgba(161,130,221,0.1) 0%, transparent 70%);
-    border-radius: 50%;
-    z-index: -1;
-    filter: blur(50px);
-    pointer-events: none;
-    animation: blob-float 20s infinite alternate;
-}
 
-.blob-1 { top: -100px; left: -100px; animation-delay: 0s; }
-.blob-2 { bottom: -100px; right: -100px; background: radial-gradient(circle, rgba(91,194,197,0.1) 0%, transparent 70%); animation-delay: -5s; }
-.blob-3 { top: 40%; left: 30%; background: radial-gradient(circle, rgba(161,130,221,0.08) 0%, transparent 70%); animation-delay: -10s; }
-
-@keyframes blob-float {
-    from { transform: translate(0, 0) scale(1); }
-    to { transform: translate(100px, 50px) scale(1.1); }
-}
 
 
 * {
@@ -124,7 +104,8 @@ body {
     background-color: var(--white-primary);
     color: var(--text-dark);
     line-height: 1.7;
-    font-size: 1.2rem;
+    font-size: 1rem;
+    overflow-x: hidden;
 }
 
 .header {
@@ -405,9 +386,8 @@ body {
 
 .main-content {
     min-height: calc(100vh - 200px);
-    max-width: 1400px;
-    margin: 0 auto;
     width: 100%;
+    overflow-x: hidden;
 }
 
 .hero-section {
@@ -2153,38 +2133,13 @@ body {
 
 .auth-left {
     flex: 1;
-    background: url('/static/images/auth_bg.png') no-repeat center center;
-    background-size: cover;
+    background: linear-gradient(160deg, var(--navy-dark) 0%, var(--navy-primary) 60%, var(--navy-light) 100%);
     display: flex;
     flex-direction: column;
     justify-content: center;
     padding: 4rem 3rem;
     color: #fff;
     position: relative;
-    overflow: hidden;
-    box-shadow: inset 0 0 0 2000px rgba(15, 13, 46, 0.72);
-}
-
-.auth-left::before {
-    content: '';
-    position: absolute;
-    top: -100px;
-    right: -100px;
-    width: 350px;
-    height: 350px;
-    border-radius: 50%;
-    background: rgba(161, 130, 221, 0.15);
-}
-
-.auth-left::after {
-    content: '';
-    position: absolute;
-    bottom: -80px;
-    left: -80px;
-    width: 250px;
-    height: 250px;
-    border-radius: 50%;
-    background: rgba(91, 194, 197, 0.12);
 }
 
 .auth-brand h1 {
@@ -2418,19 +2373,47 @@ body {
 
 @media (max-width: 768px) {
     .auth-container { flex-direction: column; }
-    .auth-left { padding: 2.5rem 1.5rem; min-height: 220px; }
-    .auth-right { padding: 2rem 1rem; }
-    .auth-card { padding: 1.8rem 1.2rem; }
+    .auth-left {
+        padding: 2rem 1.5rem;
+        min-height: 180px;
+        flex: none;
+    }
+    .auth-left-content h2 { font-size: 1.4rem; }
+    .auth-left-content p { font-size: 0.9rem; }
+    .auth-brand h1 { font-size: 1.6rem; }
+    .auth-brand-tagline { margin-bottom: 1.5rem; }
+    .auth-right { padding: 1.5rem 1rem; }
+    .auth-card {
+        padding: 1.5rem 1rem;
+        border-radius: 14px;
+        max-width: 100%;
+    }
+    .auth-card-header h2 { font-size: 1.3rem; }
+    .auth-icon { width: 55px; height: 55px; font-size: 1.4rem; }
     .nav-user, .nav-btn { font-size: 0.82rem; padding: 0.35rem 0.7rem; }
+    .header { padding: 0.75rem 1rem; }
+    .company-info h1 { font-size: 1.1rem; }
+    .system-status { display: none; }
+    .auth-submit-btn { font-size: 0.95rem; padding: 0.85rem; }
+    .auth-input-wrapper input { font-size: 0.95rem; padding: 0.75rem 2.5rem; }
+}
+
+@media (max-width: 480px) {
+    body { font-size: 0.9rem; }
+    .auth-left { min-height: 150px; padding: 1.5rem 1rem; }
+    .auth-right { padding: 1rem 0.75rem; }
+    .auth-card { padding: 1.2rem 0.9rem; }
+    .auth-card-header h2 { font-size: 1.2rem; }
+    .auth-features { gap: 0.5rem; }
+    .auth-feature { font-size: 0.9rem; }
+    .footer-content { grid-template-columns: 1fr; }
+    .chatbot-widget { width: 92%; right: 4%; left: 4%; }
 }
 
     </style>
 </head>
 <body>
-    <!-- Decorative Blobs -->
-    <div class="blob blob-1"></div>
-    <div class="blob blob-2"></div>
-    <div class="blob blob-3"></div>
+
 
     <header class="header">
         <!-- Custom Cursor Follower -->
