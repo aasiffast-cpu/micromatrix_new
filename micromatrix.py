@@ -1899,6 +1899,130 @@ ADMIN_TEMPLATE = """
                 </table>
             </div>
         </div>
+
+        <!-- Portfolio Section -->
+        <div class="admin-section" style="grid-column: 1 / -1; margin-top: 2rem;">
+            <div class="admin-section-header">
+                <div class="admin-section-icon">
+                    <i class="fas fa-briefcase"></i>
+                </div>
+                <h2>My Portfolio / CV</h2>
+            </div>
+            
+            <div class="portfolio-content" style="padding: 2rem; background: #0f172a; border-radius: 12px; border: 1px solid #334155; color: #f8fafc;">
+                <div style="text-align: center; margin-bottom: 2rem; border-bottom: 1px solid #334155; padding-bottom: 1.5rem;">
+                    <h1 style="font-size: 2.2rem; color: #fff; margin-bottom: 0.5rem; font-family: 'Outfit', sans-serif;">MUHAMMAD ASIF</h1>
+                    <h3 style="color: #5BC2C5; font-weight: 500; font-size: 1.2rem; margin-bottom: 1rem; font-family: 'Inter', sans-serif;">Full-Stack Developer (Python / Flask · JavaScript · REST APIs)</h3>
+                    <div style="display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; font-size: 0.95rem; color: #94a3b8; font-family: 'Inter', sans-serif;">
+                        <span><i class="fas fa-phone"></i> +92 303 9977330</span>
+                        <span><i class="fas fa-envelope"></i> fa24-bcs-161@students.cuisahiwal.edu.pk</span>
+                        <span><i class="fas fa-map-marker-alt"></i> Lahore, Pakistan</span>
+                        <span><a href="https://github.com/aasiffast-cpu" target="_blank" style="color: #5BC2C5; text-decoration: none;"><i class="fab fa-github"></i> github.com/aasiffast-cpu</a></span>
+                        <span><a href="https://www.linkedin.com/in/muhammad-asif-876b62341/" target="_blank" style="color: #5BC2C5; text-decoration: none;"><i class="fab fa-linkedin"></i> muhammad-asif-876b62341</a></span>
+                    </div>
+                </div>
+
+                <div style="margin-bottom: 2rem; font-family: 'Inter', sans-serif;">
+                    <h3 style="color: #A182DD; border-bottom: 1px solid #334155; padding-bottom: 0.5rem; margin-bottom: 1rem;"><i class="fas fa-user"></i> PROFILE</h3>
+                    <p style="color: #cbd5e1; line-height: 1.6;">Full-stack developer with hands-on experience building web applications end-to-end — from responsive front-end interfaces to Flask-based back-end services and REST APIs — plus applied AI integrations (computer vision, LLM APIs). Comfortable owning a project from requirements through deployment in fast-moving, collaborative environments. Seeking a full-stack developer role with an international company (Switzerland/EU) to contribute to production-grade products and grow as an engineer; open to relocation and, where required, visa sponsorship.</p>
+                </div>
+
+                <div style="margin-bottom: 2rem; font-family: 'Inter', sans-serif;">
+                    <h3 style="color: #A182DD; border-bottom: 1px solid #334155; padding-bottom: 0.5rem; margin-bottom: 1rem;"><i class="fas fa-briefcase"></i> EXPERIENCE</h3>
+                    
+                    <div style="margin-bottom: 1.5rem;">
+                        <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.5rem;">
+                            <strong style="color: #fff; font-size: 1.1rem;">Web Development Intern &mdash; <span style="color: #5BC2C5;">LinkedMatrix (Remote)</span></strong>
+                            <span style="color: #94a3b8; font-size: 0.9rem;">4 weeks</span>
+                        </div>
+                        <ul style="color: #cbd5e1; padding-left: 1.2rem; line-height: 1.6;">
+                            <li>Built and shipped 5+ responsive web pages using HTML, CSS, and Flask, translating requirements into functional front-end interfaces</li>
+                            <li>Designed and integrated back-end routes, server-side logic, and RESTful APIs using Flask</li>
+                            <li>Used Git for version control in a 4-member team, managing branches and merges to deliver milestones on schedule</li>
+                        </ul>
+                    </div>
+
+                    <div style="margin-bottom: 1.5rem;">
+                        <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.5rem;">
+                            <strong style="color: #fff; font-size: 1.1rem;">Founder & Full-Stack Developer &mdash; <span style="color: #5BC2C5;">Micromatrix (IT Services)</span></strong>
+                            <span style="color: #94a3b8; font-size: 0.9rem;">Present</span>
+                        </div>
+                        <ul style="color: #cbd5e1; padding-left: 1.2rem; line-height: 1.6;">
+                            <li>Design and build full-stack web applications and automation tools for clients, owning projects from requirements through deployment</li>
+                            <li>Architect back-end services and APIs in Python/Flask, paired with front-end interfaces in HTML/CSS/JavaScript</li>
+                            <li>Manage client communication, scoping, and delivery timelines as founder of a small IT services practice</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div style="margin-bottom: 2rem; font-family: 'Inter', sans-serif;">
+                    <h3 style="color: #A182DD; border-bottom: 1px solid #334155; padding-bottom: 0.5rem; margin-bottom: 1rem;"><i class="fas fa-project-diagram"></i> PROJECTS</h3>
+                    
+                    <div style="margin-bottom: 1.5rem;">
+                        <div style="margin-bottom: 0.5rem;">
+                            <strong style="color: #fff; font-size: 1.1rem;">Smart Attendance System</strong>
+                            <span style="color: #94a3b8; font-size: 0.9rem; margin-left: 0.5rem;">&mdash; Face-Recognition Web App · Flask, OpenCV, CNN, dlib</span>
+                        </div>
+                        <ul style="color: #cbd5e1; padding-left: 1.2rem; line-height: 1.6; margin-bottom: 0.5rem;">
+                            <li>Built a full-stack attendance web application with a Flask back-end, REST-style routes, and a browser-based front-end</li>
+                            <li>Implemented a real-time face detection and recognition pipeline (OpenCV, dlib, CNN) integrated with the web app</li>
+                        </ul>
+                        <a href="https://github.com/aasiffast-cpu/onlien_attendece_system" target="_blank" style="color: #5BC2C5; text-decoration: none; font-size: 0.9rem;"><i class="fab fa-github"></i> github.com/aasiffast-cpu/onlien_attendece_system</a>
+                    </div>
+
+                    <div style="margin-bottom: 1.5rem;">
+                        <div style="margin-bottom: 0.5rem;">
+                            <strong style="color: #fff; font-size: 1.1rem;">WhatsApp AI Auto-Reply Bot</strong>
+                            <span style="color: #94a3b8; font-size: 0.9rem; margin-left: 0.5rem;">&mdash; Node.js, WhatsApp-Web.js, Google Gemini API, Docker</span>
+                        </div>
+                        <ul style="color: #cbd5e1; padding-left: 1.2rem; line-height: 1.6; margin-bottom: 0.5rem;">
+                            <li>Built a Node.js automation bot that auto-replies to WhatsApp messages in real time using the Google Gemini API for natural, human-like responses</li>
+                            <li>Implemented persistent session handling (no repeated QR scans) and a one-click launcher; containerized the app with Docker for portable deployment</li>
+                        </ul>
+                        <a href="https://github.com/aasiffast-cpu/whattsapp_aotomation" target="_blank" style="color: #5BC2C5; text-decoration: none; font-size: 0.9rem;"><i class="fab fa-github"></i> github.com/aasiffast-cpu/whattsapp_aotomation</a>
+                    </div>
+                </div>
+
+                <div style="margin-bottom: 2rem; font-family: 'Inter', sans-serif;">
+                    <h3 style="color: #A182DD; border-bottom: 1px solid #334155; padding-bottom: 0.5rem; margin-bottom: 1rem;"><i class="fas fa-tools"></i> TECHNICAL SKILLS</h3>
+                    <ul style="color: #cbd5e1; padding-left: 1.2rem; line-height: 1.8;">
+                        <li><strong style="color: #fff;">Web Development:</strong> HTML, CSS, JavaScript, Python, Flask, Node.js, REST APIs</li>
+                        <li><strong style="color: #fff;">Programming Languages:</strong> Python, JavaScript, Java, C, SQL (Oracle Database)</li>
+                        <li><strong style="color: #fff;">Tools & Version Control:</strong> Git, GitHub, Docker, VS Code, Postman, Jupyter Notebook</li>
+                        <li><strong style="color: #fff;">AI / Data:</strong> NumPy, Pandas, OpenCV, dlib, Google Gemini API, Power BI</li>
+                    </ul>
+                </div>
+
+                <div style="margin-bottom: 2rem; font-family: 'Inter', sans-serif;">
+                    <h3 style="color: #A182DD; border-bottom: 1px solid #334155; padding-bottom: 0.5rem; margin-bottom: 1rem;"><i class="fas fa-graduation-cap"></i> EDUCATION & CERTIFICATIONS</h3>
+                    
+                    <div style="margin-bottom: 1.2rem;">
+                        <strong style="color: #fff; font-size: 1.05rem;">Bachelor of Science in Computer Science (BSCS)</strong><br>
+                        <span style="color: #94a3b8;">COMSATS University Islamabad, Sahiwal Campus &mdash; In Progress (2 years completed)</span>
+                    </div>
+                    <div style="margin-bottom: 1.2rem;">
+                        <strong style="color: #fff; font-size: 1.05rem;">Intermediate (ICS – Computer Science)</strong><br>
+                        <span style="color: #94a3b8;">Punjab Group of Colleges, Pakpattan Campus &mdash; 2024</span>
+                    </div>
+                    
+                    <div style="margin-top: 1.5rem;">
+                        <strong style="color: #fff; font-size: 1.05rem;">Certifications</strong>
+                        <ul style="color: #cbd5e1; padding-left: 1.2rem; margin-top: 0.5rem;">
+                            <li>Artificial Intelligence using Python &mdash; DigiSkills.pk</li>
+                            <li>Data Analytics and Business Intelligence &mdash; DigiSkills.pk</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div style="font-family: 'Inter', sans-serif;">
+                    <h3 style="color: #A182DD; border-bottom: 1px solid #334155; padding-bottom: 0.5rem; margin-bottom: 1rem;"><i class="fas fa-language"></i> LANGUAGES & SOFT SKILLS</h3>
+                    <ul style="color: #cbd5e1; padding-left: 1.2rem; line-height: 1.8;">
+                        <li><strong style="color: #fff;">Languages:</strong> Urdu (Native), English (Proficient)</li>
+                        <li><strong style="color: #fff;">Soft Skills:</strong> Problem Solving, Teamwork, Time Management, Communication, Adaptability</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
