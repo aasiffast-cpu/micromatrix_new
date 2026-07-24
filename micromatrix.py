@@ -79,6 +79,17 @@ def init_db():
                     FOREIGN KEY (user_id) REFERENCES users (id)
                 )
             ''')
+            cursor.execute('''
+                CREATE TABLE IF NOT EXISTS feedback (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    name TEXT NOT NULL,
+                    email TEXT,
+                    rating INTEGER NOT NULL,
+                    category TEXT DEFAULT 'General',
+                    message TEXT NOT NULL,
+                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                )
+            ''')
             
             # Create default admin if not exists
             admin_email = 'asifhavelilakha@gmail.com'
@@ -125,12 +136,14 @@ chatbot_knowledge = {
     'what is your email': 'Our email is asifhavelilakha@gmail.com. We respond to emails within 24 hours.',
     'are you a remote company': 'Yes! Micromatrix is a remote-first company. This allows us to serve clients globally with flexibility and efficiency.',
     'do you provide support': 'Absolutely! We provide 24/7 support to all our clients. Our team is always available to assist you.',
-    'what is your location': 'Micromatrix is a remote-first company with a global team. We serve clients worldwide without geographical limitations.',
+    'what is your location': 'Address: Allama Iqbal Hostel, Opposite to COMSATS University, Sahiwal, Pakistan.',
     'can you help with my project': 'Yes! We can definitely help. Tell us about your project needs and we can provide a custom solution. Contact our team or fill out our contact form.',
     'do you have experience': 'Yes, we have extensive experience across multiple industries and have successfully completed numerous projects for satisfied clients.',
     'what technology do you use': 'We use cutting-edge technologies including: React, Angular, Node.js, Python, Django, Flutter, AWS, Azure, Docker, Kubernetes, TensorFlow, and many more.',
-    'owner': 'Micromatrix is led by Muhammad Asif from Pakistan.',
-    'founder': 'Micromatrix was founded by Muhammad Asif in 2020.',
+    'owner': 'Micromatrix is led by Muhammad Asif, a student at COMSATS University Islamabad, Sahiwal Campus.',
+    'founder': 'Micromatrix was founded by Muhammad Asif (Student at COMSATS University Islamabad, Sahiwal Campus) in 2020.',
+    'university': 'Founder Muhammad Asif is a student at COMSATS University Islamabad, Sahiwal Campus.',
+    'address': 'Allama Iqbal Hostel, Opposite to COMSATS University, Sahiwal, Pakistan.',
     'pricing': 'Our pricing is structured into Starter ($100-$500), Basic ($500-$1000), and Professional ($1000-$2000) tiers. It varies based on your project requirements.',
     'process': 'We start with a detailed assessment, followed by an estimated timeline. We maintain transparent communication and ensure rigorous testing throughout the process.',
     'hello': 'Hello! Welcome to Micromatrix. How can I help you today?',
@@ -267,11 +280,6 @@ BASE_TEMPLATE = """<!DOCTYPE html>
     </style>
 </head>
 <body>
-    <!-- Decorative Blobs -->
-    <div class="blob blob-1"></div>
-    <div class="blob blob-2"></div>
-    <div class="blob blob-3"></div>
-
     <header class="header">
         <div class="header-container">
             <!-- Logo on Left -->
@@ -308,24 +316,7 @@ BASE_TEMPLATE = """<!DOCTYPE html>
         </div>
     </header>
 
-    <!-- Custom Cursor Follower -->
-    <div class="cursor-glow" id="cursorGlow"></div>
 
-    <!-- Live System Status -->
-    <div class="system-status">
-        <div class="status-dot"></div>
-        <span id="statusPing">Systems Operational &bull; Ping: 12ms</span>
-    </div>
-
-    <!-- Real-time Notifications -->
-
-    <div id="notificationToast" class="notification-toast">
-        <div class="notif-icon"><i class="fas fa-shopping-bag"></i></div>
-        <div class="notif-content">
-            <p id="notifMessage">New order from Dubai!</p>
-            <span id="notifTime">2 minutes ago</span>
-        </div>
-    </div>
 
     <!-- Right Sidebar Overlay -->
     <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleMenu()"></div>
@@ -333,7 +324,10 @@ BASE_TEMPLATE = """<!DOCTYPE html>
     <!-- Right Sidebar -->
     <aside class="sidebar" id="sidebar">
         <div class="sidebar-header">
-            <span>NAVIGATION</span>
+            <div style="display: flex; align-items: center; gap: 0.6rem;">
+                <img src="/static/images/logo.png" alt="Micromatrix Logo" style="height: 36px; border-radius: 6px;">
+                <span>MICROMATRIX</span>
+            </div>
             <button class="sidebar-close" onclick="toggleMenu()"><i class="fas fa-times"></i></button>
         </div>
         <nav class="sidebar-nav">
@@ -357,18 +351,20 @@ BASE_TEMPLATE = """<!DOCTYPE html>
     <footer class="footer">
         <div class="footer-content">
             <div class="footer-section">
+                <img src="/static/images/logo.png" alt="Micromatrix Logo" style="height: 52px; border-radius: 8px; margin-bottom: 0.8rem; background: #ffffff; padding: 4px; display: inline-block;">
                 <h3>Micromatrix</h3>
                 <p>Leading provider of innovative technology solutions</p>
                 <p class="tagline-small">Remote-First Company</p>
             </div>
 
             <div class="footer-section">
-                <h4>Contact Information</h4>
+                <h4>Contact & Location</h4>
+                <p><i class="fas fa-university"></i> COMSATS University Islamabad (Sahiwal Campus)</p>
+                <p><i class="fas fa-map-marker-alt"></i> Allama Iqbal Hostel, Opp. COMSATS, Sahiwal</p>
                 <p><i class="fas fa-phone-alt"></i> Phone: +923316170980</p>
                 <p><i class="fas fa-phone-alt"></i> Personal: +92 3039977330</p>
                 <p><i class="fas fa-comment-dots"></i> WhatsApp: <a href="https://wa.me/923316170980" target="_blank" class="footer-link">+923316170980</a></p>
                 <p><i class="fas fa-envelope"></i> Email: asifhavelilakha@gmail.com</p>
-                <p><i class="fas fa-globe-americas"></i> Service: Global Remote Services</p>
             </div>
 
             <div class="footer-section">
@@ -390,25 +386,7 @@ BASE_TEMPLATE = """<!DOCTYPE html>
         
         <!-- Live Visitor & Global Clocks -->
         <div class="footer-bottom">
-            <p>&copy; 2026 Micromatrix. All rights reserved.</p>
-            <div class="global-clocks" id="globalClocks">
-                <div class="clock-item">
-                    <span>New York</span>
-                    <strong id="timeNY">--:--</strong>
-                </div>
-                <div class="clock-item">
-                    <span>London</span>
-                    <strong id="timeLDN">--:--</strong>
-                </div>
-                <div class="clock-item">
-                    <span>Dubai</span>
-                    <strong id="timeDXB">--:--</strong>
-                </div>
-                <div class="clock-item">
-                    <span>Islamabad</span>
-                    <strong id="timeISB">--:--</strong>
-                </div>
-            </div>
+            <p>&copy; 2020 Micromatrix. All rights reserved.</p>
         </div>
     </div>
 </footer>
@@ -1199,6 +1177,8 @@ CONTACT_TEMPLATE = """
                 <p><strong>Type:</strong> Remote-First Technology Company</p>
                 <p><strong>Customers:</strong> 15+ Satisfied Clients</p>
                 <p><strong>Specialization:</strong> Full-Stack Technology Solutions</p>
+                <p><i class="fas fa-university" style="color:var(--accent-purple);"></i> <strong>University:</strong> COMSATS University Islamabad, Sahiwal Campus</p>
+                <p><i class="fas fa-map-marker-alt" style="color:var(--accent-purple);"></i> <strong>Address:</strong> Allama Iqbal Hostel, Opposite COMSATS University, Sahiwal</p>
             </div>
         </div>
 
@@ -1353,10 +1333,116 @@ CONTACT_TEMPLATE = """
             <div class="quick-icon"><i class="fas fa-comment-dots"></i></div>
             <h4>Chat Support</h4>
             <p>Available 24/7</p>
-            <span class="quick-action">Start chat &rarr;</span>
         </div>
     </div>
 </section>
+
+<!-- FEEDBACK SECTION -->
+<section class="feedback-section" id="feedbackSection">
+    <div class="feedback-inner">
+        <div class="feedback-header-block">
+            <span class="section-badge">&#11088; Feedback</span>
+            <h2>Share Your Experience</h2>
+            <p>Your feedback helps us improve. Take a moment to rate our services.</p>
+        </div>
+        <div class="feedback-form-card">
+            <form id="feedbackForm" onsubmit="submitFeedback(event)">
+                <div class="fb-rating-block">
+                    <label class="fb-label">Your Rating *</label>
+                    <div class="star-rating" id="starRating">
+                        <span class="star" data-val="1">&#9733;</span>
+                        <span class="star" data-val="2">&#9733;</span>
+                        <span class="star" data-val="3">&#9733;</span>
+                        <span class="star" data-val="4">&#9733;</span>
+                        <span class="star" data-val="5">&#9733;</span>
+                    </div>
+                    <input type="hidden" id="fbRating" name="rating" value="0">
+                    <span class="rating-text" id="ratingText">Click to rate</span>
+                </div>
+                <div class="fb-row">
+                    <div class="fb-group">
+                        <label class="fb-label" for="fbName">Your Name *</label>
+                        <input type="text" id="fbName" name="name" placeholder="Muhammad Ali" required class="fb-input">
+                    </div>
+                    <div class="fb-group">
+                        <label class="fb-label" for="fbEmail">Email (optional)</label>
+                        <input type="email" id="fbEmail" name="email" placeholder="email@example.com" class="fb-input">
+                    </div>
+                </div>
+                <div class="fb-group">
+                    <label class="fb-label" for="fbCategory">Category</label>
+                    <select id="fbCategory" name="category" class="fb-input">
+                        <option value="General">General</option>
+                        <option value="Web Development">Web Development</option>
+                        <option value="Mobile App">Mobile App</option>
+                        <option value="Customer Support">Customer Support</option>
+                        <option value="Pricing">Pricing</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <div class="fb-group">
+                    <label class="fb-label" for="fbMessage">Your Feedback *</label>
+                    <textarea id="fbMessage" name="message" placeholder="Tell us about your experience with Micromatrix..." rows="4" required class="fb-input fb-textarea"></textarea>
+                </div>
+                <button type="submit" class="fb-submit-btn" id="fbSubmitBtn">
+                    <i class="fas fa-paper-plane"></i> Submit Feedback
+                </button>
+                <div id="fbResult" class="fb-result" style="display:none;"></div>
+            </form>
+        </div>
+    </div>
+</section>
+
+<style>
+.feedback-section{padding:4rem 2rem;background:var(--white-secondary)}
+.feedback-inner{max-width:760px;margin:0 auto}
+.feedback-header-block{text-align:center;margin-bottom:2rem}
+.section-badge{display:inline-block;background:var(--accent-purple);color:#fff;padding:.3rem 1rem;border-radius:50px;font-size:.82rem;font-weight:700;letter-spacing:1px;margin-bottom:.8rem}
+.feedback-header-block h2{font-size:2rem;color:var(--navy-primary);margin-bottom:.4rem}
+.feedback-header-block p{color:var(--text-light);font-size:1rem}
+.feedback-form-card{background:var(--white-primary);border-radius:16px;padding:2.5rem;box-shadow:0 4px 20px rgba(0,0,0,.07);border:1px solid var(--border-color)}
+.fb-rating-block{margin-bottom:1.5rem;text-align:center}
+.star-rating{display:flex;justify-content:center;gap:.5rem;margin:.6rem 0}
+.star{font-size:2.5rem;color:#d1d5db;cursor:pointer;transition:color .15s,transform .15s;user-select:none}
+.star.active,.star.hovered{color:#f59e0b;transform:scale(1.15)}
+.rating-text{display:block;font-size:.85rem;color:var(--text-light);margin-top:.3rem}
+.fb-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.fb-group{margin-bottom:1.2rem}
+.fb-label{display:block;font-size:.88rem;font-weight:600;color:var(--navy-primary);margin-bottom:.4rem}
+.fb-input{width:100%;padding:.75rem 1rem;border:2px solid var(--border-color);border-radius:8px;font-size:.95rem;font-family:inherit;background:var(--white-primary);color:var(--text-dark);transition:border-color .2s;box-sizing:border-box;outline:none}
+.fb-input:focus{border-color:var(--accent-purple);box-shadow:0 0 0 3px rgba(37,99,235,.1)}
+.fb-textarea{resize:vertical;min-height:110px}
+.fb-submit-btn{width:100%;padding:.9rem;background:linear-gradient(135deg,var(--navy-primary),var(--accent-purple));color:#fff;border:none;border-radius:8px;font-size:1rem;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:.6rem;transition:all .3s;font-family:inherit;letter-spacing:.5px;margin-top:.5rem}
+.fb-submit-btn:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(37,99,235,.35)}
+.fb-result{margin-top:1rem;padding:1rem;border-radius:8px;text-align:center;font-weight:600}
+.fb-result.success{background:#f0fdf4;color:#15803d;border:1px solid #bbf7d0}
+.fb-result.error{background:#fef2f2;color:#b91c1c;border:1px solid #fecaca}
+@media(max-width:600px){.fb-row{grid-template-columns:1fr}.feedback-form-card{padding:1.5rem}}
+</style>
+<script>
+(function(){
+    var stars=document.querySelectorAll('#starRating .star'),ri=document.getElementById('fbRating'),rt=document.getElementById('ratingText'),lb=['','Poor','Fair','Good','Very Good','Excellent'];
+    stars.forEach(function(s){
+        s.addEventListener('mouseenter',function(){var v=+s.dataset.val;stars.forEach(function(x){x.classList.toggle('hovered',+x.dataset.val<=v)});rt.textContent=lb[v]});
+        s.addEventListener('mouseleave',function(){var c=+ri.value;stars.forEach(function(x){x.classList.remove('hovered');x.classList.toggle('active',+x.dataset.val<=c)});rt.textContent=c?lb[c]:'Click to rate'});
+        s.addEventListener('click',function(){var v=+s.dataset.val;ri.value=v;stars.forEach(function(x){x.classList.toggle('active',+x.dataset.val<=v)});rt.textContent=lb[v]});
+    });
+})();
+async function submitFeedback(e){
+    e.preventDefault();
+    var rating=document.getElementById('fbRating').value;
+    if(!rating||rating=='0'){alert('Please select a star rating!');return;}
+    var btn=document.getElementById('fbSubmitBtn'),rd=document.getElementById('fbResult');
+    btn.disabled=true;btn.innerHTML='<i class="fas fa-spinner fa-spin"></i> Submitting...';
+    try{
+        var res=await fetch('/api/feedback',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:document.getElementById('fbName').value,email:document.getElementById('fbEmail').value,rating:parseInt(rating),category:document.getElementById('fbCategory').value,message:document.getElementById('fbMessage').value})});
+        var data=await res.json();
+        if(data.status==='success'){rd.className='fb-result success';rd.innerHTML='&#10003; Thank you for your feedback!';document.getElementById('feedbackForm').reset();document.querySelectorAll('#starRating .star').forEach(function(s){s.classList.remove('active')});document.getElementById('fbRating').value='0';document.getElementById('ratingText').textContent='Click to rate';}
+        else{rd.className='fb-result error';rd.innerHTML='&#10007; Something went wrong.';}
+    }catch(err){rd.className='fb-result error';rd.innerHTML='&#10007; Network error.';}
+    rd.style.display='block';btn.disabled=false;btn.innerHTML='<i class="fas fa-paper-plane"></i> Submit Feedback';
+}
+</script>
 
 """
 
@@ -1408,7 +1494,8 @@ ABOUT_TEMPLATE = """
         <div class="founder-info">
             <h2>Muhammad Asif</h2>
             <p class="founder-title"><i class="fas fa-briefcase"></i> Founder &amp; CEO &mdash; Micromatrix</p>
-            <p class="founder-location"><i class="fas fa-map-marker-alt"></i> Lahore, Pakistan &nbsp;&mdash;&nbsp; Remote Global Company</p>
+            <p class="founder-location"><i class="fas fa-university"></i> Student &mdash; COMSATS University Islamabad, Sahiwal Campus</p>
+            <p class="founder-location"><i class="fas fa-map-marker-alt"></i> Allama Iqbal Hostel, Opposite COMSATS University, Sahiwal &nbsp;&mdash;&nbsp; Remote Global Company</p>
             <p class="founder-since"><i class="fas fa-calendar-alt"></i> Founded in <strong>2020</strong> &mdash; Serving clients worldwide for 5+ years</p>
             <p class="founder-bio">Muhammad Asif is the founder and CEO of Micromatrix, a company he established in 2020 with a bold mission: to deliver world-class, affordable technology solutions from Pakistan to the global market. With deep expertise in software engineering, AI, cloud computing, and digital transformation, he assembled a talented remote-first team that serves businesses across multiple continents. Under his leadership, Micromatrix has grown to offer 15+ specialized services and has successfully delivered 100+ projects for startups and enterprises alike. His commitment to quality, transparency, and innovation defines the culture at Micromatrix.</p>
             <div class="founder-stats">
@@ -1648,65 +1735,69 @@ SIGNUP_TEMPLATE = """
 """
 
 ADMIN_TEMPLATE = """
-<div class="admin-page" style="padding: 2rem; max-width: 1400px; margin: 0 auto; background: var(--white-primary); min-height: 100vh;">
-    <div class="admin-header" style="margin-bottom: 2rem; display: flex; justify-content: space-between; align-items: center; background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy-primary) 100%); padding: 3rem; border-radius: 24px; color: white; box-shadow: var(--shadow-lg); border: 1px solid rgba(255,255,255,0.1);">
-        <div>
-            <h1 style="font-family: 'Outfit', sans-serif; font-weight: 900; letter-spacing: 3px; font-size: 2.5rem; margin-bottom: 0.5rem; background: linear-gradient(90deg, #fff 0%, var(--accent-violet) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">ADMIN DASHBOARD</h1>
-            <p style="opacity: 0.9; font-size: 1.1rem; font-weight: 500;">Welcome back, Asif! Monitor your business performance here.</p>
+<div class="admin-page">
+    <div class="admin-header">
+        <div class="admin-header-left">
+            <h1 class="admin-title">Admin Dashboard</h1>
+            <p class="admin-subtitle">Welcome back, Asif &mdash; Business Overview</p>
         </div>
-        <div class="admin-stats" style="display: flex; gap: 3rem;">
-            <div class="stat-item" style="text-align: center; background: rgba(255,255,255,0.1); padding: 1.5rem 2rem; border-radius: 20px; backdrop-filter: blur(5px); border: 1px solid rgba(255,255,255,0.1);">
-                <span style="display: block; font-size: 2.5rem; font-weight: 800; color: var(--accent-yellow);">{{ users_count }}</span>
-                <span style="font-size: 0.85rem; text-transform: uppercase; opacity: 0.8; letter-spacing: 1px; font-weight: 700;">Total Users</span>
+        <div class="admin-stats">
+            <div class="admin-stat-card">
+                <span class="admin-stat-num">{{ users_count }}</span>
+                <span class="admin-stat-label">Total Users</span>
             </div>
-            <div class="stat-item" style="text-align: center; background: rgba(255,255,255,0.1); padding: 1.5rem 2rem; border-radius: 20px; backdrop-filter: blur(5px); border: 1px solid rgba(255,255,255,0.1);">
-                <span style="display: block; font-size: 2.5rem; font-weight: 800; color: var(--accent-blue);">{{ messages_count }}</span>
-                <span style="font-size: 0.85rem; text-transform: uppercase; opacity: 0.8; letter-spacing: 1px; font-weight: 700;">Inquiries</span>
+            <div class="admin-stat-card">
+                <span class="admin-stat-num">{{ messages_count }}</span>
+                <span class="admin-stat-label">Inquiries</span>
+            </div>
+            <div class="admin-stat-card">
+                <span class="admin-stat-num">{{ feedback_count }}</span>
+                <span class="admin-stat-label">Feedbacks</span>
             </div>
         </div>
     </div>
 
-    <div class="admin-grid" style="display: grid; grid-template-columns: 1fr; gap: 2.5rem;">
+    <div class="admin-grid">
         <!-- Contact Messages Section -->
-        <div class="admin-section" style="background: white; border-radius: 24px; padding: 2.5rem; box-shadow: var(--shadow-md); border: 1px solid var(--border-color);">
-            <div style="display: flex; align-items: center; gap: 1.2rem; margin-bottom: 2rem;">
-                <div style="width: 50px; height: 50px; background: linear-gradient(135deg, var(--accent-purple) 0%, var(--navy-primary) 100%); color: white; display: flex; align-items: center; justify-content: center; border-radius: 12px; font-size: 1.5rem; box-shadow: 0 8px 16px rgba(124,58,237,0.2);">
+        <div class="admin-section">
+            <div class="admin-section-header">
+                <div class="admin-section-icon">
                     <i class="fas fa-envelope-open-text"></i>
                 </div>
-                <h2 style="font-family: 'Outfit', sans-serif; font-size: 1.8rem; color: var(--navy-primary);">Customer Inquiries & Orders</h2>
+                <h2>Customer Inquiries</h2>
             </div>
             
-            <div style="overflow-x: auto; border-radius: 15px; border: 1px solid var(--border-color);">
-                <table style="width: 100%; border-collapse: collapse;">
+            <div class="admin-table-wrap">
+                <table class="admin-table">
                     <thead>
-                        <tr style="text-align: left; background: #f8faff; border-bottom: 2px solid var(--border-color);">
-                            <th style="padding: 1.2rem; font-weight: 700; color: var(--navy-primary);">Date</th>
-                            <th style="padding: 1.2rem; font-weight: 700; color: var(--navy-primary);">Customer Details</th>
-                            <th style="padding: 1.2rem; font-weight: 700; color: var(--navy-primary);">Service Type</th>
-                            <th style="padding: 1.2rem; font-weight: 700; color: var(--navy-primary);">Budget</th>
-                            <th style="padding: 1.2rem; font-weight: 700; color: var(--navy-primary);">Message Content</th>
+                        <tr>
+                            <th>Date</th>
+                            <th>Customer</th>
+                            <th>Service</th>
+                            <th>Budget</th>
+                            <th>Message</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% if messages %}
                             {% for msg in messages %}
-                            <tr style="border-bottom: 1px solid var(--border-color); transition: background 0.3s;" onmouseover="this.style.background='#f0f4ff'" onmouseout="this.style.background='transparent'">
-                                <td style="padding: 1.2rem; font-size: 0.9rem; color: var(--text-light); white-space: nowrap;">{{ msg.created_at }}</td>
-                                <td style="padding: 1.2rem;">
-                                    <div style="font-weight: 700; color: var(--navy-primary);">{{ msg.name }}</div>
-                                    <div style="font-size: 0.85rem; color: var(--accent-purple); font-weight: 600;">{{ msg.email }}</div>
-                                    <div style="font-size: 0.85rem; color: var(--text-light);">{{ msg.phone }}</div>
+                            <tr class="admin-row">
+                                <td class="td-date">{{ msg.created_at }}</td>
+                                <td>
+                                    <div class="td-name">{{ msg.name }}</div>
+                                    <div class="td-email">{{ msg.email }}</div>
+                                    <div class="td-phone">{{ msg.phone }}</div>
                                 </td>
-                                <td style="padding: 1.2rem;"><span style="background: linear-gradient(135deg, var(--accent-blue) 0%, var(--accent-teal) 100%); color: white; padding: 0.4rem 1rem; border-radius: 50px; font-size: 0.8rem; font-weight: 700; box-shadow: 0 4px 10px rgba(6,182,212,0.2);">{{ msg.service }}</span></td>
-                                <td style="padding: 1.2rem; font-weight: 800; color: var(--success-color); font-size: 1rem;">{{ msg.budget }}</td>
-                                <td style="padding: 1.2rem; font-size: 0.95rem; color: var(--text-dark); line-height: 1.5;">{{ msg.message }}</td>
+                                <td><span class="service-badge">{{ msg.service }}</span></td>
+                                <td class="td-budget">{{ msg.budget }}</td>
+                                <td class="td-msg">{{ msg.message }}</td>
                             </tr>
                             {% endfor %}
                         {% else %}
                             <tr>
-                                <td colspan="5" style="padding: 4rem; text-align: center; color: var(--text-light); font-weight: 500;">
-                                    <i class="fas fa-inbox" style="display: block; font-size: 3rem; margin-bottom: 1rem; opacity: 0.3;"></i>
-                                    No inquiries found yet.
+                                <td colspan="5" class="td-empty">
+                                    <i class="fas fa-inbox"></i>
+                                    No inquiries yet.
                                 </td>
                             </tr>
                         {% endif %}
@@ -1716,39 +1807,315 @@ ADMIN_TEMPLATE = """
         </div>
 
         <!-- Users Section -->
-        <div class="admin-section" style="background: white; border-radius: 24px; padding: 2.5rem; box-shadow: var(--shadow-md); border: 1px solid var(--border-color);">
-            <div style="display: flex; align-items: center; gap: 1.2rem; margin-bottom: 2rem;">
-                <div style="width: 50px; height: 50px; background: linear-gradient(135deg, var(--accent-blue) 0%, var(--navy-primary) 100%); color: white; display: flex; align-items: center; justify-content: center; border-radius: 12px; font-size: 1.5rem; box-shadow: 0 8px 16px rgba(6,182,212,0.2);">
+        <div class="admin-section">
+            <div class="admin-section-header">
+                <div class="admin-section-icon">
                     <i class="fas fa-users"></i>
                 </div>
-                <h2 style="font-family: 'Outfit', sans-serif; font-size: 1.8rem; color: var(--navy-primary);">Registered Community</h2>
+                <h2>Registered Users</h2>
             </div>
             
-            <div style="overflow-x: auto; border-radius: 15px; border: 1px solid var(--border-color);">
-                <table style="width: 100%; border-collapse: collapse;">
+            <div class="admin-table-wrap">
+                <table class="admin-table">
                     <thead>
-                        <tr style="text-align: left; background: #f8faff; border-bottom: 2px solid var(--border-color);">
-                            <th style="padding: 1.2rem; font-weight: 700; color: var(--navy-primary);">User ID</th>
-                            <th style="padding: 1.2rem; font-weight: 700; color: var(--navy-primary);">Username</th>
-                            <th style="padding: 1.2rem; font-weight: 700; color: var(--navy-primary);">Email Address</th>
-                            <th style="padding: 1.2rem; font-weight: 700; color: var(--navy-primary);">Join Date</th>
+                        <tr>
+                            <th>ID</th>
+                            <th>Username</th>
+                            <th>Email</th>
+                            <th>Joined</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for user in users %}
-                        <tr style="border-bottom: 1px solid var(--border-color);">
-                            <td style="padding: 1.2rem; color: var(--text-light); font-weight: 700;">#{{ user.id }}</td>
-                            <td style="padding: 1.2rem; font-weight: 700; color: var(--navy-primary);">{{ user.username }}</td>
-                            <td style="padding: 1.2rem; font-weight: 500;">{{ user.email }}</td>
-                            <td style="padding: 1.2rem; font-size: 0.9rem; color: var(--text-light);">{{ user.created_at }}</td>
+                        <tr class="admin-row">
+                            <td class="td-id">#{{ user.id }}</td>
+                            <td class="td-name">{{ user.username }}</td>
+                            <td>{{ user.email }}</td>
+                            <td class="td-date">{{ user.created_at }}</td>
                         </tr>
                         {% endfor %}
                     </tbody>
                 </table>
             </div>
         </div>
+
+        <!-- Feedback Section -->
+        <div class="admin-section" style="grid-column: 1 / -1;">
+            <div class="admin-section-header">
+                <div class="admin-section-icon">
+                    <i class="fas fa-star"></i>
+                </div>
+                <h2>Client Feedback &amp; Reviews</h2>
+            </div>
+            
+            <div class="admin-table-wrap">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Rating</th>
+                            <th>Category</th>
+                            <th>Feedback Message</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% if feedbacks %}
+                            {% for fb in feedbacks %}
+                            <tr class="admin-row">
+                                <td class="td-date">{{ fb.created_at }}</td>
+                                <td class="td-name">{{ fb.name }}</td>
+                                <td class="td-email">{{ fb.email or 'N/A' }}</td>
+                                <td>
+                                    <span style="color:#f59e0b; font-weight:bold;">
+                                        {{ fb.rating }} &#9733;
+                                    </span>
+                                </td>
+                                <td><span class="service-badge">{{ fb.category }}</span></td>
+                                <td class="td-msg">{{ fb.message }}</td>
+                            </tr>
+                            {% endfor %}
+                        {% else %}
+                            <tr>
+                                <td colspan="6" class="td-empty">
+                                    <i class="fas fa-star"></i>
+                                    No feedback received yet.
+                                </td>
+                            </tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </div>
+
+<style>
+.admin-page {
+    padding: 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    min-height: 100vh;
+}
+
+.admin-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #1e293b;
+    padding: 2rem 2.5rem;
+    border-radius: 16px;
+    margin-bottom: 2rem;
+    border: 1px solid #334155;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+}
+
+.admin-title {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: #f8fafc;
+    margin-bottom: 0.3rem;
+    letter-spacing: 1px;
+}
+
+.admin-subtitle {
+    color: #94a3b8;
+    font-size: 0.95rem;
+}
+
+.admin-stats {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.admin-stat-card {
+    background: #0f172a;
+    border: 1px solid #334155;
+    border-radius: 12px;
+    padding: 1.2rem 2rem;
+    text-align: center;
+    min-width: 120px;
+}
+
+.admin-stat-num {
+    display: block;
+    font-size: 2rem;
+    font-weight: 800;
+    color: #2563eb;
+    margin-bottom: 0.2rem;
+}
+
+.admin-stat-label {
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #64748b;
+    font-weight: 600;
+}
+
+.admin-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+}
+
+.admin-section {
+    background: #1e293b;
+    border-radius: 16px;
+    padding: 2rem;
+    border: 1px solid #334155;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+}
+
+.admin-section-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.admin-section-icon {
+    width: 44px;
+    height: 44px;
+    background: #2563eb;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+}
+
+.admin-section h2 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #f1f5f9;
+}
+
+.admin-table-wrap {
+    overflow-x: auto;
+    border-radius: 10px;
+    border: 1px solid #334155;
+}
+
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.admin-table thead tr {
+    background: #0f172a;
+    border-bottom: 1px solid #334155;
+}
+
+.admin-table th {
+    padding: 1rem 1.2rem;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-align: left;
+}
+
+.admin-row {
+    border-bottom: 1px solid #334155;
+    transition: background 0.2s;
+}
+
+.admin-row:hover {
+    background: #263248;
+}
+
+.admin-row:last-child {
+    border-bottom: none;
+}
+
+.admin-table td {
+    padding: 1rem 1.2rem;
+    font-size: 0.9rem;
+    color: #cbd5e1;
+    vertical-align: top;
+}
+
+.td-date {
+    color: #64748b !important;
+    font-size: 0.82rem !important;
+    white-space: nowrap;
+}
+
+.td-name {
+    font-weight: 700;
+    color: #f1f5f9 !important;
+}
+
+.td-email {
+    font-size: 0.82rem;
+    color: #2563eb !important;
+    margin-top: 0.2rem;
+}
+
+.td-phone {
+    font-size: 0.8rem;
+    color: #64748b !important;
+    margin-top: 0.15rem;
+}
+
+.td-id {
+    color: #475569 !important;
+    font-weight: 700;
+}
+
+.td-budget {
+    color: #10b981 !important;
+    font-weight: 700;
+}
+
+.td-msg {
+    max-width: 280px;
+    color: #94a3b8 !important;
+    line-height: 1.5;
+}
+
+.td-empty {
+    text-align: center;
+    padding: 3rem !important;
+    color: #475569 !important;
+}
+
+.td-empty i {
+    display: block;
+    font-size: 2.5rem;
+    margin-bottom: 0.8rem;
+    opacity: 0.4;
+}
+
+.service-badge {
+    background: #1e3a5f;
+    color: #2563eb;
+    border: 1px solid #2563eb;
+    padding: 0.3rem 0.8rem;
+    border-radius: 50px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+    .admin-header {
+        flex-direction: column;
+        gap: 1.5rem;
+        align-items: flex-start;
+    }
+    .admin-stats {
+        flex-wrap: wrap;
+    }
+    .admin-page {
+        padding: 1rem;
+}
+</style>
 """
 
 # =====================
@@ -1757,77 +2124,35 @@ ADMIN_TEMPLATE = """
 
 CSS_CONTENT = """
 :root {
-    --navy-primary: #1E1B4B;
-    --navy-dark:    #0A0A1A;
-    --navy-light:   #312E81;
-    --white-primary:  #F0EEFF;
-    --white-secondary: #F8F7FF;
-    --accent-purple:  #7C3AED;
-    --accent-violet:  #A78BFA;
-    --accent-blue:    #00D4FF;
-    --accent-cyan:    #00D4FF;
-    --accent-teal:    #14B8A6;
-    --accent-yellow:  #FBBF24;
-    --accent-red:     #F43F5E;
-    --accent-green:   #10B981;
-    --accent-pink:    #FF00AA;
-    --text-dark:    #1E1B4B;
-    --text-light:   #6B7280;
-    --border-color: #E0E7FF;
-    --success-color: #10B981;
-    --error-color:  #F43F5E;
-    --gradient-hero: linear-gradient(135deg, #0A0A1A 0%, #1A0A2E 40%, #0F0D2E 75%, #1E1B4B 100%);
-    --gradient-card: linear-gradient(145deg, rgba(124,58,237,0.08) 0%, rgba(0,212,255,0.05) 100%);
-    --shadow-glow: 0 0 40px rgba(124,58,237,0.35);
-    --shadow-cyan: 0 0 30px rgba(0,212,255,0.25);
-    --glass-bg: rgba(10, 10, 30, 0.7);
-    --glass-border: rgba(124, 58, 237, 0.3);
+    --navy-primary: #1a2744;
+    --navy-dark:    #0f172a;
+    --navy-light:   #1e3a5f;
+    --white-primary:  #f8fafc;
+    --white-secondary: #f1f5f9;
+    --accent-primary: #2563eb;
+    --accent-purple:  #2563eb;
+    --accent-violet:  #3b82f6;
+    --accent-blue:    #0ea5e9;
+    --accent-cyan:    #0ea5e9;
+    --accent-teal:    #0891b2;
+    --accent-yellow:  #f59e0b;
+    --accent-red:     #ef4444;
+    --accent-green:   #10b981;
+    --accent-pink:    #6366f1;
+    --text-dark:    #0f172a;
+    --text-light:   #64748b;
+    --border-color: #e2e8f0;
+    --success-color: #10b981;
+    --error-color:  #ef4444;
+    --gradient-hero: linear-gradient(135deg, #0f172a 0%, #1a2744 50%, #0f172a 100%);
+    --gradient-card: linear-gradient(145deg, rgba(37,99,235,0.06) 0%, rgba(14,165,233,0.04) 100%);
+    --shadow-md: 0 4px 16px rgba(0,0,0,0.08);
+    --shadow-lg: 0 8px 32px rgba(0,0,0,0.12);
+    --glass-bg: rgba(15, 23, 42, 0.75);
+    --glass-border: rgba(37, 99, 235, 0.2);
 }
 
-/* Real-time Notification Toasts */
-.notification-toast {
-    position: fixed;
-    bottom: 20px;
-    left: 20px;
-    background: white;
-    padding: 1rem 1.5rem;
-    border-radius: 12px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    z-index: 2000;
-    transform: translateX(-150%);
-    transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
-    border-left: 4px solid var(--accent-purple);
-}
 
-.notification-toast.active {
-    transform: translateX(0);
-}
-
-.notif-icon {
-    width: 40px;
-    height: 40px;
-    background: var(--navy-primary);
-    color: white;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.2rem;
-}
-
-.notif-content p {
-    margin: 0;
-    font-size: 0.9rem;
-    color: var(--text-dark);
-}
-
-.notif-content span {
-    font-size: 0.75rem;
-    color: var(--text-light);
-}
 
 /* ---- Animated Logo ---- */
 .logo-img-wrap {
@@ -1885,101 +2210,9 @@ CSS_CONTENT = """
     transition: width 0.3s, height 0.3s;
 }
 
-/* Live System Status */
-.system-status {
-    position: fixed;
-    bottom: 20px;
-    right: 90px; /* To not overlap chatbot */
-    background: rgba(255, 255, 255, 0.8);
-    backdrop-filter: blur(10px);
-    padding: 0.5rem 1rem;
-    border-radius: 20px;
-    font-size: 0.8rem;
-    font-weight: 600;
-    color: var(--navy-dark);
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    z-index: 1000;
-    border: 1px solid var(--border-color);
-}
 
-.status-dot {
-    width: 8px;
-    height: 8px;
-    background-color: var(--success-color);
-    border-radius: 50%;
-    animation: ping-pulse 1.5s infinite;
-}
 
-@keyframes ping-pulse {
-    0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(91,194,197, 0.7); }
-    70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(91,194,197, 0); }
-    100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(91,194,197, 0); }
-}
 
-/* Global Clocks in Footer */
-.global-clocks {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap; /* Ensure it wraps on mobile */
-    gap: 1.5rem;
-    margin-top: 1.5rem;
-    padding-top: 1.5rem;
-    border-top: 1px solid rgba(255,255,255,0.1);
-}
-
-.clock-item {
-    text-align: center;
-    min-width: 90px; /* Ensure uniform width */
-}
-
-.clock-item span {
-    display: block;
-    font-size: 0.75rem;
-    color: var(--accent-purple);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    white-space: nowrap; /* Prevent NEW YORK from wrapping weirdly */
-}
-
-.clock-item strong {
-    font-family: 'Outfit', sans-serif;
-    font-size: 1.1rem;
-    color: var(--white-primary);
-}
-
-/* Glassmorphism Effect */
-
-.glass {
-    background: var(--glass-bg) !important;
-    backdrop-filter: blur(12px) saturate(180%) !important;
-    -webkit-backdrop-filter: blur(12px) saturate(180%) !important;
-    border: 1px solid var(--glass-border) !important;
-}
-
-/* Animated Floating Blobs */
-.blob {
-    position: fixed;
-    width: 500px;
-    height: 500px;
-    background: radial-gradient(circle, rgba(124,58,237,0.1) 0%, transparent 70%);
-    border-radius: 50%;
-    z-index: -1;
-    filter: blur(50px);
-    pointer-events: none;
-    animation: blob-float 20s infinite alternate;
-}
-
-.blob-1 { top: -100px; left: -100px; animation-delay: 0s; }
-.blob-2 { bottom: -100px; right: -100px; background: radial-gradient(circle, rgba(6,182,212,0.1) 0%, transparent 70%); animation-delay: -5s; }
-.blob-3 { top: 40%; left: 30%; background: radial-gradient(circle, rgba(167,139,250,0.08) 0%, transparent 70%); animation-delay: -10s; }
-
-@keyframes blob-float {
-    from { transform: translate(0, 0) scale(1); }
-    to { transform: translate(100px, 50px) scale(1.1); }
-}
 
 
 * {
@@ -1994,37 +2227,26 @@ html {
 
 body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    background: linear-gradient(135deg, #0A0A1A 0%, #0D0A24 50%, #0A0A1A 100%);
+    background: #0f172a;
     background-attachment: fixed;
-    color: #E2E8F0;
+    color: #e2e8f0;
     line-height: 1.7;
-    font-size: 1.05rem;
+    font-size: 1rem;
 }
 
-/* Neural network animated grid background */
-body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image:
-        linear-gradient(rgba(124,58,237,0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(124,58,237,0.03) 1px, transparent 1px);
-    background-size: 60px 60px;
-    z-index: -2;
-    pointer-events: none;
-}
+
 
 .header {
-    background: rgba(10, 10, 26, 0.92);
+    background: rgba(15, 23, 42, 0.96);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     color: var(--white-primary);
-    padding: 0.9rem 2rem;
-    box-shadow: 0 4px 30px rgba(124,58,237,0.2), 0 1px 0 rgba(124,58,237,0.3);
+    padding: 0.85rem 2rem;
+    box-shadow: 0 1px 0 rgba(37,99,235,0.15), 0 4px 20px rgba(0,0,0,0.3);
     position: sticky;
     top: 0;
     z-index: 1000;
-    border-bottom: 1px solid rgba(124,58,237,0.25);
+    border-bottom: 1px solid rgba(37,99,235,0.15);
 }
 
 .header-container {
@@ -5397,13 +5619,18 @@ def admin_dashboard():
         # Get messages
         cursor.execute('SELECT * FROM messages ORDER BY created_at DESC')
         messages = cursor.fetchall()
+
+        # Get feedback
+        cursor.execute('SELECT * FROM feedback ORDER BY created_at DESC')
+        feedbacks = cursor.fetchall()
         
         users_count = len(users)
         messages_count = len(messages)
+        feedback_count = len(feedbacks)
         
     html = BASE_TEMPLATE.replace('{% block content %}{% endblock %}', 
-        render_template_string(ADMIN_TEMPLATE, users=users, messages=messages, 
-                              users_count=users_count, messages_count=messages_count))
+        render_template_string(ADMIN_TEMPLATE, users=users, messages=messages, feedbacks=feedbacks,
+                              users_count=users_count, messages_count=messages_count, feedback_count=feedback_count))
     html = render_template_string(html, css_content=CSS_CONTENT, js_content=JS_CONTENT)
     return html
 
@@ -5645,6 +5872,31 @@ def signup():
         render_template_string(SIGNUP_TEMPLATE, error=error, success=success))
     html = render_template_string(html, css_content=CSS_CONTENT, js_content=JS_CONTENT)
     return html
+
+@app.route('/api/feedback', methods=['POST'])
+def submit_feedback_api():
+    try:
+        data = request.get_json(silent=True) or request.form
+        name = data.get('name', 'Anonymous').strip()
+        email = data.get('email', '').strip()
+        rating = int(data.get('rating', 5))
+        category = data.get('category', 'General')
+        message = data.get('message', '').strip()
+
+        if not name or not message:
+            return jsonify({'status': 'error', 'message': 'Name and message are required'}), 400
+
+        with sqlite3.connect(DB_NAME) as conn:
+            conn.execute('''
+                INSERT INTO feedback (name, email, rating, category, message)
+                VALUES (?, ?, ?, ?, ?)
+            ''', (name, email, rating, category, message))
+            conn.commit()
+
+        return jsonify({'status': 'success', 'message': 'Feedback saved successfully!'})
+    except Exception as e:
+        print(f"Error saving feedback: {str(e)}")
+        return jsonify({'status': 'error', 'message': 'Server error'}), 500
 
 @app.route('/logout')
 def logout():
