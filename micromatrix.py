@@ -457,7 +457,18 @@ HOME_TEMPLATE = """
                     <p>Technology experts serving clients from Sahiwal, Pakistan across 20+ countries.</p>
                 </div>
             </div>
-            <div class="founder-mini-card">
+            <div class="founder-mini-card" style="margin-top: 2rem; background: rgba(10, 25, 47, 0.85); border: 1px solid rgba(255,87,34,0.25); border-radius: 16px; padding: 1.2rem 1.5rem; display: flex; align-items: center; gap: 1.2rem; flex-wrap: wrap;">
+                <img src="/static/images/founder.jpg" alt="Muhammad Asif" style="width: 65px; height: 65px; border-radius: 50%; object-fit: cover; border: 3px solid var(--accent-orange); box-shadow: 0 4px 15px rgba(255,87,34,0.3); flex-shrink: 0;">
+                <div>
+                    <h4 style="margin: 0; font-size: 1.05rem; color: #ffffff; font-weight: 700;">Muhammad Asif</h4>
+                    <p style="margin: 0.2rem 0 0; font-size: 0.85rem; color: var(--accent-orange); font-weight: 600;">Founder &amp; CEO &mdash; Micromatrix</p>
+                    <p style="margin: 0.1rem 0 0; font-size: 0.78rem; color: #94a3b8;"><i class="fas fa-university" style="color: var(--accent-orange);"></i> Student, COMSATS University Islamabad, Sahiwal Campus</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 <!-- Services Showcase Section -->
 <section id="services-highlights" class="services-showcase">
     <div class="showcase-header">
@@ -1488,8 +1499,8 @@ ABOUT_TEMPLATE = """
         <p>The vision and leadership behind Micromatrix</p>
     </div>
     <div class="founder-card">
-        <div class="founder-avatar">
-            <i class="fas fa-user-tie"></i>
+        <div class="founder-avatar" style="width: 140px; height: 140px; min-width: 140px; border-radius: 50%; overflow: hidden; border: 4px solid var(--accent-orange); box-shadow: 0 8px 25px rgba(255, 87, 34, 0.4); margin: 0 auto 1.5rem;">
+            <img src="/static/images/founder.jpg" alt="Muhammad Asif - Founder &amp; CEO" style="width: 100%; height: 100%; object-fit: cover; display: block;">
         </div>
         <div class="founder-info">
             <h2>Muhammad Asif</h2>
