@@ -129,20 +129,20 @@ reviews = [
 
 chatbot_knowledge = {
     'who are you': "I&#39;m the Micromatrix Assistant. I&#39;m here to help you with information about our company, services, and how we can help your business.",
-    'what is micromatrix': 'Micromatrix is an innovative technology company based at COMSATS University, Sahiwal, Pakistan, specializing in custom software solutions, web development, mobile apps, AI/ML, cloud services, and much more.',
+    'what is micromatrix': 'Micromatrix is an innovative technology company based in Sahiwal, Pakistan, specializing in custom software solutions, web development, mobile apps, AI/ML, cloud services, and much more.',
     'what services do you offer': 'We offer 15 comprehensive services including: Software Development, Web Development, Mobile App Development, AI & Machine Learning, Cloud Computing, Data Science, E-Commerce Solutions, Digital Marketing, Software Testing, IT Consulting, Fintech Solutions, ERP Systems, Game Development, UI/UX Design, and Emerging Technologies.',
     'how can i contact you': 'You can reach us at: Phone: +923316170980 | WhatsApp: https://wa.me/923316170980 | Email: info@micromatrix.tech. We provide 24/7 support for all inquiries.',
     'what is your phone': 'Our phone number is +923316170980. Call us anytime!',
     'what is your email': 'Our email is asifhavelilakha@gmail.com. We respond to emails within 24 hours.',
-    'are you a remote company': 'Micromatrix is based at COMSATS University, Sahiwal, Pakistan. We serve clients globally with flexibility and efficiency.',
+    'are you a remote company': 'Micromatrix is based in Sahiwal, Pakistan. We serve clients globally with flexibility and efficiency.',
     'do you provide support': 'Absolutely! We provide 24/7 support to all our clients. Our team is always available to assist you.',
     'what is your location': 'Address: Allama Iqbal Hostel, Opposite to COMSATS University, Sahiwal, Pakistan.',
     'can you help with my project': 'Yes! We can definitely help. Tell us about your project needs and we can provide a custom solution. Contact our team or fill out our contact form.',
     'do you have experience': 'Yes, we have extensive experience across multiple industries and have successfully completed numerous projects for satisfied clients.',
     'what technology do you use': 'We use cutting-edge technologies including: React, Angular, Node.js, Python, Django, Flutter, AWS, Azure, Docker, Kubernetes, TensorFlow, and many more.',
-    'owner': 'Micromatrix is led by Muhammad Asif, a student at COMSATS University Islamabad, Sahiwal Campus.',
-    'founder': 'Micromatrix was founded by Muhammad Asif (Student at COMSATS University Islamabad, Sahiwal Campus) in 2020.',
-    'university': 'Founder Muhammad Asif is a student at COMSATS University Islamabad, Sahiwal Campus.',
+    'owner': 'Micromatrix is led by Muhammad Asif.',
+    'founder': 'Micromatrix was founded by Muhammad Asif in 2020.',
+    'university': 'Founder Muhammad Asif is based in Sahiwal, Pakistan.',
     'address': 'Allama Iqbal Hostel, Opposite to COMSATS University, Sahiwal, Pakistan.',
     'pricing': 'Our pricing is structured into Starter ($100-$500), Basic ($500-$1000), and Professional ($1000-$2000) tiers. It varies based on your project requirements.',
     'process': 'We start with a detailed assessment, followed by an estimated timeline. We maintain transparent communication and ensure rigorous testing throughout the process.',
@@ -354,12 +354,12 @@ BASE_TEMPLATE = """<!DOCTYPE html>
                 <img src="/static/images/logo.png" alt="Micromatrix Logo" style="height: 52px; border-radius: 8px; margin-bottom: 0.8rem; background: #ffffff; padding: 4px; display: inline-block;">
                 <h3>Micromatrix</h3>
                 <p>Leading provider of innovative technology solutions</p>
-                <p class="tagline-small">COMSATS University, Sahiwal</p>
+                <p class="tagline-small">Sahiwal, Pakistan</p>
             </div>
 
             <div class="footer-section">
                 <h4>Contact & Location</h4>
-                <p><i class="fas fa-university"></i> COMSATS University Islamabad (Sahiwal Campus)</p>
+                <p><i class="fas fa-map-marker-alt"></i> Allama Iqbal Hostel, Sahiwal, Pakistan</p>
                 <p><i class="fas fa-map-marker-alt"></i> Allama Iqbal Hostel, Opp. COMSATS, Sahiwal</p>
                 <p><i class="fas fa-phone-alt"></i> Phone: +923316170980</p>
                 <p><i class="fas fa-phone-alt"></i> Personal: +92 3039977330</p>
@@ -462,7 +462,7 @@ HOME_TEMPLATE = """
                 <div>
                     <h4 style="margin: 0; font-size: 1.05rem; color: #ffffff; font-weight: 700;">Muhammad Asif</h4>
                     <p style="margin: 0.2rem 0 0; font-size: 0.85rem; color: var(--accent-orange); font-weight: 600;">Founder &amp; CEO &mdash; Micromatrix</p>
-                    <p style="margin: 0.1rem 0 0; font-size: 0.78rem; color: #94a3b8;"><i class="fas fa-university" style="color: var(--accent-orange);"></i> Student, COMSATS University Islamabad, Sahiwal Campus</p>
+                    <p style="margin: 0.1rem 0 0; font-size: 0.78rem; color: #94a3b8;"><i class="fas fa-map-marker-alt" style="color: var(--accent-orange);"></i> Sahiwal, Pakistan</p>
                 </div>
             </div>
         </div>
@@ -1169,7 +1169,7 @@ CONTACT_TEMPLATE = """
                 <div class="info-card">
                     <div class="info-icon"><i class="fas fa-globe-americas"></i></div>
                     <h4>Global Reach</h4>
-                    <p>COMSATS University, Sahiwal</p>
+                    <p>Sahiwal, Pakistan</p>
                     <p class="subtext">Serving clients worldwide</p>
                 </div>
 
@@ -1188,7 +1188,7 @@ CONTACT_TEMPLATE = """
                 <p><strong>Type:</strong> Technology Company — Sahiwal, Pakistan</p>
                 <p><strong>Customers:</strong> 15+ Satisfied Clients</p>
                 <p><strong>Specialization:</strong> Full-Stack Technology Solutions</p>
-                <p><i class="fas fa-university" style="color:var(--accent-purple);"></i> <strong>University:</strong> COMSATS University Islamabad, Sahiwal Campus</p>
+                <p><i class="fas fa-map-marker-alt" style="color:var(--accent-purple);"></i> <strong>Location:</strong> Sahiwal, Pakistan</p>
                 <p><i class="fas fa-map-marker-alt" style="color:var(--accent-purple);"></i> <strong>Address:</strong> Allama Iqbal Hostel, Opposite COMSATS University, Sahiwal</p>
             </div>
         </div>
@@ -1479,7 +1479,7 @@ ABOUT_TEMPLATE = """
     <div class="about-grid">
         <div class="about-card">
             <h3>Our Story</h3>
-            <p>Founded in 2020, Micromatrix emerged from a vision to deliver world-class software solutions. Based at COMSATS University, Sahiwal, we&#39;ve grown into a dynamic organization trusted by 100+ clients globally.</p>
+            <p>Founded in 2020, Micromatrix emerged from a vision to deliver world-class software solutions. Based in Sahiwal, Pakistan, we&#39;ve grown into a dynamic organization trusted by 100+ clients globally.</p>
         </div>
         <div class="about-card">
             <h3>Our Mission</h3>
@@ -1505,10 +1505,10 @@ ABOUT_TEMPLATE = """
         <div class="founder-info">
             <h2>Muhammad Asif</h2>
             <p class="founder-title"><i class="fas fa-briefcase"></i> Founder &amp; CEO &mdash; Micromatrix</p>
-            <p class="founder-location"><i class="fas fa-university"></i> Student &mdash; COMSATS University Islamabad, Sahiwal Campus</p>
+            <p class="founder-location"><i class="fas fa-map-marker-alt"></i> Sahiwal, Pakistan</p>
             <p class="founder-location"><i class="fas fa-map-marker-alt"></i> Allama Iqbal Hostel, Opposite COMSATS University, Sahiwal &nbsp;&mdash;&nbsp; Pakistan</p>
             <p class="founder-since"><i class="fas fa-calendar-alt"></i> Founded in <strong>2020</strong> &mdash; Serving clients worldwide for 5+ years</p>
-            <p class="founder-bio">Muhammad Asif is the founder and CEO of Micromatrix, a company he established in 2020 with a bold mission: to deliver world-class, affordable technology solutions from Pakistan to the global market. With deep expertise in software engineering, AI, cloud computing, and digital transformation, he assembled a talented team based at COMSATS University, Sahiwal that serves businesses across multiple continents. Under his leadership, Micromatrix has grown to offer 15+ specialized services and has successfully delivered 100+ projects for startups and enterprises alike. His commitment to quality, transparency, and innovation defines the culture at Micromatrix.</p>
+            <p class="founder-bio">Muhammad Asif is the founder and CEO of Micromatrix, a company he established in 2020 with a bold mission: to deliver world-class, affordable technology solutions from Pakistan to the global market. With deep expertise in software engineering, AI, cloud computing, and digital transformation, he assembled a talented team based in Sahiwal, Pakistan that serves businesses across multiple continents. Under his leadership, Micromatrix has grown to offer 15+ specialized services and has successfully delivered 100+ projects for startups and enterprises alike. His commitment to quality, transparency, and innovation defines the culture at Micromatrix.</p>
             <div class="founder-stats">
                 <div class="f-stat">
                     <strong>5+</strong>
@@ -1998,7 +1998,7 @@ ADMIN_TEMPLATE = """
                     
                     <div style="margin-bottom: 1.2rem;">
                         <strong style="color: #fff; font-size: 1.05rem;">Bachelor of Science in Computer Science (BSCS)</strong><br>
-                        <span style="color: #94a3b8;">COMSATS University Islamabad, Sahiwal Campus &mdash; In Progress (2 years completed)</span>
+                        <span style="color: #94a3b8;">Sahiwal Campus &mdash; In Progress (2 years completed)</span>
                     </div>
                     <div style="margin-bottom: 1.2rem;">
                         <strong style="color: #fff; font-size: 1.05rem;">Intermediate (ICS – Computer Science)</strong><br>
